@@ -1,26 +1,44 @@
 All tables have id and timestamp columns.
 
-Users
-  string username, null: false, uniqueness: true
-  string password_digest, null: false
-  string session_token, null: false
-  string avatar_url
+**users**
+| column name     | data type | details                        |
+|-----------------|-----------|--------------------------------|
+| username        | string    | not null, indexed, unique      |
+| password_digest | string    | not null                       |
+| session_token   | string    | not null, indexed, unique      |
+| avatar_id       | integer   | not null, foreign key (images) |
 
-Channels
-  string name, null: false, uniqueness: true
-  string description
-  string topic
-  string dm_hash <!-- only for DMs; ensures uniqueness of a DM channel for a given group -->
-  integer channel_type_id, null: false
+**channels**
+| column name     | data type | details                               |
+|-----------------|-----------|---------------------------------------|
+| name            | string    | not null, indexed, unique             |
+| description     | text      |                                       |
+| topic           | string    |                                       |
+| dm_hash         | string    | indexed                               |
+| channel_type_id | integer   | not null, foreign key (channel_types)  |
 
-ChannelTypes
-  string type, null: false
+**channel_types**
+| column name | data type | details          |
+|-------------|-----------|------------------|
+| type        | string    | not null, unique |
 
-Messages
-  integer author_id, null: false
-  integer channel_id, null: false
-  text content, null: false
+**messages**
+| column name | data type | details                          |
+|-------------|-----------|----------------------------------|
+| author_id   | integer   | not null, foreign key (users)    |
+| channel_id  | integer   | not null, foreign key (channels) |
+| content     | text      | not null                         |
 
-Subscriptions
-  integer user_id, null: false
-  integer channel_id, null: false
+**subscriptions**
+
+(A uniqueness constraint is put on user_id and channel_id together.)
+
+| column name | data type | details                          |
+|-------------|-----------|----------------------------------|
+| user_id     | integer   | not null, foreign key (users)    |
+| channel_id  | integer   | not null, foreign key (channels) |
+
+**images**
+| column name | data type | details  |
+|-------------|-----------|----------|
+| avatar_url  | string    | not null |
