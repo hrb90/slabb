@@ -1,6 +1,7 @@
 All tables have id and timestamp columns.
 
 **users**
+
 | column name     | data type | details                        |
 |-----------------|-----------|--------------------------------|
 | username        | string    | not null, indexed, unique      |
@@ -9,6 +10,7 @@ All tables have id and timestamp columns.
 | avatar_id       | integer   | not null, foreign key (images) |
 
 **channels**
+
 | column name     | data type | details                               |
 |-----------------|-----------|---------------------------------------|
 | name            | string    | not null, indexed, unique             |
@@ -18,11 +20,13 @@ All tables have id and timestamp columns.
 | channel_type_id | integer   | not null, foreign key (channel_types)  |
 
 **channel_types**
+
 | column name | data type | details          |
 |-------------|-----------|------------------|
 | type        | string    | not null, unique |
 
 **messages**
+
 | column name | data type | details                          |
 |-------------|-----------|----------------------------------|
 | author_id   | integer   | not null, foreign key (users)    |
@@ -39,6 +43,7 @@ All tables have id and timestamp columns.
 | channel_id  | integer   | not null, foreign key (channels) |
 
 **images**
+
 | column name | data type | details  |
 |-------------|-----------|----------|
 | avatar_url  | string    | not null |
