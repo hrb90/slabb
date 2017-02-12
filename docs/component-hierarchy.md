@@ -1,27 +1,35 @@
 ## Component Hierarchy
 
-TBD: Figure out which of these components need to be connected (many of them probably)
-
 **SignUp**, **SignIn**
   - AuthForm
     * ErrorsList
 
 **Home**
-  - NavBar
-    * SignOut
-    * ChannelList
-    * DMList
-  - Channel
-    * ChannelHeader
-    * SearchBar(?)
-    * ChannelMessages
-      * MessageGroup
-        * Message
-        * EditMessageForm
-    * NewMessageForm
+  - NavBarContainer
+    * NavBar
+      * SignOut
+      * ChannelNavList, DMNavList
+        * BaseNavList
+          * (subscribed to `channel_:channel_id` for every channel in the list)
+          * (if DM list, subscribed to `dm_alert_:current_user_id`)
+  - ChannelContainer
+    * Channel
+      * (subscribed to `channel_:channel_id`)
+      * ChannelHeader
+      * SearchBar(?)
+      * ChannelMessagesContainer
+        * ChannelMessages
+          * MessageGroup
+            * Message
+            * EditMessageFormContainer
+              * EditMessageForm
+      * NewMessageFormContainer
+        * NewMessageForm
 
 **ChannelIndex, UserIndex**
-  - BaseIndex
+  * BaseIndexContainer
+    * BaseIndex
 
-**NewChannel**
-  - ErrorsList
+**NewChannelContainer**
+  - **NewChannel**
+    * ErrorsList
