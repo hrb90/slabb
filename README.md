@@ -1,2 +1,3 @@
-# slabb
-Slack clone
+# README
+
+Rails/React/Redux Slack clone.
