@@ -1,3 +1,4 @@
+```javascript
 {
   session:
     {
@@ -13,12 +14,12 @@
           {
             id: 1,
             name: "general",
-            newMessages: 0
+            newMessages: false
           },
           {
             id: 3,
             name: "random",
-            newMessages: 1
+            newMessages: true
           }
         ],
       dms:
@@ -122,3 +123,4 @@
       }
     ]
 }
+```
