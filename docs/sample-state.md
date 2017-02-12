@@ -27,13 +27,13 @@
           {
             id: 54,
             name: "atom",
-            newMessages: 0,
+            newMessages: false,
             status: "online"
           },
           {
             id: 72,
             name: "atom,mc962",
-            newMessages: 2,
+            newMessages: true,
             status: "2"
           }
         ]
