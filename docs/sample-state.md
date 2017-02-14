@@ -128,6 +128,12 @@
         name: "mc962",
         avatar_url: "assets/mc-avatar.png"
       }
-    ]
+    ],
+  errors:
+    {
+      session: [],
+      channel: [],
+      message: []
+    }
 }
 ```
