@@ -19,7 +19,9 @@
 - `GET api/channels`
 - `GET api/channels/:id`
 - `PATCH api/channels/:id`
+- `DELETE api/channels/:id`
 - `POST api/channels/:id/subscribe`
+- `POST api/channels/:id/unsubscribe`
 - `POST api/channels/:id/messages`
 
 ### Messages
