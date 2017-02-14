@@ -3,6 +3,7 @@
   background-color: white;
   padding: 10px 30px 30px 30px;
   border: 1px solid lightgrey;
+  border-bottom: 1px solid grey;
   color: #555555;
   margin: auto;
 }
@@ -14,6 +15,7 @@
 #auth-form form {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #auth-form form>p {
@@ -28,6 +30,7 @@
     padding: 10px;
     font-size: 18px;
     color: inherit;
+    width: 50%;
 }
 
 #auth-form form>input[type="submit"] {
