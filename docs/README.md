@@ -49,13 +49,13 @@ Slabb is a live chat application inspired by Slack built with Rails, React, and 
 
 ### Phase 3: Live Chat (3.5 days)
 
-#### Phase 3a: Messages Model, API, and backend logic (1.5 days)
+#### Phase 3a: Messages Model, API, and backend logic (1 day)
 
-**Objective**: Build out the Messages model and API routes. Be able to CRUD messages with AJAX requests, and ensure that the server pushes messages to subscribers.
+**Objective**: Build out the Messages model and API routes. Be able to CRUD messages with AJAX requests.
 
-#### Phase 3b: Messages frontend (1 day)
+#### Phase 3b: Messages frontend (1.5 days)
 
-**Objective**: Build the Messages component as well as MessageGroup, and styling
+**Objective**: Build the Messages component as well as MessageGroup and NewMessageForm, and styling.
 
 etc.
 
