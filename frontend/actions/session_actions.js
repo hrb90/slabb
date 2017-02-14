@@ -8,10 +8,12 @@ export const receiveCurrentUser = user => ({
   user
 });
 
-export const receiveAuthErrors = errors => ({
-  type: RECEIVE_AUTH_ERRORS,
-  errors
-});
+export const receiveAuthErrors = errors => {
+  return {
+    type: RECEIVE_AUTH_ERRORS,
+    errors
+  };
+};
 
 export const login = user => dispatch => {
   return APIUtil.login(user)

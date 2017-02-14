@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
-import { signup, login } from '../../actions/session_actions';
+import { signup, login, receiveAuthErrors } from '../../actions/session_actions';
 import { merge } from 'lodash';
 import ErrorList from '../errors/error_list';
 
@@ -27,7 +27,8 @@ const mapStateToProps = ({errors}, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   let action = (ownProps.formType === "signup") ? signup : login;
   return {
-    action: user => dispatch(action(user))
+    action: user => dispatch(action(user)),
+    clearErrors: () => dispatch(receiveAuthErrors([]))
   };
 };
 
@@ -48,6 +49,10 @@ class AuthForm extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.action(this.state)
@@ -58,19 +63,19 @@ class AuthForm extends React.Component {
     return (
       <div id="auth-form">
         <h1>{ this.props.formName }</h1>
-        <ErrorList errors={ this.props.errors } />
         <form onSubmit={ this.handleSubmit }>
           <p>Enter your <strong>username</strong> and <strong>password</strong>.</p>
           <input type="text" id="username"
             value={ this.state.username }
             onChange= { this.update("username") }
-            placeholder="Username" />
+            placeholder="username" />
           <input type="password" id="password"
             value={ this.state.password }
             onChange= { this.update("password") }
-            placeholder="Password" />
+            placeholder="password" />
           <input type="submit" value={ this.props.formName } />
         </form>
+        <ErrorList errors={ this.props.errors } />
         <Link to={ this.props.otherRoute }>{ this.props.otherName }</Link>
       </div>
     );
