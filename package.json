@@ -14,6 +14,13 @@
     "type": "git",
     "url": "git+ssh://git@github.com/hrb90/slabb.git"
   },
+  "engines": {
+    "node": "6.7.0",
+    "npm": "3.10.7"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/.bin/webpack"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
