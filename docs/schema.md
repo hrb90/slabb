@@ -17,13 +17,7 @@ All tables have id and timestamp columns.
 | description     | text      |                                       |
 | topic           | string    |                                       |
 | dm_hash         | string    | indexed                               |
-| channel_type_id | integer   | not null, foreign key (channel_types)  |
-
-**channel_types**
-
-| column name | data type | details          |
-|-------------|-----------|------------------|
-| type        | string    | not null, unique |
+| channel_type    | string    | not null, one of "channel", "dm"      |
 
 **messages**
 
