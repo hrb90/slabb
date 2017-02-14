@@ -56,9 +56,11 @@ class AuthForm extends React.Component {
 
   render() {
     return (
-      <div className="auth-form">
+      <div id="auth-form">
+        <h1>{ this.props.formName }</h1>
         <ErrorList errors={ this.props.errors } />
         <form onSubmit={ this.handleSubmit }>
+          <p>Enter your <strong>username</strong> and <strong>password</strong>.</p>
           <input type="text" id="username"
             value={ this.state.username }
             onChange= { this.update("username") }
