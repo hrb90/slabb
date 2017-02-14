@@ -10,56 +10,63 @@
   subscriptions:
     {
       channels:
-        [
-          {
-            id: 1,
-            name: "general",
-            newMessages: false
-          },
-          {
-            id: 3,
-            name: "random",
-            newMessages: true
-          }
-        ],
+        {
+          1:
+            {
+              id: 1,
+              name: "general",
+              newMessages: false
+            },
+          3:
+            {
+              id: 3,
+              name: "random",
+              newMessages: true
+            }
+        },
       dms:
-        [
-          {
-            id: 54,
-            name: "atom",
-            newMessages: false,
-            status: "online"
-          },
-          {
-            id: 72,
-            name: "atom,mc962",
-            newMessages: true,
-            status: "2"
-          }
-        ]
+        {
+          54:
+            {
+              id: 54,
+              name: "atom",
+              newMessages: false,
+              status: "online"
+            },
+          72:
+            {
+              id: 72,
+              name: "atom,mc962",
+              newMessages: true,
+              status: "2"
+            }
+        }
     },
   currentChannel:
     {
       id: 1,
       name: "general",
       type: "channel"
-      subscribers: [
-        {
-          id: 1,
-          name: "hrb90",
-          avatar_url: "assets/whatever_else.png"
-        },
-        {
-          id: 2,
-          name: "atom",
-          avatar_url: "assets/whatever.png"
-        },
-        {
-          id: 3,
-          name: "mc962",
-          avatar_url: "assets/mc-avatar.png"
-        }
-      ]
+      subscribers: {
+        1:
+          {
+            id: 1,
+            name: "hrb90",
+            avatar_url: "assets/whatever_else.png"
+          },
+        2:
+          {
+            id: 2,
+            name: "atom",
+            avatar_url: "assets/whatever.png"
+          },
+        3:
+          {
+            id: 3,
+            name: "mc962",
+            avatar_url: "assets/mc-avatar.png"
+          }
+      }
       topic: "General discussion",
       messages: [
         {
