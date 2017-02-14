@@ -35,30 +35,34 @@ Slabb is a live chat application inspired by Slack built with Rails, React, and 
 
 **Objective**: Functioning rails project with backend and frontend authentication.
 
-### Phase 2: Channels and DMs (2 days)
+### Phase 2: Channels and DMs (3 days)
 
 **Objective**: Can create and subscribe to channels and DM groups. Build out models, API routes, and the outer React components; should display messages in a rudimentary fashion given appropriate seed data.
 
-### Phase 3: Live Chat (3 days)
+### Phase 2a: Indexes (1 days)
 
-#### Phase 3a: Pushing (0.5 days)
+**Objective**: Build NavBar along with the ChannelIndex and UserIndex components, along with associated API routes (if they don't already exist). Render placeholder Channels.
 
-**Objective**: Build a toy app with Pusher
+###Phase 2b: Channel (2 days)
 
-#### Phase 3b: Messages Model, API, and backend logic (1.5 days)
+**Objective**: Build Channel backend, including subscribe and unsubscribe routes, and frontend, including Channel, ChannelHeader, ChannelMessages. Render placeholder Messages and a placeholder (non-functioning) NewMessageForm.
+
+### Phase 3: Live Chat (3.5 days)
+
+#### Phase 3a: Messages Model, API, and backend logic (1.5 days)
 
 **Objective**: Build out the Messages model and API routes. Be able to CRUD messages with AJAX requests, and ensure that the server pushes messages to subscribers.
 
-#### Phase 3c: Messages frontend (1 day)
+#### Phase 3b: Messages frontend (1 day)
 
-**Objective**: Build the Messages components and styling
+**Objective**: Build the Messages component as well as MessageGroup, and styling
 
 etc.
 
-### Phase 4: Indexes (1.5 days)
+#### Phase 3c: Pushing (1 days)
 
-**Objective**: Build the ChannelIndex and UserIndex components, along with associated API routes (if they don't already exist).
+**Objective**: Push notifications to channels.
 
-### Phase 5: Search (2 days)
+### Phase 4: Search (2 days)
 
 **Objective**: Build search.

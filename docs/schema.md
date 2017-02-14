@@ -41,9 +41,3 @@ All tables have id and timestamp columns.
 |-------------|-----------|----------------------------------|
 | user_id     | integer   | not null, foreign key (users)    |
 | channel_id  | integer   | not null, foreign key (channels) |
-
-**images**
-
-| column name | data type | details  |
-|-------------|-----------|----------|
-| avatar_url  | string    | not null |

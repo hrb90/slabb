@@ -1,4 +1,4 @@
-## Component Hierarchy
+## Component Hierarchy (with Pusher notes)
 
 **SignUp**, **SignIn**
   - AuthForm
@@ -25,6 +25,7 @@
               * EditMessageForm
       * NewMessageFormContainer
         * NewMessageForm
+          * ErrorsList
 
 **ChannelIndex, UserIndex**
   * BaseIndexContainer
