@@ -6,12 +6,19 @@ class Api::ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params)
-    if @channel.save
-      render :show
+    if @channel.channel_type == "dm"
+      duplicate_channel = Channel.find_by_dm_hash(@channel.dm_hash)
+      unless duplicate_channel.nil?
+        @channel = duplicate_channel
+        render :show
+      else
+        save_and_show(@channel)
+      end
     else
-      render json: @channel.errors.full_messages, status: 422
+      save_and_show(@channel)
     end
   end
+
 
   def show
     @channel = Channel.find(params[:id])
@@ -39,5 +46,14 @@ class Api::ChannelsController < ApplicationController
 
   def subscription_params
     params.require(:subscription).permit(:user_id)
+  end
+
+  def save_and_show(channel)
+    @channel = channel
+    if @channel.save
+      render :show
+    else
+      render json: @channel.errors.full_messages, status: 422
+    end
   end
 end

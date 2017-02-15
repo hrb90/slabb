@@ -5,6 +5,7 @@ import App from './app';
 import SignIn from './auth/signin';
 import SignUp from './auth/signup';
 import Main from './main';
+import DMIndex from './channels/dms/dm_index';
 
 const Root = ({ store }) => {
   const _redirectIfLoggedIn = (nextState, replace) => {
@@ -24,6 +25,7 @@ const Root = ({ store }) => {
       <Router history={ hashHistory }>
         <Route path="/" component={ App }>
           <IndexRoute component= { Main } onEnter={ _ensureLoggedIn }/>
+          <Route path="/dms" component={ DMIndex } onEnter={_ensureLoggedIn} />
           <Route path="/login" component={ SignIn } onEnter={ _redirectIfLoggedIn }/>
           <Route path="/signup" component={ SignUp } onEnter={ _redirectIfLoggedIn } />
         </Route>
