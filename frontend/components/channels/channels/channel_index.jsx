@@ -31,8 +31,11 @@ class ChannelIndex extends React.Component{
 
   render() {
     return (
-      <div>
-        <SearchBar query={ this.state.query } updateQuery={ this.updateQuery } />
+      <div className="channel-index">
+        <div className="search-bar">
+          <SearchBar query={ this.state.query } updateQuery={ this.updateQuery }
+            placeholder="Search Channels" />
+        </div>
         <ChannelList channels={ this.filter(this.props.channels)}
           fetchChannel={ this.props.fetchChannel }/>
       </div>

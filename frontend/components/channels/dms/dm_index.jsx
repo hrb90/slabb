@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUsers } from '../../../actions/user_actions';
 import { createChannel } from '../../../actions/channel_actions';
 import SearchBar from '../channels/search_bar';
+import DMSelectedUsers from './dm_selected_users';
 import DMList from './dm_list';
 import { makeArrayFromObject } from '../../../util/selectors';
 
@@ -57,14 +58,16 @@ class DMIndex extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={ this.handleSubmit }>
-          <div className="dm-search-bar">
+      <div className="channel-index">
+        <form className="search-bar-container" onSubmit={ this.handleSubmit }>
+          <div className="search-bar">
             <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
-              removeUser={ this.removeUser }/> />
+              removeUser={ this.removeUser }/>
             <SearchBar query={ this.state.query }
-              updateQuery={ this.updateQuery } />
+              updateQuery={ this.updateQuery }
+              placeholder="Search Users" />
           </div>
+          <input type="submit" value="Go"></input>
         </form>
         <DMList conversations={ this.filter(this.props.conversations) }
           selectUser={ this.selectUser } />

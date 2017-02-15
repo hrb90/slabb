@@ -13,5 +13,8 @@
  *= require reset
  *= require auth
  *= require errors
+ *= require index-pages
+ *= require main-page
+ *= require nav-bar
  *= require_self
  */
