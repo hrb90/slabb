@@ -7,7 +7,7 @@ const DMList = ({conversations, selectUser}) => {
       { conversations.map(convo => (
         <DMListItem name={ convo.name }
           key={ convo.key }
-          clickHandler={ () => selectUser(convo.user) } />
+          clickHandler={ selectUser(convo.user) } />
       )) }
     </ul>
   );

@@ -28,6 +28,7 @@ class DMIndex extends React.Component {
     super(props);
     this.state = { selectedUsers: [], query: "" };
     this.filter = this.filter.bind(this);
+    this.removeUser = this.removeUser.bind(this);
     this.selectUser = this.selectUser.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
   }
@@ -50,15 +51,25 @@ class DMIndex extends React.Component {
           queryString={ this.state.query }
           updateQuery={ this.updateQuery }
           createChannel={ this.props.createChannel }
-          currentUser={ this.props.currentUser }/>
+          currentUser={ this.props.currentUser }
+          removeUser={ this.removeUser }/>
         <DMList conversations={ this.filter(this.props.conversations) } selectUser={ this.selectUser } />
       </div>
     );
   }
 
   selectUser(user) {
-    console.log("User clicked!");
-    this.setState({ selectedUsers: Object.assign({}, this.state.selectedUsers, {[user.id]: user}) });
+    return () => {
+      this.setState({ selectedUsers: Object.assign({}, this.state.selectedUsers, {[user.id]: user}) });
+    }
+  }
+
+  removeUser(id) {
+    return () => {
+      let selectedUsers = Object.assign(this.state.selectedUsers);
+      delete selectedUsers[id];
+      this.setState({ selectedUsers });
+    }
   }
 
   updateQuery(newValue) {

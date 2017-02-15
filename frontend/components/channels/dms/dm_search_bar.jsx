@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DMSearchBar = ({selectedUsers, query, updateQuery, createChannel, currentUser}) => {
+const DMSearchBar = ({selectedUsers, query, updateQuery, createChannel, currentUser, removeUser}) => {
   const changeHandler = e => {
     updateQuery(e.currentTarget.value);
   }
@@ -18,7 +18,11 @@ const DMSearchBar = ({selectedUsers, query, updateQuery, createChannel, currentU
   return (
     <form onSubmit={ submitHandler }>
       <div>
-        { selectedUsers.map(user => (<p>{user.username}</p>)) }
+        { selectedUsers.map(user =>
+          (<div key={ user.id }
+            onClick={ removeUser(user.id) }>
+            { user.username }
+            </div>)) }
         <input type="text" value={ query } onChange={ changeHandler }></input>
         <input type="submit" value="Go"></input>
       </div>
