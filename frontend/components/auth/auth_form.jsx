@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
 import { signup, login, receiveAuthErrors } from '../../actions/session_actions';
-import { merge } from 'lodash';
 import ErrorList from '../errors/error_list';
 
 const mapStateToProps = ({errors}, ownProps) => {
@@ -45,7 +44,7 @@ class AuthForm extends React.Component {
 
   update(field) {
     return e => {
-      this.setState(merge({}, this.state, {[field]: e.currentTarget.value}));
+      this.setState({ [field]: e.currentTarget.value });
     };
   }
 
