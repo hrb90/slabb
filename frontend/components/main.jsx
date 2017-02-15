@@ -1,10 +1,11 @@
 import React from 'react';
-import LogoutButton from './auth/logout_button';
+import NavBar from './nav_bar';
+import Channel from './channels/channel';
 
 const Main = props => (
   <div className="main-page">
-    <h1>Sla🅱️️🅱️️</h1>
-    <LogoutButton />
+    <NavBar />
+    <Channel />
   </div>
 );
 
