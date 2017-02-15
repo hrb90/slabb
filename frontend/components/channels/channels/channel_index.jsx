@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchChannels, fetchChannel } from '../../../actions/channel_actions';
+import SearchBar from './search_bar';
+import ChannelList from './channel_list';
 
 const mapStateToProps = ({channels}) => ({channels});
 
-const mapDispatchToProps = ({
+const mapDispatchToProps = dispatch => ({
   fetchChannels: () => dispatch(fetchChannels()),
-  fetchChannel: id => dispatch(fetchChannel(id))
+  fetchChannel: id => () => dispatch(fetchChannel(id))
 });
 
 class ChannelIndex extends React.Component{
@@ -28,10 +30,18 @@ class ChannelIndex extends React.Component{
   }
 
   render() {
-
+    return (
+      <div>
+        <SearchBar query={ this.state.query } updateQuery={ this.updateQuery } />
+        <ChannelList channels={ this.filter(this.props.channels)}
+          fetchChannel={ this.props.fetchChannel }/>
+      </div>
+    );
   }
 
   updateQuery(newValue) {
     this.setState({query: newValue});
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelIndex);

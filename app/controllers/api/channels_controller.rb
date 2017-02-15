@@ -1,6 +1,6 @@
 class Api::ChannelsController < ApplicationController
   def index
-    @channels = Channel.all
+    @channels = Channel.where(channel_type: "channel")
     render :index
   end
 
@@ -18,7 +18,6 @@ class Api::ChannelsController < ApplicationController
       save_and_show(@channel)
     end
   end
-
 
   def show
     @channel = Channel.find(params[:id])
