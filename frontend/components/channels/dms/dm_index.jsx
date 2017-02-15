@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../../actions/user_actions';
 import { createChannel } from '../../../actions/channel_actions';
-import DMSearchBar from './dm_search_bar';
+import SearchBar from '../channels/search_bar';
 import DMList from './dm_list';
 import { makeArrayFromObject } from '../../../util/selectors';
 
@@ -44,16 +44,30 @@ class DMIndex extends React.Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const dm_users = makeArrayFromObject(this.state.selectedUsers)
+      .concat([this.props.currentUser]);
+    this.props.createChannel({
+      name: dm_users.map(user => user.username).join(","),
+      channel_type: "dm",
+      dm_user_ids: dm_users.map(user => user.id)
+    });
+  }
+
   render() {
     return (
       <div>
-        <DMSearchBar selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
-          queryString={ this.state.query }
-          updateQuery={ this.updateQuery }
-          createChannel={ this.props.createChannel }
-          currentUser={ this.props.currentUser }
-          removeUser={ this.removeUser }/>
-        <DMList conversations={ this.filter(this.props.conversations) } selectUser={ this.selectUser } />
+        <form onSubmit={ this.handleSubmit }>
+          <div className="dm-search-bar">
+            <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
+              removeUser={ this.removeUser }/> />
+            <SearchBar query={ this.state.query }
+              updateQuery={ this.updateQuery } />
+          </div>
+        </form>
+        <DMList conversations={ this.filter(this.props.conversations) }
+          selectUser={ this.selectUser } />
       </div>
     );
   }
