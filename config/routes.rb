@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :users, only: [:create, :index]
     resource :session, only: [:create, :destroy]
-    resources :channels, only: [:index, :create, :show, :update, :destroy]
+    resources :channels, only: [:index, :create, :show, :update, :destroy] do
+      get 'subscribe', to: "channels#subscribe"
+      get 'unsubscribe', to: "channels#unsubscribe"
+    end
   end
 end

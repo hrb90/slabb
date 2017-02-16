@@ -26,7 +26,7 @@ class Api::ChannelsController < ApplicationController
 
   def update
     @channel = Channel.find(params[:id])
-    if @channel.update(channel_params)
+    if @channel && @channel.update(channel_params)
       render :show
     else
       render json: @channel.errors.full_messages, status: 422
@@ -37,14 +37,32 @@ class Api::ChannelsController < ApplicationController
 
   end
 
+  def subscribe
+    @subscription = Subscription.new({user_id: current_user.id, channel_id: params[:channel_id]})
+    if @subscription.save
+      render "api/subscriptions/show.json.jbuilder"
+    else
+      render json: @subscription.errors.full_messages, status: 422
+    end
+  end
+
+  def unsubscribe
+    @subscription = Subscription.find_by({user_id: current_user.id, channel_id: params[:channel_id]})
+    if @subscription
+      if @subscription.destroy
+        render "api/subscriptions/show.json.jbuilder"
+      else
+        render json: @subscription.errors.full_messages, status: 422
+      end
+    else
+      render json: ["You are not subscribed to this channel"], status: 422
+    end
+  end
+
   private
 
   def channel_params
     params.require(:channel).permit(:name, :description, :topic, :channel_type, dm_user_ids: [])
-  end
-
-  def subscription_params
-    params.require(:subscription).permit(:user_id)
   end
 
   def save_and_show(channel)

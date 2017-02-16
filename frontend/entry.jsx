@@ -4,7 +4,7 @@ import { attachAll } from './attach_to_window';
 import configureStore from './store/store';
 import Root from './components/root';
 
-// attachAll();
+attachAll();
 
 document.addEventListener('DOMContentLoaded', () => {
   let preloadedState;
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     preloadedState = {};
   }
   let store = configureStore(preloadedState);
-  // window.store = store;
+  window.store = store;
   let root = document.getElementById('root');
   ReactDOM.render(<Root store={ store } />, root);
 });
