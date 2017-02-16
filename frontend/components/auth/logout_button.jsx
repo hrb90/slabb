@@ -7,8 +7,9 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-const LogoutButton = ({logout}) => {
+const LogoutButton = ({logout, beforeLogoutCallback}) => {
   function _logoutAndRedirect() {
+    beforeLogoutCallback();
     logout().then(() => hashHistory.push("/login"));
   }
   return (

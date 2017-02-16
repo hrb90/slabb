@@ -2,17 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
+import { merge } from 'lodash';
 import { fetchChannel, fetchSubscriptions } from '../actions/channel_actions';
 import { makeArrayFromObject } from '../util/selectors';
+import { extractChannelInfo } from '../util/subscription_util';
+import { fixDMName } from '../util/channel_util';
 import LogoutButton from './auth/logout_button';
 import DMIndex from './channels/dms/dm_index';
 import ChannelIndex from './channels/channels/channel_index';
 
-const mapStateToProps = ({subscriptions, currentChannel}) => {
-  let subArray = makeArrayFromObject(subscriptions);
+const mapStateToProps = ({session, subscriptions, currentChannel}) => {
+  let nbSubs = merge({}, subscriptions, extractChannelInfo(currentChannel))
+  let subArray = makeArrayFromObject(nbSubs);
   let dms = subArray.filter((channel) => (channel.channel_type === "dm"));
   let channels = subArray.filter((channel) => (channel.channel_type === "channel"));
   return {
+    username: session.currentUser.username,
     plainChannels: channels,
     dmChannels: dms,
     currentChannelId: currentChannel.id
@@ -29,12 +34,15 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       channelsIsOpen: false,
-      dmsIsOpen: false
+      dmsIsOpen: false,
+      settingsIsOpen: false
     };
     this.closeChannels = this.closeChannels.bind(this);
     this.closeDMs = this.closeDMs.bind(this);
+    this.closeSettings = this.closeSettings.bind(this);
     this.openChannels = this.openChannels.bind(this);
     this.openDMs = this.openDMs.bind(this);
+    this.openSettings = this.openSettings.bind(this);
   }
 
   componentWillMount(){
@@ -50,6 +58,11 @@ class NavBar extends React.Component {
     this.setState({dmsIsOpen: false});
   }
 
+  closeSettings() {
+    this.setState({settingsIsOpen: false});
+    Modal.setAppElement('body');
+  }
+
   openChannels() {
     this.setState({channelsIsOpen: true});
   }
@@ -58,10 +71,30 @@ class NavBar extends React.Component {
     this.setState({dmsIsOpen: true});
   }
 
+  openSettings() {
+    Modal.setAppElement('aside');
+    this.setState({settingsIsOpen: true});
+  }
+
   render() {
     return (
       <aside className="nav-bar">
-        <LogoutButton />
+        <div onClick={ this.openSettings } className="user-settings">
+          <h1>
+            Slabb &nbsp;
+            <i className="fa fa-caret-down" aria-hidden="true"></i>
+          </h1>
+          <p>
+            { this.props.username }
+          </p>
+        </div>
+        <Modal
+          isOpen={ this.state.settingsIsOpen }
+          onRequestClose={ this.closeSettings }
+          contentLabel="Settings">
+          <LogoutButton beforeLogoutCallback={ this.closeSettings } />
+          <button onClick={ this.closeSettings }>Close</button>
+        </Modal>
         <span onClick={ this.openChannels }>Channels</span>
         <Modal
           isOpen={ this.state.channelsIsOpen }
@@ -94,7 +127,7 @@ class NavBar extends React.Component {
                 (channel.id === this.props.currentChannelId) ? "nb-channel current-nb-channel" : "nb-channel"
               }
               onClick={ this.props.fetchChannel( channel.id ) }>
-              { channel.name }
+              { fixDMName(channel.name, this.props.username) }
             </li>
           ))}
         </ul>
