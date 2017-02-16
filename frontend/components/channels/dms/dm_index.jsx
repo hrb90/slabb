@@ -29,6 +29,7 @@ class DMIndex extends React.Component {
     super(props);
     this.state = { selectedUsers: [], query: "" };
     this.filter = this.filter.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.removeUser = this.removeUser.bind(this);
     this.selectUser = this.selectUser.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
