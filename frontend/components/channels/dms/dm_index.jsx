@@ -55,11 +55,13 @@ class DMIndex extends React.Component {
       channel_type: "dm",
       dm_user_ids: dm_users.map(user => user.id)
     });
+    this.props.closeModal();
   }
 
   render() {
     return (
       <div className="channel-index">
+        <div className="modal-close-button" onClick={ this.props.closeModal }>X</div>
         <form className="search-bar-container" onSubmit={ this.handleSubmit }>
           <div className="search-bar">
             <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }

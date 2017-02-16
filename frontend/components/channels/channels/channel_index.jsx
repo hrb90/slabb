@@ -6,9 +6,12 @@ import ChannelList from './channel_list';
 
 const mapStateToProps = ({channels}) => ({channels});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchChannels: () => dispatch(fetchChannels()),
-  fetchChannel: id => () => dispatch(fetchChannel(id))
+  fetchChannel: id => () => {
+    dispatch(fetchChannel(id));
+    ownProps.closeModal();
+  }
 });
 
 class ChannelIndex extends React.Component{
@@ -32,12 +35,13 @@ class ChannelIndex extends React.Component{
   render() {
     return (
       <div className="channel-index">
+        <div className="modal-close-button" onClick={ this.props.closeModal }>X</div>
         <div className="search-bar">
           <SearchBar query={ this.state.query } updateQuery={ this.updateQuery }
             placeholder="Search Channels" />
         </div>
         <ChannelList channels={ this.filter(this.props.channels)}
-          fetchChannel={ this.props.fetchChannel }/>
+          fetchChannel={ this.props.fetchChannel } />
       </div>
     );
   }
