@@ -1,17 +1,8 @@
 import { RECEIVE_ALL_SUBS, RECEIVE_SUB, RECEIVE_UNSUB } from '../actions/channel_actions';
 import { merge } from 'lodash';
+import { extractChannelInfo } from '../util/subscription_util';
 
 const initialState = {};
-
-const extractChannelInfo = channel => {
-  return {
-    [channel.id]: {
-      id: channel.id,
-      name: channel.name,
-      channel_type: channel.channel_type
-    }
-  };
-};
 
 const subsReducer = (state = initialState, action) => {
   Object.freeze(state);
