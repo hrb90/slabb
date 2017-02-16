@@ -1,7 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = ({currentChannel}) => ({
+  name: currentChannel.name,
+  topic: currentChannel.topic
+});
 
 const Channel = (props) => (
-  <h1>I am a channel component!</h1>
+  <div>    
+    <span>{ props.name }</span>
+    <span>{ props.topic }</span>
+  </div>
 );
 
-export default Channel;
+export default connect(mapStateToProps)(Channel);
