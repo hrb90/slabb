@@ -24,4 +24,10 @@ class Channel < ApplicationRecord
     @dm_user_ids = dms
     self.dm_hash = Digest::SHA256.base64digest(dms.sort.join(','))
   end
+
+  has_many :subscriptions
+
+  has_many :subscribers,
+    through: :subscriptions,
+    source: :user
 end
