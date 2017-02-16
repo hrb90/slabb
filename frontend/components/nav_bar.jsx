@@ -2,9 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
+import { fetchChannel, fetchSubscriptions } from '../actions/channel_actions';
+import { makeArrayFromObject } from '../util/selectors';
 import LogoutButton from './auth/logout_button';
 import DMIndex from './channels/dms/dm_index';
 import ChannelIndex from './channels/channels/channel_index';
+
+const mapStateToProps = ({subscriptions, currentChannel}) => {
+  let subArray = makeArrayFromObject(subscriptions);
+  let dms = subArray.filter((channel) => (channel.channel_type === "dm"));
+  let channels = subArray.filter((channel) => (channel.channel_type === "channel"));
+  return {
+    plainChannels: channels,
+    dmChannels: dms,
+    currentChannelId: currentChannel.id
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  fetchChannel: id => () => dispatch(fetchChannel(id)),
+  fetchSubscriptions: () => dispatch(fetchSubscriptions())
+});
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -21,6 +39,7 @@ class NavBar extends React.Component {
 
   componentWillMount(){
     Modal.setAppElement('body');
+    this.props.fetchSubscriptions();
   }
 
   closeChannels() {
@@ -50,6 +69,17 @@ class NavBar extends React.Component {
           contentLabel="Channel">
             <ChannelIndex closeModal={ this.closeChannels } />
         </Modal>
+        <ul>
+          { this.props.plainChannels.map(channel => (
+            <li key={ channel.id }
+              className={
+                (channel.id === this.props.currentChannelId) ? "nb-channel current-nb-channel" : "nb-channel"
+              }
+              onClick={ this.props.fetchChannel( channel.id ) }>
+              { channel.name }
+            </li>
+          ))}
+        </ul>
         <span onClick={ this.openDMs }>Direct messages</span>
         <Modal
           isOpen={ this.state.dmsIsOpen }
@@ -57,9 +87,20 @@ class NavBar extends React.Component {
           contentLabel="Direct Messages">
             <DMIndex closeModal={ this.closeDMs } />
         </Modal>
+        <ul>
+          { this.props.dmChannels.map(channel => (
+            <li key={ channel.id }
+              className={
+                (channel.id === this.props.currentChannelId) ? "nb-channel current-nb-channel" : "nb-channel"
+              }
+              onClick={ this.props.fetchChannel( channel.id ) }>
+              { channel.name }
+            </li>
+          ))}
+        </ul>
       </aside>
     );
   }
 }
 
-export default NavBar;
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
       get 'subscribe', to: "channels#subscribe"
       get 'unsubscribe', to: "channels#unsubscribe"
     end
+    get 'subscriptions', to: "channels#subscriptions"
   end
 end

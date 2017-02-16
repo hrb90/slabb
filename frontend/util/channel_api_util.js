@@ -48,3 +48,10 @@ export const unsubscribeFromChannel = id => (
     url: `api/channels/${id}/unsubscribe`
   })
 );
+
+export const fetchSubscriptions = () => (
+  $.ajax({
+    method: "GET",
+    url: `api/subscriptions`
+  })
+);
