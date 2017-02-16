@@ -1,7 +1,57 @@
 aside.nav-bar {
-    background-color: #4D394B;
-    color: #ab9ba9;
-    display: flex;
-    flex-direction: column;
-    width: 220px;
+  background-color: #4D394B;
+  color: #ab9ba9;
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+  width: 200px;
+}
+
+
+.nav-bar .user-settings,span,li {
+  padding: 4px 0 4px 20px;
+  cursor: pointer;
+}
+
+
+.nav-bar .user-settings h1,p {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-bar .user-settings h1 {
+  color: white;
+}
+
+.nav-bar span {
+  font-family: sans-serif;
+  font-size: 12px;
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+
+.nav-bar span:hover {
+  color: white;
+}
+
+.nav-bar ul {
+  margin: 0;
+}
+
+.nav-bar li,div.user-settings {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.nav-bar li.nb-channel:hover,div.user-settings:hover {
+  background-color: #3D293B;
+}
+
+.current-nb-channel {
+  background-color: #4C9689;
+  color: white;
+}
+
+.nav-bar li.current-nb-channel:hover{
+  background-color: #4C9689;
 }
