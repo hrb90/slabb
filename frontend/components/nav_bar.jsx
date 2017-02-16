@@ -109,7 +109,7 @@ class NavBar extends React.Component {
                 (channel.id === this.props.currentChannelId) ? "nb-channel current-nb-channel" : "nb-channel"
               }
               onClick={ this.props.fetchChannel( channel.id ) }>
-              { channel.name }
+              🅱️️ &nbsp; { channel.name }
             </li>
           ))}
         </ul>

@@ -3,6 +3,12 @@ import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/session_actions';
 
+const doNothing = () => {};
+
+const mapStateToProps = (store, ownProps) => ({
+  beforeLogoutCallback: ownProps.beforeLogoutCallback || doNothing
+})
+
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
@@ -17,4 +23,4 @@ const LogoutButton = ({logout, beforeLogoutCallback}) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(LogoutButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);
