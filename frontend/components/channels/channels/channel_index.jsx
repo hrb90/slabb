@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchChannels, fetchChannel } from '../../../actions/channel_actions';
 import SearchBar from './search_bar';
 import ChannelList from './channel_list';
+import ModalCloseButton from './modal_close_button';
 
 const mapStateToProps = ({channels}) => ({channels});
 
@@ -34,14 +35,18 @@ class ChannelIndex extends React.Component{
 
   render() {
     return (
-      <div className="channel-index">
-        <div className="modal-close-button" onClick={ this.props.closeModal }>X</div>
-        <div className="search-bar">
-          <SearchBar query={ this.state.query } updateQuery={ this.updateQuery }
-            placeholder="Search Channels" />
+      <div className="modal-index-container">
+        <ModalCloseButton closeModal={ this.props.closeModal } />
+        <div className="channel-index">
+          <h1>Browse all { this.props.channels.length } channels</h1>
+          <div className="search-bar">
+            <i className="fa fa-search fa-lg"></i>
+            <SearchBar query={ this.state.query } updateQuery={ this.updateQuery }
+              placeholder="Search Channels" />
+          </div>
+          <ChannelList channels={ this.filter(this.props.channels)}
+            fetchChannel={ this.props.fetchChannel } />
         </div>
-        <ChannelList channels={ this.filter(this.props.channels)}
-          fetchChannel={ this.props.fetchChannel } />
       </div>
     );
   }

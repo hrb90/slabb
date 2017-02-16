@@ -1,5 +1,14 @@
+.modal-index-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;;
+  align-items: center;
+}
+
 .channel-index {
   overflow: hidden;
+  width: 600px;
 }
 
 .search-bar-container {
@@ -13,6 +22,8 @@
   border: none;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
+  font-size: 20px;
   font-weight: 600;
   margin: 0 10px;
   width: 60px;
@@ -29,21 +40,34 @@
   height: 40px;
 }
 
+
 .channel-index .search-bar input {
-  height: 40px;
-  width: 100%;
+  border: none;
   border-radius: 5px;
+  font-size: 20px;
+  height: 40px;
   padding: 0;
   margin: 0;
-  border:  none;
+  width: 100%;
+}
+
+.channel-index .search-bar input:focus {
+  outline: none;
 }
 
 .channel-index .search-bar {
   display: flex;
 }
 
+.channel-index .search-bar .fa {
+  align-self: center;
+  color: #bbbbbb;
+  margin: 0 5px;
+}
+
 .channel-index .search-bar .selected-users {
   display: flex;
+  padding-left: 4px;
 }
 
 .channel-index .search-bar .selected-user-tab {
@@ -55,7 +79,7 @@
   font-size: 14px;
   height: 18px;
   margin: 10px 2px;
-  padding: 1px;
+  padding: 2px;
 }
 
 .selected-user-tab>p {
@@ -64,7 +88,7 @@
 
 .channel-index ul {
   height: 50vh;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .channel-index .index-li {
@@ -93,4 +117,14 @@
 .channel-index .index-li .channel-description {
   color: #707070;
   font-size: 14px;
+}
+
+.modal-close-button {
+  align-self: flex-end;
+  cursor: pointer;
+  text-align: right;
+}
+
+.modal-close-button .fa {
+  color: #707070;
 }

@@ -5,6 +5,7 @@ import { createChannel } from '../../../actions/channel_actions';
 import SearchBar from '../channels/search_bar';
 import DMSelectedUsers from './dm_selected_users';
 import DMList from './dm_list';
+import ModalCloseButton from '../channels/modal_close_button';
 import { makeArrayFromObject } from '../../../util/selectors';
 
 const mapUsersToConvos = users => {
@@ -60,20 +61,23 @@ class DMIndex extends React.Component {
 
   render() {
     return (
-      <div className="channel-index">
-        <div className="modal-close-button" onClick={ this.props.closeModal }>X</div>
-        <form className="search-bar-container" onSubmit={ this.handleSubmit }>
-          <div className="search-bar">
-            <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
-              removeUser={ this.removeUser }/>
-            <SearchBar query={ this.state.query }
-              updateQuery={ this.updateQuery }
-              placeholder="Search Users" />
-          </div>
-          <input type="submit" value="Go"></input>
-        </form>
-        <DMList conversations={ this.filter(this.props.conversations) }
-          selectUser={ this.selectUser } />
+      <div className="modal-index-container">
+        <ModalCloseButton closeModal={ this.props.closeModal } />
+        <div className="channel-index">
+          <h1>Direct Messages</h1>
+          <form className="search-bar-container" onSubmit={ this.handleSubmit }>
+            <div className="search-bar">
+              <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
+                removeUser={ this.removeUser }/>
+              <SearchBar query={ this.state.query }
+                updateQuery={ this.updateQuery }
+                placeholder="Search Users" />
+            </div>
+            <input type="submit" value="Go"></input>
+          </form>
+          <DMList conversations={ this.filter(this.props.conversations) }
+            selectUser={ this.selectUser } />
+        </div>
       </div>
     );
   }
