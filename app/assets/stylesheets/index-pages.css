@@ -2,6 +2,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
   justify-content: space-between;;
   align-items: center;
 }
@@ -127,4 +128,45 @@
 
 .modal-close-button .fa {
   color: #707070;
+}
+
+form.new-channel-form {
+  border: 1px solid lightgrey;
+  border-bottom: 1px solid grey;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 150px;
+  padding: 0 40px;
+}
+
+form.new-channel-form input[type="text"] {
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 5px;
+  height: 40px;
+  font-size: 20px;
+  margin: 10px 0;
+  padding: 0 5px;
+}
+
+form.new-channel-form input[type="submit"] {
+  background-color: #2AB27B;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px 0;
+
+}
+
+form.new-channel-form textarea {
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 20px;
+    height: 80px;
+    margin: 10px 0;
+    padding: 5px;
 }
