@@ -108,8 +108,8 @@ class NavBar extends React.Component {
           <button onClick={ this.closeSettings }>Close</button>
         </Modal>
         <span>
-          <p onClick={ this.openChannels }>Channels</p>
-          <i className="fa fa-plus-circle" onClick={ this.openNewChannel }></i>
+          <p className="nb-index-link nb-modal-link" onClick={ this.openChannels }>Channels</p>
+          <i className="fa fa-plus-circle nb-modal-link" onClick={ this.openNewChannel }></i>
         </span>
         <Modal
           isOpen={ this.state.channelsIsOpen }
@@ -134,7 +134,7 @@ class NavBar extends React.Component {
             </li>
           ))}
         </ul>
-        <span onClick={ this.openDMs }>Direct messages</span>
+        <span className="nb-index-link nb-modal-link" onClick={ this.openDMs }>Direct messages</span>
         <Modal
           isOpen={ this.state.dmsIsOpen }
           onRequestClose={ this.closeDMs }
