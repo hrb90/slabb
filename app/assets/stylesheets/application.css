@@ -16,5 +16,6 @@
  *= require index-pages
  *= require main-page
  *= require nav-bar
+ *= require channel
  *= require_self
  */
