@@ -1,9 +1,15 @@
 import React from 'react';
+import Message from './messages/message';
+import { range } from 'lodash';
 
-const ChannelMessages = (props) => (
-  <div>
-    I am a ChannelMessages component!
-  </div>
-);
+class ChannelMessages extends React.Component {
+  render() {
+    return (
+      <div className="msgs-container">
+        { range(100).map((i) => (<Message key={ i } content={ i } />))}
+      </div>
+    );
+  }
+}
 
 export default ChannelMessages;
