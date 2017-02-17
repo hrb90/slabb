@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchUsers } from '../../../actions/user_actions';
 import { createChannel } from '../../../actions/channel_actions';
 import SearchBar from '../channels/search_bar';
-import DMSelectedUsers from './dm_selected_users';
+import SelectedUsers from './selected_users';
 import UserList from './user_list';
 import ModalCloseButton from '../channels/modal_close_button';
 import { makeArrayFromObject } from '../../../util/selectors';
@@ -60,7 +60,7 @@ class DMIndex extends React.Component {
           <h1>Direct Messages</h1>
           <form className="search-bar-container" onSubmit={ this.handleSubmit }>
             <div className="search-bar">
-              <DMSelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
+              <SelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
                 removeUser={ this.removeUser }/>
               <SearchBar query={ this.state.query }
                 updateQuery={ this.updateQuery }

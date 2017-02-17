@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DMSelectedUsers = ({selectedUsers, removeUser}) => (
+const SelectedUsers = ({selectedUsers, removeUser}) => (
   <div className="selected-users">
     { selectedUsers.map(user => (
       <div key={ user.id } className="selected-user-tab" onClick={ removeUser(user.id) }>
@@ -10,4 +10,4 @@ const DMSelectedUsers = ({selectedUsers, removeUser}) => (
   </div>
 );
 
-export default DMSelectedUsers;
+export default SelectedUsers;

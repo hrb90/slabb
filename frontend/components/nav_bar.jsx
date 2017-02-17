@@ -10,6 +10,7 @@ import { fixDMName } from '../util/channel_util';
 import LogoutButton from './auth/logout_button';
 import DMIndex from './channels/dms/dm_index';
 import ChannelIndex from './channels/channels/channel_index';
+import NewChannel from './channels/channels/new_channel';
 
 const mapStateToProps = ({session, subscriptions, currentChannel}) => {
   let nbSubs = merge({}, subscriptions, extractChannelInfo(currentChannel))
@@ -35,13 +36,16 @@ class NavBar extends React.Component {
     this.state = {
       channelsIsOpen: false,
       dmsIsOpen: false,
+      newChannelIsOpen: false,
       settingsIsOpen: false
     };
     this.closeChannels = this.closeChannels.bind(this);
     this.closeDMs = this.closeDMs.bind(this);
+    this.closeNewChannel = this.closeNewChannel.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
     this.openChannels = this.openChannels.bind(this);
     this.openDMs = this.openDMs.bind(this);
+    this.openNewChannel = this.openNewChannel.bind(this);
     this.openSettings = this.openSettings.bind(this);
   }
 
@@ -58,6 +62,10 @@ class NavBar extends React.Component {
     this.setState({dmsIsOpen: false});
   }
 
+  closeNewChannel() {
+    this.setState({newChannelIsOpen: false});
+  }
+
   closeSettings() {
     this.setState({settingsIsOpen: false});
     Modal.setAppElement('body');
@@ -69,6 +77,10 @@ class NavBar extends React.Component {
 
   openDMs() {
     this.setState({dmsIsOpen: true});
+  }
+
+  openNewChannel() {
+    this.setState({newChannelIsOpen: true});
   }
 
   openSettings() {
@@ -95,12 +107,21 @@ class NavBar extends React.Component {
           <LogoutButton beforeLogoutCallback={ this.closeSettings } />
           <button onClick={ this.closeSettings }>Close</button>
         </Modal>
-        <span onClick={ this.openChannels }>Channels</span>
+        <span>
+          <p onClick={ this.openChannels }>Channels</p>
+          <i className="fa fa-plus-circle" onClick={ this.openNewChannel }></i>
+        </span>
         <Modal
           isOpen={ this.state.channelsIsOpen }
           onRequestClose={ this.closeChannels }
           contentLabel="Channel">
             <ChannelIndex closeModal={ this.closeChannels } />
+        </Modal>
+        <Modal
+          isOpen={ this.state.newChannelIsOpen }
+          onRequestClose={ this.closeNewChannel }
+          contentLabel="New Channel">
+            <NewChannel closeModal={ this.closeNewChannel } />
         </Modal>
         <ul>
           { this.props.plainChannels.map(channel => (
