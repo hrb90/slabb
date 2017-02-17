@@ -1,5 +1,6 @@
 .display-channel {
   width: 100vw;
+  background-color: white;
 }
 
 .channel-header {
@@ -45,6 +46,14 @@
   font-size: inherit;
   text-overflow: ellipsis;
   width: calc(100vw - 350px);
+}
+
+.msgs-container {
+  color: #303030;
+  font-size: 16px;
+  height: calc(100vh - 120px);
+  overflow: auto;
+  padding-left: 20px;
 }
 
 .new-message-form {
