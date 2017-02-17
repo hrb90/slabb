@@ -4,19 +4,12 @@ import { fetchUsers } from '../../../actions/user_actions';
 import { createChannel } from '../../../actions/channel_actions';
 import SearchBar from '../channels/search_bar';
 import DMSelectedUsers from './dm_selected_users';
-import DMList from './dm_list';
+import UserList from './user_list';
 import ModalCloseButton from '../channels/modal_close_button';
 import { makeArrayFromObject } from '../../../util/selectors';
 
-const mapUsersToConvos = users => {
-  function extractConvoFromUser(user) {
-    return { name: user.username, key: "user-" + user.id, user: user };
-  }
-  return users.map(extractConvoFromUser);
-}
-
 const mapStateToProps = ({users, session}) => ({
-  conversations: mapUsersToConvos(users),
+  users: users,
   currentUser: session.currentUser
 });
 
@@ -40,10 +33,10 @@ class DMIndex extends React.Component {
     this.props.fetchUsers();
   }
 
-  filter(conversations) {
-    return conversations.filter(convo => {
-      return convo.name.includes(this.state.query)
-        && convo.user.id !== this.props.currentUser.id
+  filter(users) {
+    return users.filter(user => {
+      return user.username.includes(this.state.query)
+        && user.id !== this.props.currentUser.id
     });
   }
 
@@ -75,7 +68,7 @@ class DMIndex extends React.Component {
             </div>
             <input type="submit" value="Go"></input>
           </form>
-          <DMList conversations={ this.filter(this.props.conversations) }
+          <UserList users={ this.filter(this.props.users) }
             selectUser={ this.selectUser } />
         </div>
       </div>
