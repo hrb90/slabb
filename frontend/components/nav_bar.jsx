@@ -91,7 +91,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <aside className="nav-bar">
-        <div onClick={ this.openSettings } className="user-settings">
+        <div onClick={ this.openSettings } className="user-settings nb-modal-link">
           <h1>
             Slabb &nbsp;
             <i className="fa fa-caret-down" aria-hidden="true"></i>
