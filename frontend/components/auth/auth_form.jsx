@@ -60,22 +60,25 @@ class AuthForm extends React.Component {
 
   render() {
     return (
-      <div id="auth-form">
-        <h1>{ this.props.formName }</h1>
-        <form onSubmit={ this.handleSubmit }>
-          <p>Enter your <strong>username</strong> and <strong>password</strong>.</p>
-          <input type="text" id="username"
-            value={ this.state.username }
-            onChange= { this.update("username") }
-            placeholder="username" />
-          <input type="password" id="password"
-            value={ this.state.password }
-            onChange= { this.update("password") }
-            placeholder="password" />
-          <input type="submit" value={ this.props.formName } />
-        </form>
-        <ErrorList errors={ this.props.errors } />
-        <Link to={ this.props.otherRoute }>{ this.props.otherName }</Link>
+      <div id="auth-container">
+        <GuestLoginButton />
+        <div id="auth-form">
+          <h1>{ this.props.formName }</h1>
+          <form onSubmit={ this.handleSubmit }>
+            <p>Enter your <strong>username</strong> and <strong>password</strong>.</p>
+            <input type="text" id="username"
+              value={ this.state.username }
+              onChange= { this.update("username") }
+              placeholder="username" />
+            <input type="password" id="password"
+              value={ this.state.password }
+              onChange= { this.update("password") }
+              placeholder="password" />
+            <input type="submit" value={ this.props.formName } />
+          </form>
+          <ErrorList errors={ this.props.errors } />
+          <Link to={ this.props.otherRoute }>{ this.props.otherName }</Link>
+        </div>
       </div>
     );
   }
