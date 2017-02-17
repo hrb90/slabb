@@ -7,11 +7,12 @@ import ChannelMessages from './channel_messages';
 import NewMessageForm from './new_message_form';
 import { merge } from 'lodash';
 
-const mapStateToProps = ({currentChannel, session}) => ({
+const mapStateToProps = ({currentChannel, session, subscriptions}) => ({
   channelId: currentChannel.id,
   name: (currentChannel.channel_type !== "dm") ? currentChannel.name : fixDMName(currentChannel.name, session.currentUser.username),
   topic: currentChannel.topic,
-  type: currentChannel.channel_type
+  type: currentChannel.channel_type,
+  isSubscribed: currentChannel.id in subscriptions
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,7 +21,11 @@ const mapDispatchToProps = dispatch => ({
   subscribe: id => () => dispatch(subscribeToChannel(id))
 })
 
-const Channel = (props) => (
+const temporaryNewMessageBlocker = e => {
+  e.preventDefault();
+}
+
+const Channel = props => (
   <div className="display-channel">
     <ChannelHeader channelName={ props.name }
       topic={ props.topic }
@@ -28,7 +33,9 @@ const Channel = (props) => (
       unsubscribe={ props.unsubscribe(props.channelId) }
       type={ props.type } />
     <ChannelMessages />
-    <NewMessageForm />
+    <NewMessageForm isSubscribed={ props.isSubscribed }
+      sendMessage={ temporaryNewMessageBlocker }
+      subscribe={ props.subscribe(props.channelId) }/>
   </div>
 );
 
