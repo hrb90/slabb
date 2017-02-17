@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
 import { signup, login, receiveAuthErrors } from '../../actions/session_actions';
 import ErrorList from '../errors/error_list';
+import GuestLoginButton from './guest_login_button';
 
 const mapStateToProps = ({errors}, ownProps) => {
   let formName, otherName, otherRoute;

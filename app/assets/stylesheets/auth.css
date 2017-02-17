@@ -1,5 +1,27 @@
+#auth-container {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+#guest-login {
+  align-self: flex-end;
+}
+
+#guest-login-button {
+  border: 3px solid black;
+  background-color: inherit;
+  cursor: pointer;
+  height: 50px;
+  font-size: 16px;
+  margin: 30px 10px;
+}
+
 #auth-form {
-  max-width: 60%;
+  width: 80%;
+  max-width: 500px;
   background-color: white;
   padding: 10px 30px 30px 30px;
   border: 1px solid lightgrey;
