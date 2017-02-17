@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createChannel } from '../../../actions/channel_actions';
+import { createChannel, receiveChannelErrors } from '../../../actions/channel_actions';
 import ModalCloseButton from './modal_close_button';
 import ErrorList from '../../errors/error_list';
 
+const mapStateToProps = ({errors}) => ({
+  errors: errors.channel
+});
+
 const mapDispatchToProps = dispatch => ({
+  clearErrors: () => dispatch(receiveChannelErrors([])),
   createChannel: channel => dispatch(createChannel(channel))
 });
 
@@ -16,25 +21,30 @@ class NewChannel extends React.Component {
     this.update = this.update.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.clearErrors();
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createChannel(this.state);
-    this.props.closeModal();
+    this.props.createChannel(this.state).then(this.props.closeModal);
   }
 
   render() {
     return (
       <div className="modal-index-container">
         <ModalCloseButton closeModal={ this.props.closeModal } />
-        <h1>Create new channel</h1>
         <form className="new-channel-form" onSubmit={ this.handleSubmit }>
+          <h1>Create new channel</h1>
           <input type="text"
             value={ this.state.name }
             onChange={ this.update("name") }
             placeholder="Name"></input>
           <textarea onChange={ this.update("description") }
-            placeholder="Description">{ this.state.description }</textarea>
+            value={ this.state.description }
+            placeholder="Description"></textarea>
           <input type="submit" value="Add Channel"></input>
+          <ErrorList errors={ this.props.errors } />
         </form>
       </div>
     );
@@ -47,4 +57,4 @@ class NewChannel extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewChannel);
+export default connect(mapStateToProps, mapDispatchToProps)(NewChannel);

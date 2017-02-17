@@ -16,6 +16,7 @@ require "digest"
 
 class Channel < ApplicationRecord
   validates :name, :channel_type, presence: true
+  validates :name, uniqueness: true
   validates :channel_type, inclusion: { in: ["channel", "dm"] }
 
   attr_reader :dm_user_ids
