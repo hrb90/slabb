@@ -5,7 +5,7 @@ import { logout } from '../../actions/session_actions';
 
 const doNothing = () => {};
 
-const mapStateToProps = (store, ownProps) => ({
+const mapStateToProps = (state, ownProps) => ({
   beforeLogoutCallback: ownProps.beforeLogoutCallback || doNothing
 })
 
@@ -14,12 +14,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const LogoutButton = ({logout, beforeLogoutCallback}) => {
-  function _logoutAndRedirect() {
+  function _handleSubmit(e) {
+    e.preventDefault();
     beforeLogoutCallback();
     logout().then(() => hashHistory.push("/login"));
   }
   return (
-    <button onClick={ _logoutAndRedirect }>Log out</button>
+    <form onSubmit={ _handleSubmit }>
+      <input type="submit" className="logout-button" value="Sign out"></input>
+    </form>
   );
 };
 
