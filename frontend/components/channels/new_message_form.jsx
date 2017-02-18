@@ -5,7 +5,7 @@ const NewMessageForm = props => {
   if (props.isSubscribed) {
     return (
       <div className="new-message-form">
-        <MessageForm handleSubmit={ props.sendMessage } />
+        <MessageForm submitCallback={ props.sendMessage } />
       </div>
     );
   } else {

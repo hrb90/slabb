@@ -20,12 +20,12 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.find(params[:id])
+    @channel = Channel.includes(:messages).find(params[:id])
     render :show
   end
 
   def update
-    @channel = Channel.find(params[:id])
+    @channel = Channel.includes(:messages).find(params[:id])
     if @channel && @channel.update(channel_params)
       render :show
     else

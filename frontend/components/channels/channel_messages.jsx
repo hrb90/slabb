@@ -6,7 +6,10 @@ class ChannelMessages extends React.Component {
   render() {
     return (
       <div className="msgs-container">
-        { range(100).map((i) => (<Message key={ i } content={ i } />))}
+        { this.props.messages.map(msg =>
+          (<Message author={ msg.author.username }
+            key={ msg.id }
+            content={ msg.content } />))}
       </div>
     );
   }

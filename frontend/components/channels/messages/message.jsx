@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Message = ({content}) => (
+const Message = ({author, content}) => (
   <div className="message">
-    <p>{ content }</p>
+    <strong>{ author }</strong>: <p>{ content }</p>
   </div>
 );
 
