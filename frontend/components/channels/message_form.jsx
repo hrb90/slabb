@@ -11,7 +11,8 @@ class MessageForm extends React.Component {
     return (
       <form className="message-form" onSubmit={ this.props.handleSubmit }>
         <textarea value={ this.state.message }
-          onChange={ this.update }></textarea>
+          onChange={ this.update }
+          placeholder="Messages haven't been implemented quite yet. Check back in a couple days :)"></textarea>
       </form>
     );
   }
