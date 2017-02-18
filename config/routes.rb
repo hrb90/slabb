@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :channels, only: [:index, :create, :show, :update, :destroy] do
       get 'subscribe', to: "channels#subscribe"
       get 'unsubscribe', to: "channels#unsubscribe"
+      resources :messages, only: [:index, :create]
     end
+    resources :messages, only: [:update, :destroy]
     get 'subscriptions', to: "channels#subscriptions"
   end
 end
