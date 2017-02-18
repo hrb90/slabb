@@ -5,21 +5,42 @@ class MessageForm extends React.Component {
     super(props);
     this.state = { content: props.content || "" };
     this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.submitCallback(this.state);
+  handleBlur() {
+    this.messageTextArea.removeEventListener('keydown', this.handleKeydown);
+  }
+
+  handleFocus() {
+    this.messageTextArea.addEventListener('keydown', this.handleKeydown);
+  }
+
+  handleKeydown(e) {
+    switch(e.key) {
+      case "Enter":
+        e.preventDefault();
+        this.props.submitCallback(this.state);
+        this.setState({content: ""});
+        break;
+      case "Escape":
+        this.messageTextArea.blur();
+        break;
+      default:
+        break;
+    }
   }
 
   render() {
     return (
-      <form className="message-form" onSubmit={ this.handleSubmit }>
+      <form className="message-form">
         <textarea value={ this.state.content }
           onChange={ this.update }
-          placeholder="Messages haven't been implemented quite yet. Check back in a couple days :)"></textarea>
-        <input type="submit" value="Submit"></input>
+          onFocus={ this.handleFocus }
+          onBlur={ this.handleBlur }
+          ref={ textarea => this.messageTextArea = textarea }></textarea>
       </form>
     );
   }
