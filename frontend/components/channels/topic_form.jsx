@@ -35,7 +35,7 @@ class TopicForm extends React.Component {
         this.previousTopic = e.currentTarget.value;
         e.currentTarget.blur();
         break;
-      case "Esc":
+      case "Escape":
         e.currentTarget.blur();
         break;
       default:
