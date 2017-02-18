@@ -44,14 +44,24 @@ class TopicForm extends React.Component {
   }
 
   render() {
-    return (
-      <input type="text"
-        onBlur={ this.handleBlur }
-        onChange={ this.updateTopic }
-        onFocus={ this.handleFocus }
-        value={ this.state.topic }
-        ref={ input => this.topicInput = input }></input>
-    );
+    if (this.props.isDisabled) {
+      return (
+        <input type="text"
+          value={ this.state.topic }
+          ref={ input => this.topicInput = input }
+          disabled></input>
+      );
+    }
+    else {
+      return (
+        <input type="text"
+          onBlur={ this.handleBlur }
+          onChange={ this.updateTopic }
+          onFocus={ this.handleFocus }
+          value={ this.state.topic }
+          ref={ input => this.topicInput = input }></input>
+      );
+    }
   }
 
   updateTopic(e) {

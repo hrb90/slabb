@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { subscribeToChannel, unsubscribeFromChannel, updateChannel } from '../../actions/channel_actions';
 import { fixDMName } from '../../util/channel_util';
-import ChannelHeader from './channel_header';
+import ChannelHeader from './header/channel_header';
 import ChannelMessages from './channel_messages';
 import NewMessageForm from './new_message_form';
 import { merge } from 'lodash';
