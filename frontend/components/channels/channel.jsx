@@ -29,6 +29,7 @@ const Channel = props => (
   <div className="display-channel">
     <ChannelHeader channelName={ props.name }
       topic={ props.topic }
+      isSubscribed={ props.isSubscribed }
       update={ props.update(props.channelId) }
       unsubscribe={ props.unsubscribe(props.channelId) }
       type={ props.type } />

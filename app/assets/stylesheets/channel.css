@@ -38,7 +38,7 @@
   padding-left: 5px;
 }
 
-.channel-header form.ch-topic-form input[type="text"] {
+.channel-header form.ch-topic-form input {
   background-color: inherit;
   border: none;
   color: inherit;

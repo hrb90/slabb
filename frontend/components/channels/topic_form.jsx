@@ -18,25 +18,25 @@ class TopicForm extends React.Component {
     this.handleBlur();
   }
 
-  handleBlur(e) {
-    e.currentTarget.removeEventListener('keydown', this.handleKeydown);
+  handleBlur() {
+    this.topicInput.removeEventListener('keydown', this.handleKeydown);
     this.setState({topic: this.previousTopic});
   }
 
   handleFocus(e) {
-    this.previousTopic = e.currentTarget.value;
-    e.currentTarget.addEventListener('keydown', this.handleKeydown);
+    this.previousTopic = this.topicInput.value;
+    this.topicInput.addEventListener('keydown', this.handleKeydown);
   }
 
   handleKeydown(e) {
     switch(e.key) {
       case "Enter":
         this.props.update(this.state);
-        this.previousTopic = e.currentTarget.value;
-        e.currentTarget.blur();
+        this.previousTopic = this.topicInput.value;
+        this.topicInput.blur();
         break;
       case "Escape":
-        e.currentTarget.blur();
+        this.topicInput.blur();
         break;
       default:
         break;
@@ -45,13 +45,12 @@ class TopicForm extends React.Component {
 
   render() {
     return (
-      <form className="ch-topic-form">
-        <input type="text"
-          onBlur={ this.handleBlur }
-          onChange={ this.updateTopic }
-          onFocus={ this.handleFocus }
-          value={ this.state.topic }></input>
-      </form>
+      <input type="text"
+        onBlur={ this.handleBlur }
+        onChange={ this.updateTopic }
+        onFocus={ this.handleFocus }
+        value={ this.state.topic }
+        ref={ input => this.topicInput = input }></input>
     );
   }
 
