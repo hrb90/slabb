@@ -25,7 +25,8 @@ class ChannelMessages extends React.Component {
           (<Message author={ msg.author }
             key={ msg.id }
             content={ msg.content }
-            isFirst = { firstMsgIds.includes(msg.id) }/>))}
+            isFirst={ firstMsgIds.includes(msg.id)}
+            timestamp={ msg.created_at } />))}
       </div>
     );
   }
