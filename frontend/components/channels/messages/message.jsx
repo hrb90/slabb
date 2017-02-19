@@ -1,8 +1,10 @@
 import React from 'react';
 
 const Message = ({author, content, timestamp, isFirst}) => {
-  let timeString = new Date(timestamp).toLocaleTimeString()
-                          .split(":").slice(0, 2).join(":");
+  let basicTimeString = new Date(timestamp).toLocaleTimeString();
+  let timeString = basicTimeString.split(":").slice(0, 2).join(":")
+    + " "
+    + basicTimeString.slice(-2);
   if (isFirst) {
     return (
       <div className="message first">
