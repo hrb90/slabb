@@ -35,6 +35,7 @@ class ChannelMessages extends React.Component {
     if (this.props.channelId !== nextProps.channelId) {
       this.pusher.unsubscribe('channel_' + this.props.channelId);
       this.currentPusherChannel = this.pusher.subscribe('channel_' + nextProps.channelId);
+      this.props.clearNewMessages(nextProps.channelId);
       this.bindPusherChannel();
     }
   }

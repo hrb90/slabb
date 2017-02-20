@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { subscribeToChannel, unsubscribeFromChannel, updateChannel } from '../../actions/channel_actions';
+import { subscribeToChannel, unsubscribeFromChannel, updateChannel, clearNewMessages } from '../../actions/channel_actions';
 import { createMessage,
   updateMessage,
   deleteMessage,
@@ -36,7 +36,8 @@ const mapDispatchToProps = dispatch => ({
   deleteMessage: messageId => () => dispatch(deleteMessage(messageId)),
   receiveNewMessage: message => dispatch(receiveNewMessage(message)),
   receiveOldMessage: message => dispatch(receiveOldMessage(message)),
-  removeMessage: id => dispatch(removeMessage(id))
+  removeMessage: id => dispatch(removeMessage(id)),
+  clearNewMessages: channelId => dispatch(clearNewMessages(channelId))
 })
 
 
@@ -57,6 +58,7 @@ const Channel = props => (
        receiveNewMessage={ props.receiveNewMessage }
        receiveOldMessage={ props.receiveOldMessage }
        removeMessage={ props.removeMessage }
+       clearNewMessages={ props.clearNewMessages }
        channelId={ props.channelId }/>
     <NewMessageForm isSubscribed={ props.isSubscribed }
       sendMessage={ props.createMessage(props.channelId) }
