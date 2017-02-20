@@ -56,7 +56,8 @@
   color: #303030;
   font-size: 16px;
   height: calc(100vh - 130px);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding-left: 20px;
 }
 
@@ -95,6 +96,11 @@
   margin-right: 10px;
   max-height: 36px;
   width: 36px;
+}
+
+.msg-content {
+  max-width: 1200px;
+  word-wrap: break-word;
 }
 
 .message.first img.avatar {
