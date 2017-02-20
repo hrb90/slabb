@@ -1,4 +1,5 @@
 import React from 'react';
+import { merge } from 'lodash';
 
 class MessageForm extends React.Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class MessageForm extends React.Component {
     switch(e.key) {
       case "Enter":
         e.preventDefault();
-        this.props.submitCallback(this.state);
+        let passToCallback = this.state;
+        if (this.props.messageId) {
+          passToCallback = merge(passToCallback, {id: this.props.messageId});
+        }
+        this.props.submitCallback(passToCallback);
         this.setState({content: ""});
         break;
       case "Escape":

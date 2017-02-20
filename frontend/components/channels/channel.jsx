@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { subscribeToChannel, unsubscribeFromChannel, updateChannel } from '../../actions/channel_actions';
-import { createMessage } from '../../actions/message_actions';
+import { createMessage, updateMessage, beginEditMessage, endEditMessage } from '../../actions/message_actions';
 import { fixDMName } from '../../util/channel_util';
 import ChannelHeader from './header/channel_header';
 import ChannelMessages from './channel_messages';
@@ -14,14 +14,18 @@ const mapStateToProps = ({currentChannel, session, subscriptions}) => ({
   topic: currentChannel.topic,
   type: currentChannel.channel_type,
   isSubscribed: currentChannel.id in subscriptions,
-  messages: currentChannel.messages
+  messages: currentChannel.messages,
+  currentUserId: session.currentUser.id
 });
 
 const mapDispatchToProps = dispatch => ({
   update: id => channel => dispatch(updateChannel(merge({}, channel, {id}))),
   unsubscribe: id => () => dispatch(unsubscribeFromChannel(id)),
   subscribe: id => () => dispatch(subscribeToChannel(id)),
-  createMessage: channelId => message => dispatch(createMessage(channelId)(message))
+  createMessage: channelId => message => dispatch(createMessage(channelId)(message)),
+  updateMessage: message => dispatch(updateMessage(message)),
+  beginEditMessage: messageId => () => dispatch(beginEditMessage(messageId)),
+  endEditMessage: messageId => dispatch(endEditMessage(messageId))
 })
 
 
@@ -33,7 +37,11 @@ const Channel = props => (
       update={ props.update(props.channelId) }
       unsubscribe={ props.unsubscribe(props.channelId) }
       type={ props.type } />
-    <ChannelMessages messages={ props.messages } />
+    <ChannelMessages messages={ props.messages }
+       updateMessage={ props.updateMessage }
+       beginEditMessage={ props.beginEditMessage }
+       currentUserId={ props.currentUserId }
+       endEditMessage={ props.endEditMessage }/>
     <NewMessageForm isSubscribed={ props.isSubscribed }
       sendMessage={ props.createMessage(props.channelId) }
       subscribe={ props.subscribe(props.channelId) }/>

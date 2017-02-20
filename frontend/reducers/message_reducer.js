@@ -1,4 +1,8 @@
-import { RECEIVE_NEW_MESSAGE, RECEIVE_OLD_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_NEW_MESSAGE,
+  RECEIVE_OLD_MESSAGE,
+  REMOVE_MESSAGE,
+  BEGIN_EDIT_MESSAGE,
+  END_EDIT_MESSAGE } from '../actions/message_actions';
 
 const initialState = [];
 
@@ -27,6 +31,14 @@ const messageReducer = (state = initialState, action) => {
         return state;
       }
       break;
+    case BEGIN_EDIT_MESSAGE:
+      idx = newState.findIndex(msg => msg.id === action.id);
+      newState[idx].isEditing = true;
+      return newState;
+    case END_EDIT_MESSAGE:
+      idx = newState.findIndex(msg => msg.id === action.id);
+      newState[idx].isEditing = false;
+      return newState;
     default:
       return state;
   }

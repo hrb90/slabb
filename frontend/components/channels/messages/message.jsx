@@ -1,10 +1,14 @@
 import React from 'react';
 
-const Message = ({author, content, timestamp, isFirst}) => {
+const Message = ({author, content, timestamp, isFirst, currentUserId, beginEditMessage}) => {
   let basicTimeString = new Date(timestamp).toLocaleTimeString();
   let timeString = basicTimeString.split(":").slice(0, 2).join(":")
     + " "
     + basicTimeString.slice(-2);
+  let buttons = [];
+  if (author.id === currentUserId) {
+    buttons = [(<a key="edit" onClick={ beginEditMessage }>Edit</a>)]
+  }
   if (isFirst) {
     return (
       <div className="message first">
@@ -15,7 +19,10 @@ const Message = ({author, content, timestamp, isFirst}) => {
             <strong className="author-name">{ author.username }</strong>
             { timeString }
           </p>
-          <p className="msg-content">{ content }</p>
+          <p className="msg-content">
+            { content }
+            { buttons }
+          </p>
         </div>
       </div>
     )
@@ -26,7 +33,10 @@ const Message = ({author, content, timestamp, isFirst}) => {
           { timeString }
         </div>
         <div className="message-container">
-          <p className="msg-content">{ content }</p>
+          <p className="msg-content">
+            { content }
+            { buttons }
+          </p>
         </div>
       </div>
     )

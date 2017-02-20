@@ -4,6 +4,8 @@ export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 export const RECEIVE_OLD_MESSAGE = "RECEIVE_OLD_MESSAGE";
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
 export const RECEIVE_MESSAGE_ERRORS = "RECEIVE_MESSAGE_ERRORS";
+export const BEGIN_EDIT_MESSAGE = "BEGIN_EDIT_MESSAGE";
+export const END_EDIT_MESSAGE = "END_EDIT_MESSAGE";
 
 export const receiveNewMessage = message => ({
   message,
@@ -23,6 +25,16 @@ export const removeMessage = id => ({
 export const receiveMessageErrors = errors => ({
   errors,
   type: RECEIVE_MESSAGE_ERRORS
+});
+
+export const beginEditMessage = id => ({
+  id,
+  type: BEGIN_EDIT_MESSAGE
+});
+
+export const endEditMessage = id => ({
+  id,
+  type: END_EDIT_MESSAGE
 });
 
 export const createMessage = channelId => message => dispatch => {
