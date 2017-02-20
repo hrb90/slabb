@@ -42,7 +42,9 @@ class ChannelMessages extends React.Component {
           <MessageForm key={ msg.id }
             messageId={ msg.id }
             content={ msg.content }
-            submitCallback={ this.editCallback } />);
+            submitCallback={ this.editCallback }
+            blurCallback={ () => this.props.endEditMessage(msg.id) }
+            focusOnMount={ true }/>);
       } else {
           return (<Message author={ msg.author }
             key={ msg.id }

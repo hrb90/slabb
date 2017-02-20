@@ -1,9 +1,13 @@
 import React from 'react';
 import { merge } from 'lodash';
 
+const doNothing = () => {};
+
 class MessageForm extends React.Component {
   constructor(props) {
     super(props);
+    this.blurCallback = this.props.blurCallback || doNothing;
+    this.focusCallback = this.props.focusCallback || doNothing;
     this.state = { content: props.content || "" };
     this.update = this.update.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -11,11 +15,19 @@ class MessageForm extends React.Component {
     this.handleKeydown = this.handleKeydown.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.focusOnMount) {
+      this.messageTextArea.focus();
+    }
+  }
+
   handleBlur() {
+    this.blurCallback();
     this.messageTextArea.removeEventListener('keydown', this.handleKeydown);
   }
 
   handleFocus() {
+    this.focusCallback();
     this.messageTextArea.addEventListener('keydown', this.handleKeydown);
   }
 
