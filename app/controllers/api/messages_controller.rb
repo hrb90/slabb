@@ -10,6 +10,11 @@ class Api::MessagesController < ApplicationController
     if @message.save
       Pusher.trigger('channel_' + channel_id.to_s, 'new_message', { message: jsonify_message(@message) })
       Pusher.trigger('new_messages', 'new_message', { channelId: channel_id })
+      if @message.channel.channel_type == 'dm'
+        @message.channel.name.split(",").each do |username|
+          Pusher.trigger('dm_alert_' + username, 'new_dm_alert', { channelId: channel_id })
+        end
+      end
       render :show
     else
       render json: @message.errors.full_messages, status: 422

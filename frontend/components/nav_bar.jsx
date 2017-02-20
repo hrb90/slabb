@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Modal from 'react-modal';
 import { merge } from 'lodash';
-import { fetchChannel, fetchSubscriptions, receiveMessageSubscribedChannel } from '../actions/channel_actions';
+import { fetchChannel,
+  fetchSubscriptions,
+  subscribeToChannel,
+  receiveMessageSubscribedChannel } from '../actions/channel_actions';
 import { makeArrayFromObject } from '../util/selectors';
 import { extractChannelInfo } from '../util/subscription_util';
 import { fixDMName } from '../util/channel_util';
@@ -28,7 +31,8 @@ const mapStateToProps = ({session, subscriptions, currentChannel}) => {
 const mapDispatchToProps = dispatch => ({
   fetchChannel: id => () => dispatch(fetchChannel(id)),
   fetchSubscriptions: () => dispatch(fetchSubscriptions()),
-  receiveMessageSubscribedChannel: id => dispatch(receiveMessageSubscribedChannel(id))
+  receiveMessageSubscribedChannel: id => dispatch(receiveMessageSubscribedChannel(id)),
+  subscribeToChannel: id => dispatch(subscribeToChannel(id))
 });
 
 class NavBar extends React.Component {
@@ -49,16 +53,22 @@ class NavBar extends React.Component {
     this.openNewChannel = this.openNewChannel.bind(this);
     this.openSettings = this.openSettings.bind(this);
     this.handleNewMessage = this.handleNewMessage.bind(this);
+    this.handleNewDM = this.handleNewDM.bind(this);
+  }
+
+  componentDidMount() {
+    this.pusher = new Pusher('dd38d591c7efa0a63140', {
+      encrypted: true
+    });
+    this.newDMChannel = this.pusher.subscribe('dm_alert_' + this.props.username);
+    this.newDMChannel.bind('new_dm_alert', this.handleNewDM);
+    this.newMessageChannel = this.pusher.subscribe('new_messages');
+    this.newMessageChannel.bind('new_message', this.handleNewMessage);
   }
 
   componentWillMount(){
     Modal.setAppElement('body');
     this.props.fetchSubscriptions();
-    this.pusher = new Pusher('dd38d591c7efa0a63140', {
-      encrypted: true
-    });
-    this.pusherChannel = this.pusher.subscribe('new_messages');
-    this.pusherChannel.bind('new_message', this.handleNewMessage);
   }
 
   closeChannels() {
@@ -76,6 +86,16 @@ class NavBar extends React.Component {
   closeSettings() {
     this.setState({settingsIsOpen: false});
     Modal.setAppElement('body');
+  }
+
+  handleNewDM(data) {
+    let subDmIds = this.props.dmChannels.map(channel => channel.id);
+    if (subDmIds.includes((+data.channelId))) {
+      this.props.receiveMessageSubscribedChannel(data.channelId);
+    } else {
+      this.props.subscribeToChannel(data.channelId)
+        .then(() => this.props.receiveMessageSubscribedChannel(data.channelId));
+    }
   }
 
   handleNewMessage(data) {
