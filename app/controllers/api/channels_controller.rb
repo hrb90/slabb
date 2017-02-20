@@ -27,6 +27,8 @@ class Api::ChannelsController < ApplicationController
   def update
     @channel = Channel.includes(:messages).find(params[:id])
     if @channel && @channel.update(channel_params)
+      jsonify_channel = JSON.parse(render_to_string(template: "api/channels/show.json.jbuilder"))
+      Pusher.trigger('channel_' + params[:id].to_s, 'update_channel', { channel: jsonify_channel })
       render :show
     else
       render json: @channel.errors.full_messages, status: 422

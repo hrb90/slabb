@@ -21,6 +21,9 @@ class ChannelMessages extends React.Component {
     this.currentPusherChannel.bind('delete_message', data => {
       this.props.removeMessage(data.id);
     });
+    this.currentPusherChannel.bind('update_channel', data => {
+      this.props.receiveChannel(data.channel);
+    });
   }
 
   componentWillMount() {
