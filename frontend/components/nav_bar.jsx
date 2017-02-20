@@ -100,7 +100,6 @@ class NavBar extends React.Component {
 
   handleNewMessage(data) {
     if ((+data.channelId) !== this.props.currentChannelId) {
-      console.log("New message received!");
       this.props.receiveMessageSubscribedChannel(data.channelId);
     }
   }
