@@ -63,11 +63,16 @@
 .message {
   cursor: pointer;
   display: flex;
+  justify-content: space-between;
   padding: 2px 40px 4px 0;
 }
 
 .message:hover {
   background-color: #f5f5f5;
+}
+
+.message .message-main-container {
+  display: flex;
 }
 
 .message-header {

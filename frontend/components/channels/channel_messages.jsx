@@ -50,7 +50,8 @@ class ChannelMessages extends React.Component {
             isFirst={ firstMsgIds.includes(msg.id) }
             timestamp={ msg.created_at }
             currentUserId={ this.props.currentUserId }
-            beginEditMessage={ this.props.beginEditMessage(msg.id) } />);
+            beginEditMessage={ this.props.beginEditMessage(msg.id) }
+            deleteMessage={ this.props.deleteMessage(msg.id) } />);
       }
     };
   }

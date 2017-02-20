@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { subscribeToChannel, unsubscribeFromChannel, updateChannel } from '../../actions/channel_actions';
-import { createMessage, updateMessage, beginEditMessage, endEditMessage } from '../../actions/message_actions';
+import { createMessage, updateMessage, deleteMessage, beginEditMessage, endEditMessage } from '../../actions/message_actions';
 import { fixDMName } from '../../util/channel_util';
 import ChannelHeader from './header/channel_header';
 import ChannelMessages from './channel_messages';
@@ -25,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
   createMessage: channelId => message => dispatch(createMessage(channelId)(message)),
   updateMessage: message => dispatch(updateMessage(message)),
   beginEditMessage: messageId => () => dispatch(beginEditMessage(messageId)),
-  endEditMessage: messageId => dispatch(endEditMessage(messageId))
+  endEditMessage: messageId => dispatch(endEditMessage(messageId)),
+  deleteMessage: messageId => () => dispatch(deleteMessage(messageId))
 })
 
 
@@ -41,7 +42,8 @@ const Channel = props => (
        updateMessage={ props.updateMessage }
        beginEditMessage={ props.beginEditMessage }
        currentUserId={ props.currentUserId }
-       endEditMessage={ props.endEditMessage }/>
+       endEditMessage={ props.endEditMessage }
+       deleteMessage={ props.deleteMessage }/>
     <NewMessageForm isSubscribed={ props.isSubscribed }
       sendMessage={ props.createMessage(props.channelId) }
       subscribe={ props.subscribe(props.channelId) }/>
