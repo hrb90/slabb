@@ -55,16 +55,6 @@ class Api::MessagesController < ApplicationController
   end
 
   def jsonify_message(message)
-    return {
-      id: message.id,
-      channel_id: message.channel_id,
-      content: message.content,
-      created_at: message.created_at,
-      isEditing: false,
-      author: {
-        id: message.author.id,
-        username: message.author.username
-      }
-    }
+    return JSON.parse(render_to_string(template: "api/messages/_message.json.jbuilder", locals: { message: message }))
   end
 end
