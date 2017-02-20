@@ -101,6 +101,17 @@
   border-radius: 3px;
 }
 
+.msgs-container .message-form textarea {
+    height: 40px;
+    resize: none;
+    width: calc(100% - 60px);
+    border: 1px solid grey;
+    border-radius: 8px;
+}
+
+.msgs-container .message-form textarea:focus{
+    outline: none;
+}
 
 /*New Message Form styling*/
 
