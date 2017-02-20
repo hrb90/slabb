@@ -15,6 +15,12 @@ class ChannelMessages extends React.Component {
     this.currentPusherChannel.bind('new_message', data => {
       this.props.receiveNewMessage(data.message);
     });
+    this.currentPusherChannel.bind('edit_message', data => {
+      this.props.receiveOldMessage(data.message);
+    });
+    this.currentPusherChannel.bind('delete_message', data => {
+      this.props.removeMessage(data.id);
+    });
   }
 
   componentWillMount() {
@@ -27,7 +33,7 @@ class ChannelMessages extends React.Component {
 
   componentWillUpdate(nextProps) {
     if (this.props.channelId !== nextProps.channelId) {
-      this.pusher.unsubscribe(this.currentPusherChannel);
+      this.pusher.unsubscribe('channel_' + this.props.channelId);
       this.currentPusherChannel = this.pusher.subscribe('channel_' + nextProps.channelId);
       this.bindPusherChannel();
     }

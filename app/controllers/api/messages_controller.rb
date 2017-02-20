@@ -8,8 +8,8 @@ class Api::MessagesController < ApplicationController
     params = message_params.merge({channel_id: channel_id, author_id: current_user.id})
     @message = Message.new(params)
     if @message.save
-      json_message = jsonify_message(@message)
-      Pusher.trigger('channel_' + channel_id.to_s, 'new_message', { message: json_message })
+      Pusher.trigger('channel_' + channel_id.to_s, 'new_message', { message: jsonify_message(@message) })
+      Pusher.trigger('new_messages', 'new_message', { channelId: channel_id })
       render :show
     else
       render json: @message.errors.full_messages, status: 422
@@ -20,7 +20,7 @@ class Api::MessagesController < ApplicationController
     @message = Message.find(message_id)
     if @message
       if @message.update(message_params)
-        # Push an event!
+        Pusher.trigger('channel_' + @message.channel_id.to_s, 'edit_message', { message: jsonify_message(@message) })
         render :show
       else
         render json: @message.errors.full_messages, status: 422
@@ -33,7 +33,7 @@ class Api::MessagesController < ApplicationController
   def destroy
     @message = Message.find(message_id)
     if @message.destroy
-      # Push an event!
+      Pusher.trigger('channel_' + @message.channel_id.to_s, 'delete_message', { id: @message.id })
       render :show
     else
       render json: ["Something went wrong"], status: 422

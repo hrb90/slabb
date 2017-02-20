@@ -7,6 +7,7 @@ export const RECEIVE_ALL_SUBS = "RECEIVE_ALL_SUBS";
 export const RECEIVE_SUB = "RECEIVE_SUB";
 export const RECEIVE_UNSUB = "RECEIVE_UNSUB";
 export const RECEIVE_CHANNEL_ERRORS = "RECEIVE_CHANNEL_ERRORS";
+export const RECEIVE_MESSAGE_SUBSCRIBED_CHANNEL = "RCV_MSG_SUB_CHANNEL";
 
 export const receiveAllChannels = (channels) => ({
   channels,
@@ -31,6 +32,11 @@ export const receiveAllSubs = (channels) => ({
 export const receiveSub = (channel) => ({
   channel,
   type: RECEIVE_SUB
+});
+
+export const receiveMessageSubscribedChannel = id => ({
+  id,
+  type: RECEIVE_MESSAGE_SUBSCRIBED_CHANNEL
 });
 
 export const receiveUnsub = (channelId) => ({

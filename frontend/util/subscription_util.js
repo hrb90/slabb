@@ -3,7 +3,8 @@ export const extractChannelInfo = channel => {
     [channel.id]: {
       id: channel.id,
       name: channel.name,
-      channel_type: channel.channel_type
+      channel_type: channel.channel_type,
+      newMessages: false
     }
   };
 };

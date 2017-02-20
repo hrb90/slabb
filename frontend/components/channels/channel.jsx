@@ -4,7 +4,7 @@ import { subscribeToChannel, unsubscribeFromChannel, updateChannel } from '../..
 import { createMessage,
   updateMessage,
   deleteMessage,
-  eginEditMessage,
+  beginEditMessage,
   endEditMessage,
   receiveNewMessage,
   receiveOldMessage,
@@ -34,7 +34,9 @@ const mapDispatchToProps = dispatch => ({
   beginEditMessage: messageId => () => dispatch(beginEditMessage(messageId)),
   endEditMessage: messageId => dispatch(endEditMessage(messageId)),
   deleteMessage: messageId => () => dispatch(deleteMessage(messageId)),
-  receiveNewMessage: message => dispatch(receiveNewMessage(message))
+  receiveNewMessage: message => dispatch(receiveNewMessage(message)),
+  receiveOldMessage: message => dispatch(receiveOldMessage(message)),
+  removeMessage: id => dispatch(removeMessage(id))
 })
 
 
@@ -53,6 +55,8 @@ const Channel = props => (
        endEditMessage={ props.endEditMessage }
        deleteMessage={ props.deleteMessage }
        receiveNewMessage={ props.receiveNewMessage }
+       receiveOldMessage={ props.receiveOldMessage }
+       removeMessage={ props.removeMessage }
        channelId={ props.channelId }/>
     <NewMessageForm isSubscribed={ props.isSubscribed }
       sendMessage={ props.createMessage(props.channelId) }

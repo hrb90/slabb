@@ -28,11 +28,9 @@ const messageReducer = (state = initialState, action) => {
     case REMOVE_MESSAGE:
       idx = newState.findIndex(msg => msg.id === action.id);
       if (idx > -1) {
-        return state.slice(0, idx).concat(state.slice(idx + 1));
-      } else {
-        return state;
+        newState = state.slice(0, idx).concat(state.slice(idx + 1));
       }
-      break;
+      return newState;
     case BEGIN_EDIT_MESSAGE:
       idx = newState.findIndex(msg => msg.id === action.id);
       newState[idx].isEditing = true;

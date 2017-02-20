@@ -56,6 +56,11 @@ aside.nav-bar {
   background-color: #3D293B;
 }
 
+.nav-bar li.nb-channel.nb-channel-bold {
+  color: white;
+  font-weight: bold;
+}
+
 .current-nb-channel {
   background-color: #4C9689;
   color: white;
