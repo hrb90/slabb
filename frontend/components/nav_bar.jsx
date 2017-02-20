@@ -48,6 +48,7 @@ class NavBar extends React.Component {
     this.openDMs = this.openDMs.bind(this);
     this.openNewChannel = this.openNewChannel.bind(this);
     this.openSettings = this.openSettings.bind(this);
+    this.handleNewMessage = this.handleNewMessage.bind(this);
   }
 
   componentWillMount(){
@@ -57,9 +58,7 @@ class NavBar extends React.Component {
       encrypted: true
     });
     this.pusherChannel = this.pusher.subscribe('new_messages');
-    this.pusherChannel.bind('new_message', data => {
-      this.props.receiveMessageSubscribedChannel(data.id);
-    });
+    this.pusherChannel.bind('new_message', this.handleNewMessage);
   }
 
   closeChannels() {
@@ -77,6 +76,13 @@ class NavBar extends React.Component {
   closeSettings() {
     this.setState({settingsIsOpen: false});
     Modal.setAppElement('body');
+  }
+
+  handleNewMessage(data) {
+    if ((+data.channelId) !== this.props.currentChannelId) {
+      console.log("New message received!");
+      this.props.receiveMessageSubscribedChannel(data.channelId);
+    }
   }
 
   openChannels() {
