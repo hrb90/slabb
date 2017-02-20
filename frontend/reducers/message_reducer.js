@@ -12,7 +12,9 @@ const messageReducer = (state = initialState, action) => {
   let newState = state.slice(0);
   switch(action.type) {
     case RECEIVE_NEW_MESSAGE:
-      newState.push(action.message);
+      if (!newState.map(msg => msg.id).includes(action.message.id)) {
+        newState.push(action.message);
+      }
       return newState;
     case RECEIVE_OLD_MESSAGE:
       idx = newState.findIndex(msg => msg.id === action.message.id);

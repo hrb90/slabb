@@ -11,6 +11,28 @@ class ChannelMessages extends React.Component {
     this.pickFormOrMessage = this.pickFormOrMessage.bind(this);
   }
 
+  bindPusherChannel() {
+    this.currentPusherChannel.bind('new_message', data => {
+      this.props.receiveNewMessage(data.message);
+    });
+  }
+
+  componentWillMount() {
+    this.pusher = new Pusher('dd38d591c7efa0a63140', {
+      encrypted: true
+    });
+    this.currentPusherChannel = this.pusher.subscribe('channel_' + this.props.channelId);
+    this.bindPusherChannel();
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.props.channelId !== nextProps.channelId) {
+      this.pusher.unsubscribe(this.currentPusherChannel);
+      this.currentPusherChannel = this.pusher.subscribe('channel_' + nextProps.channelId);
+      this.bindPusherChannel();
+    }
+  }
+
   editCallback(message) {
     this.props.updateMessage(message)
       .then(() => this.props.endEditMessage(message.id));

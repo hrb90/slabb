@@ -8,6 +8,8 @@ class Api::MessagesController < ApplicationController
     params = message_params.merge({channel_id: channel_id, author_id: current_user.id})
     @message = Message.new(params)
     if @message.save
+      json_message = jsonify_message(@message)
+      Pusher.trigger('channel_' + channel_id.to_s, 'new_message', { message: json_message })
       render :show
     else
       render json: @message.errors.full_messages, status: 422
@@ -18,6 +20,7 @@ class Api::MessagesController < ApplicationController
     @message = Message.find(message_id)
     if @message
       if @message.update(message_params)
+        # Push an event!
         render :show
       else
         render json: @message.errors.full_messages, status: 422
@@ -30,6 +33,7 @@ class Api::MessagesController < ApplicationController
   def destroy
     @message = Message.find(message_id)
     if @message.destroy
+      # Push an event!
       render :show
     else
       render json: ["Something went wrong"], status: 422
@@ -48,5 +52,19 @@ class Api::MessagesController < ApplicationController
 
   def message_params
     params.require(:message).permit(:content)
+  end
+
+  def jsonify_message(message)
+    return {
+      id: message.id,
+      channel_id: message.channel_id,
+      content: message.content,
+      created_at: message.created_at,
+      isEditing: false,
+      author: {
+        id: message.author.id,
+        username: message.author.username
+      }
+    }
   end
 end
