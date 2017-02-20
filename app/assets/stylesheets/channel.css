@@ -83,11 +83,13 @@
 }
 
 .message .message-gutter {
+  align-items: center;
   color: #a0a0a0;
+  display: flex;
   font-size: 10px;
-  width: 36px;
-  max-height: 36px;
   margin-right: 10px;
+  max-height: 36px;
+  width: 36px;
 }
 
 .message.first img.avatar {
