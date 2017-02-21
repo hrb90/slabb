@@ -81,6 +81,11 @@ export const deleteChannel = id => dispatch => {
     .then(() => dispatch(removeChannel(id)));
 };
 
+export const subscribeToChannelNoRedirect = id => dispatch => {
+  return ChannelAPIUtil.subscribeToChannel(id)
+    .then(channel => dispatch(receiveSub(channel)));
+};
+
 export const subscribeToChannel = id => dispatch => {
   return ChannelAPIUtil.subscribeToChannel(id)
     .then(channel => {

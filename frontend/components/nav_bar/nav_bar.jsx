@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { merge } from 'lodash';
 import { fetchChannel,
   fetchSubscriptions,
-  subscribeToChannel,
+  subscribeToChannelNoRedirect,
   receiveMessageSubscribedChannel } from '../../actions/channel_actions';
 import { makeArrayFromObject } from '../../util/selectors';
 import { extractChannelInfo } from '../../util/subscription_util';
@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
   fetchChannel: id => () => dispatch(fetchChannel(id)),
   fetchSubscriptions: () => dispatch(fetchSubscriptions()),
   receiveMessageSubscribedChannel: id => dispatch(receiveMessageSubscribedChannel(id)),
-  subscribeToChannel: id => dispatch(subscribeToChannel(id))
+  subscribeToChannelNoRedirect: id => dispatch(subscribeToChannelNoRedirect(id))
 });
 
 class NavBar extends React.Component {
@@ -76,7 +76,7 @@ class NavBar extends React.Component {
     if (subDmIds.includes((+data.channelId))) {
       this.props.receiveMessageSubscribedChannel(data.channelId);
     } else {
-      this.props.subscribeToChannel(data.channelId)
+      this.props.subscribeToChannelNoRedirect(data.channelId)
         .then(() => this.props.receiveMessageSubscribedChannel(data.channelId));
     }
   }
