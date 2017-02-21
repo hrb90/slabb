@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './nav_bar';
+import NavBar from './nav_bar/nav_bar';
 import Channel from './channels/channel';
 
 const Main = props => (

@@ -6,14 +6,17 @@ import { merge } from 'lodash';
 import { fetchChannel,
   fetchSubscriptions,
   subscribeToChannel,
-  receiveMessageSubscribedChannel } from '../actions/channel_actions';
-import { makeArrayFromObject } from '../util/selectors';
-import { extractChannelInfo } from '../util/subscription_util';
-import { fixDMName } from '../util/channel_util';
-import LogoutButton from './auth/logout_button';
-import DMIndex from './channels/dms/dm_index';
-import ChannelIndex from './channels/channels/channel_index';
-import NewChannel from './channels/channels/new_channel';
+  receiveMessageSubscribedChannel } from '../../actions/channel_actions';
+import { makeArrayFromObject } from '../../util/selectors';
+import { extractChannelInfo } from '../../util/subscription_util';
+import NavListItem from './nav_list_item';
+import LogoutButton from '../auth/logout_button';
+import DMIndex from '../channels/dms/dm_index';
+import ChannelIndex from '../channels/channels/channel_index';
+import NewChannel from '../channels/channels/new_channel';
+import { fixDMName } from '../../util/channel_util';
+
+const curriedFixDMName = username => channelName => fixDMName(channelName, username);
 
 const mapStateToProps = ({session, subscriptions, currentChannel}) => {
   let nbSubs = merge({}, subscriptions, extractChannelInfo(currentChannel))
@@ -157,22 +160,12 @@ class NavBar extends React.Component {
             <NewChannel closeModal={ this.closeNewChannel } />
         </Modal>
         <ul>
-          { this.props.plainChannels.map(channel => {
-            let className = "nb-channel";
-            if (channel.id === this.props.currentChannelId) {
-              className += " current-nb-channel";
-            }
-            if (channel.newMessages) {
-              className += " nb-channel-bold";
-            }
-            return (
-              <li key={ channel.id }
-                className={ className }
-                onClick={ this.props.fetchChannel( channel.id ) }>
-                🅱️️ &nbsp; { channel.name }
-              </li>
-            );
-            })}
+          { this.props.plainChannels.map(channel =>
+            (<NavListItem key={ channel.id }
+              channel={ channel }
+              fetchChannel={ this.props.fetchChannel }
+              fixDMName={ curriedFixDMName(this.props.username) }
+              currentChannelId={ this.props.currentChannelId} />))}
         </ul>
         <span className="nb-index-link nb-modal-link" onClick={ this.openDMs }>Direct messages</span>
         <Modal
@@ -182,22 +175,12 @@ class NavBar extends React.Component {
             <DMIndex closeModal={ this.closeDMs } />
         </Modal>
         <ul>
-          { this.props.dmChannels.map(channel => {
-            let className = "nb-channel";
-            if (channel.id === this.props.currentChannelId) {
-              className += " current-nb-channel";
-            }
-            if (channel.newMessages) {
-              className += " nb-channel-bold";
-            }
-            return (
-              <li key={ channel.id }
-                className={ className }
-                onClick={ this.props.fetchChannel( channel.id ) }>
-                { fixDMName(channel.name, this.props.username) }
-              </li>
-            );
-          })}
+          { this.props.dmChannels.map(channel =>
+            (<NavListItem key={ channel.id }
+              channel={ channel }
+              fetchChannel={ this.props.fetchChannel }
+              fixDMName={ curriedFixDMName(this.props.username) }
+              currentChannelId={ this.props.currentChannelId} />))}
         </ul>
       </aside>
     );
