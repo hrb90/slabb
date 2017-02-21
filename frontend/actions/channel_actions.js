@@ -67,7 +67,7 @@ export const fetchChannel = id => dispatch => {
 
 export const createChannel = channel => dispatch => {
   return ChannelAPIUtil.createChannel(channel)
-    .then(retChannel => dispatch(receiveChannel(retChannel)))
+    .then(retChannel => dispatch(subscribeToChannel(retChannel.id)))
     .fail(err => dispatch(receiveChannelErrors(err.responseJSON)));
 };
 
