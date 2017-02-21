@@ -32,5 +32,5 @@ class Channel < ApplicationRecord
     through: :subscriptions,
     source: :user
 
-  has_many :messages
+  has_many :messages, -> { order(:created_at) }
 end
