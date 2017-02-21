@@ -26,10 +26,7 @@ const messageReducer = (state = initialState, action) => {
       }
       break;
     case REMOVE_MESSAGE:
-      idx = newState.findIndex(msg => msg.id === action.id);
-      if (idx > -1) {
-        newState = state.slice(0, idx).concat(state.slice(idx + 1));
-      }
+      newState = newState.filter(msg => (msg.id !== action.id));
       return newState;
     case BEGIN_EDIT_MESSAGE:
       idx = newState.findIndex(msg => msg.id === action.id);
