@@ -26,11 +26,11 @@ class Channel < ApplicationRecord
     self.dm_hash = Digest::SHA256.base64digest(dms.sort.join(','))
   end
 
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
 
   has_many :subscribers,
     through: :subscriptions,
     source: :user
 
-  has_many :messages, -> { order(created_at: :desc) }
+  has_many :messages, -> { order(created_at: :desc) }, dependent: :destroy
 end

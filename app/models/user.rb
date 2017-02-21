@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   attr_reader :password
 
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :subscribed_channels,
     through: :subscriptions,
     source: :channel
@@ -27,7 +27,8 @@ class User < ApplicationRecord
   has_many :messages,
     class_name: "Message",
     primary_key: :id,
-    foreign_key: :author_id
+    foreign_key: :author_id,
+    dependent: :destroy
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
