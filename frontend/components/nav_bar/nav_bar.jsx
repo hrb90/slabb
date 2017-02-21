@@ -9,10 +9,10 @@ import { fetchChannel,
 import { makeArrayFromObject } from '../../util/selectors';
 import { extractChannelInfo } from '../../util/subscription_util';
 import NavListItem from './nav_list_item';
-import LogoutButton from '../auth/logout_button';
-import DMIndex from '../channels/dms/dm_index';
+import UserDropdown from './user_dropdown';
 import ChannelIndex from '../channels/channels/channel_index';
 import NewChannel from '../channels/channels/new_channel';
+import DMIndex from '../channels/dms/dm_index';
 import { fixDMName } from '../../util/channel_util';
 
 const curriedFixDMName = username => channelName => fixDMName(channelName, username);
@@ -107,8 +107,7 @@ class NavBar extends React.Component {
           isOpen={ this.state.settings }
           onRequestClose={ this.closeModal("settings") }
           contentLabel="Settings">
-          <LogoutButton beforeLogoutCallback={ this.closeModal("settings") } />
-          <button onClick={ this.closeModal("settings") }>Close</button>
+            <UserDropdown closeModal={ this.closeModal("settings") } />
         </Modal>
         <span>
           <p className="nb-index-link nb-modal-link" onClick={ this.openModal("channels") }>Channels</p>

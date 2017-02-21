@@ -170,3 +170,20 @@ form.new-channel-form textarea {
     margin: 10px 0;
     padding: 5px;
 }
+
+
+.user-dropdown input {
+    background-color: #2AB27B;
+    color: white;
+    border: none;
+    height: 40px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 10px;
+}
+
+.user-dropdown input:hover {
+    border-bottom: 2px solid #20865D;
+    cursor: pointer;
+}
