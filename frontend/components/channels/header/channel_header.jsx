@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
-import { updateChannel, unsubscribeFromChannel } from '../../../actions/channel_actions';
+import { updateChannel, fetchChannel, unsubscribeFromChannel } from '../../../actions/channel_actions';
 import { fixDMName } from '../../../util/channel_util';
 import TopicForm from './topic_form';
 import ClickableIcon from './clickable_icon';
@@ -22,22 +22,24 @@ const topicBar = (topic, update, disabled) => (
   </form>
 );
 
-const mapStateToProps = ({ currentChannel, session }) => ({
+const mapStateToProps = ({ currentChannel, session, channelStack }) => ({
+  prevChannelId: channelStack[channelStack.length - 2],
   type: currentChannel.channel_type,
   channelName: (currentChannel.channel_type !== "dm") ? currentChannel.name : fixDMName(currentChannel.name, session.currentUser.username),
-  topic: currentChannel.topic,
+  topic: currentChannel.topic
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   update: channel => dispatch(updateChannel(merge({}, channel, {id: ownProps.channelId}))),
-  unsubscribe: () => dispatch(unsubscribeFromChannel(ownProps.channelId))
+  unsubscribe: prevChannelId => () => dispatch(unsubscribeFromChannel(ownProps.channelId))
+                      .then(() => dispatch(fetchChannel(prevChannelId)))
 })
 
 class ChannelHeader extends React.Component {
   getInfoBarComponents() {
     if (this.props.type === "channel") {
       if (this.props.isSubscribed) {
-        return [unsubscribeIcon(this.props.unsubscribe),
+        return [unsubscribeIcon(this.props.unsubscribe(this.props.prevChannelId)),
           userListIcon,
           topicBar(this.props.topic, this.props.update, false)];
       } else {
