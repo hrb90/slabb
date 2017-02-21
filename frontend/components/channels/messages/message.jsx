@@ -24,8 +24,10 @@ const Message = ({author,
     return (
       <div className="message first">
         <div className="message-main-container">
-          <img className="avatar message-gutter"
+          <div className="message-gutter">
+            <img className="avatar"
             src="http://appacademy.github.io/css-friends/shared/img/cat.jpg"></img>
+          </div>
           <div className="message-container">
             <p className="message-header">
               <strong className="author-name">{ author.username }</strong>
@@ -46,7 +48,7 @@ const Message = ({author,
       <div className="message">
         <div className="message-main-container">
           <div className="message-gutter">
-            { timeString }
+            <p className="timestamp">{ timeString }</p>
           </div>
           <div className="message-container">
             <p className="msg-content">
