@@ -1,8 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { updateMessage,
+  deleteMessage,
+  beginEditMessage,
+  endEditMessage } from '../../actions/message_actions';
 import Message from './messages/message';
 import MessageForm from './message_form';
 
 const MAX_GROUP_TIME_DIFF = 30 * 60 * 1000; // 30 minutes in milliseconds
+
+const mapStateToProps = ({ currentChannel, session }) => ({
+  messages: currentChannel.messages,
+  currentUserId: session.currentUser.id
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateMessage: message => dispatch(updateMessage(message)),
+  beginEditMessage: messageId => () => dispatch(beginEditMessage(messageId)),
+  endEditMessage: messageId => () => dispatch(endEditMessage(messageId)),
+  deleteMessage: messageId => () => dispatch(deleteMessage(messageId))
+});
 
 class ChannelMessages extends React.Component {
   constructor(props) {
@@ -11,41 +28,9 @@ class ChannelMessages extends React.Component {
     this.pickFormOrMessage = this.pickFormOrMessage.bind(this);
   }
 
-  bindPusherChannel() {
-    this.currentPusherChannel.bind('new_message', data => {
-      this.props.receiveNewMessage(data.message);
-    });
-    this.currentPusherChannel.bind('edit_message', data => {
-      this.props.receiveOldMessage(data.message);
-    });
-    this.currentPusherChannel.bind('delete_message', data => {
-      this.props.removeMessage(data.id);
-    });
-    this.currentPusherChannel.bind('update_channel', data => {
-      this.props.receiveChannel(data.channel);
-    });
-  }
-
-  componentWillMount() {
-    this.pusher = new Pusher('dd38d591c7efa0a63140', {
-      encrypted: true
-    });
-    this.currentPusherChannel = this.pusher.subscribe('channel_' + this.props.channelId);
-    this.bindPusherChannel();
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.channelId !== nextProps.channelId) {
-      this.pusher.unsubscribe('channel_' + this.props.channelId);
-      this.currentPusherChannel = this.pusher.subscribe('channel_' + nextProps.channelId);
-      this.props.clearNewMessages(nextProps.channelId);
-      this.bindPusherChannel();
-    }
-  }
-
   editCallback(message) {
     this.props.updateMessage(message)
-      .then(() => this.props.endEditMessage(message.id));
+      .then(this.props.endEditMessage(message.id));
   }
 
   firstMsgIds(messages) {
@@ -71,15 +56,15 @@ class ChannelMessages extends React.Component {
     return (msg) => {
       if (msg.isEditing) {
         return (
-          <MessageForm key={ msg.id }
+          <MessageForm key={ "edit" + msg.id }
             messageId={ msg.id }
             content={ msg.content }
             submitCallback={ this.editCallback }
-            blurCallback={ () => this.props.endEditMessage(msg.id) }
+            blurCallback={ this.props.endEditMessage(msg.id) }
             focusOnMount={ true }/>);
       } else {
           return (<Message author={ msg.author }
-            key={ msg.id }
+            key={ "message" + msg.id }
             content={ msg.content }
             isFirst={ firstMsgIds.includes(msg.id) }
             timestamp={ msg.created_at }
@@ -100,4 +85,4 @@ class ChannelMessages extends React.Component {
   }
 }
 
-export default ChannelMessages;
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelMessages);

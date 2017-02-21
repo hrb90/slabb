@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { merge } from 'lodash';
+import { updateChannel, unsubscribeFromChannel } from '../../../actions/channel_actions';
+import { fixDMName } from '../../../util/channel_util';
 import TopicForm from './topic_form';
 import ClickableIcon from './clickable_icon';
 
@@ -17,6 +21,17 @@ const topicBar = (topic, update, disabled) => (
     <TopicForm topic={ topic } update={ update } isDisabled={ disabled } />
   </form>
 );
+
+const mapStateToProps = ({ currentChannel, session }) => ({
+  type: currentChannel.channel_type,
+  channelName: (currentChannel.channel_type !== "dm") ? currentChannel.name : fixDMName(currentChannel.name, session.currentUser.username),
+  topic: currentChannel.topic,
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  update: channel => dispatch(updateChannel(merge({}, channel, {id: ownProps.channelId}))),
+  unsubscribe: () => dispatch(unsubscribeFromChannel(ownProps.channelId))
+})
 
 class ChannelHeader extends React.Component {
   getInfoBarComponents() {
@@ -47,4 +62,4 @@ class ChannelHeader extends React.Component {
   }
 }
 
-export default ChannelHeader;
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelHeader);
