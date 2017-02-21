@@ -53,17 +53,21 @@
 /*Messages styling*/
 
 .msgs-container {
+  display: flex;
+  flex-direction: column-reverse;
   color: #303030;
   font-size: 16px;
-  height: calc(100vh - 130px);
+  height: calc(100vh - 140px);
   overflow-x: hidden;
   overflow-y: auto;
   padding-left: 20px;
+  padding-bottom: 10px;
 
   .message {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
+    min-height: 24px;
     padding: 2px 40px 4px 0;
 
     .message-main-container {
@@ -111,6 +115,10 @@
         display: none;
       }
     }
+  }
+
+  .message.first {
+    min-height: 36px;
   }
 
   .message:hover {

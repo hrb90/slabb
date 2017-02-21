@@ -33,7 +33,8 @@ class ChannelMessages extends React.Component {
       .then(this.props.endEditMessage(message.id));
   }
 
-  firstMsgIds(messages) {
+  firstMsgIds(msgs) {
+    let messages = msgs.slice(0).reverse();
     let firstMsgIds = [];
     if (messages.length > 0) {
       firstMsgIds.push(messages[0].id);

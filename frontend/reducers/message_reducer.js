@@ -13,7 +13,7 @@ const messageReducer = (state = initialState, action) => {
   switch(action.type) {
     case RECEIVE_NEW_MESSAGE:
       if (!newState.map(msg => msg.id).includes(action.message.id)) {
-        newState.push(action.message);
+        newState.unshift(action.message);
       }
       return newState;
     case RECEIVE_OLD_MESSAGE:
