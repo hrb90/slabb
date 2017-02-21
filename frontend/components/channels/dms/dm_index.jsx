@@ -35,7 +35,7 @@ class DMIndex extends React.Component {
 
   filter(users) {
     return users.filter(user => {
-      return user.username.includes(this.state.query)
+      return user.username.toLowerCase().includes(this.state.query.toLowerCase())
         && user.id !== this.props.currentUser.id
     });
   }

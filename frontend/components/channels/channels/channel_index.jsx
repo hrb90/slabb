@@ -29,7 +29,7 @@ class ChannelIndex extends React.Component{
 
   filter(channels) {
     return channels.filter(channel => {
-      return channel.name.includes(this.state.query)
+      return channel.name.toLowerCase().includes(this.state.query.toLowerCase())
     });
   }
 
