@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { receiveChannel, clearNewMessages } from '../../actions/channel_actions';
+import { receiveChannel, clearNewMessages, receiveSubscriber, removeSubscriber } from '../../actions/channel_actions';
 import { receiveNewMessage, receiveOldMessage, removeMessage } from '../../actions/message_actions';
 import { receiveCurrentUser } from '../../actions/session_actions';
 import { updateUser } from '../../actions/user_actions';
@@ -21,7 +21,9 @@ const mapDispatchToProps = dispatch => ({
   clearNewMessages: channelId => dispatch(clearNewMessages(channelId)),
   receiveChannel: channel => dispatch(receiveChannel(channel)),
   updateUser: user => dispatch(updateUser(user)),
-  receiveCurrentUser: user => dispatch(receiveCurrentUser(user))
+  receiveCurrentUser: user => dispatch(receiveCurrentUser(user)),
+  receiveSubscriber: user => dispatch(receiveSubscriber(user)),
+  removeSubscriber: user => dispatch(removeSubscriber(user))
 })
 
 
@@ -38,6 +40,12 @@ class Channel extends React.Component {
     });
     this.currentPusherChannel.bind('update_channel', data => {
       this.props.receiveChannel(data.channel);
+    });
+    this.currentPusherChannel.bind('receive_subscriber', data => {
+      this.props.receiveSubscriber(data.user);
+    });
+    this.currentPusherChannel.bind('remove_subscriber', data => {
+      this.props.removeSubscriber(data.user);
     });
   }
 

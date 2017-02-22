@@ -2,8 +2,8 @@ import { RECEIVE_NEW_MESSAGE,
   RECEIVE_OLD_MESSAGE,
   REMOVE_MESSAGE,
   BEGIN_EDIT_MESSAGE,
-  END_EDIT_MESSAGE } from '../actions/message_actions';
-import { RECEIVE_NEW_AVATAR } from '../actions/user_actions';
+  END_EDIT_MESSAGE } from '../../actions/message_actions';
+import { RECEIVE_NEW_AVATAR } from '../../actions/user_actions';
 
 const initialState = [];
 

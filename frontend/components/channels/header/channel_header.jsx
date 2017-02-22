@@ -11,9 +11,10 @@ const unsubscribeIcon = unsubscribe => (<ClickableIcon key="unsubscribeIcon"
   altText="Unsubscribe from this channel"
   onClick={ unsubscribe } />);
 
-const userListIcon = (<ClickableIcon key="userListIcon"
+const userListIcon = subscribers => (<ClickableIcon key="userListIcon"
   faName="fa-user-o"
   altText="See a list of users"
+  afterText={ subscribers.length }
   onClick={ () => {} } />);
 
 const topicBar = (topic, update, disabled) => (
@@ -26,7 +27,8 @@ const mapStateToProps = ({ currentChannel, session, channelStack }) => ({
   prevChannelId: channelStack[channelStack.length - 2],
   type: currentChannel.channel_type,
   channelName: (currentChannel.channel_type !== "dm") ? currentChannel.name : fixDMName(currentChannel.name, session.currentUser.username),
-  topic: currentChannel.topic
+  topic: currentChannel.topic,
+  subscribers: currentChannel.subscribers
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -40,7 +42,7 @@ class ChannelHeader extends React.Component {
     if (this.props.type === "channel") {
       if (this.props.isSubscribed) {
         return [unsubscribeIcon(this.props.unsubscribe(this.props.prevChannelId)),
-          userListIcon,
+          userListIcon(this.props.subscribers),
           topicBar(this.props.topic, this.props.update, false)];
       } else {
         return [userListIcon,

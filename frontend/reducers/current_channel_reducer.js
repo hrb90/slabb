@@ -1,6 +1,7 @@
 import { LOG_OUT } from '../actions/session_actions';
 import { RECEIVE_CHANNEL } from '../actions/channel_actions';
-import messageReducer from './message_reducer';
+import messageReducer from './current_channel/message_reducer';
+import subscriptionReducer from './current_channel/subscription_reducer';
 import { merge } from 'lodash';
 
 const initialState = { messages: [] };
@@ -15,6 +16,7 @@ const currChannelReducer = (state = initialState, action) => {
     default:
       let newState = merge({}, state);
       newState.messages = messageReducer(state.messages, action);
+      newState.subscribers = subscriptionReducer(state.subscribers, action);
       return newState;
   }
 };

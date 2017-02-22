@@ -20,7 +20,7 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.includes(messages: [:author]).find(params[:id])
+    @channel = Channel.includes([:subscribers, messages: [:author]]).find(params[:id])
     render :show
   end
 
@@ -53,6 +53,7 @@ class Api::ChannelsController < ApplicationController
       subscription = Subscription.new({user_id: current_user.id, channel_id: params[:channel_id]})
       if subscription.save
         @channel = subscription.channel
+        Pusher.trigger('channel_' + params[:channel_id].to_s, 'receive_subscriber', { user: current_user })
         render :show
       else
         render json: subscription.errors.full_messages, status: 422
@@ -64,6 +65,7 @@ class Api::ChannelsController < ApplicationController
     @subscription = Subscription.find_by({user_id: current_user.id, channel_id: params[:channel_id]})
     if @subscription
       if @subscription.destroy
+        Pusher.trigger('channel_' + params[:channel_id].to_s, 'remove_subscriber', { user: current_user })
         render "api/subscriptions/show"
       else
         render json: subscription.errors.full_messages, status: 422
