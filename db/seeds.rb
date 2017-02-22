@@ -20,3 +20,17 @@ channels = Channel.create([{name: "general", description: "Team-wide announcemen
 jeff = User.create({username: "jwu", password: "jeffwutangclan"})
 guest = User.create({username: "guest", password: "bemyguest"})
 harrison = User.create({username: "harrison", password: "notmyrealpassword"})
+lbj = User.create({username: "lbj", password: "iwillbepresident"})
+bobby = User.create({username: "rfk", password: "sirhansirhan"})
+mcnamara = User.create({username: "whizkid16", password: "containment"})
+
+users = [jeff, lbj, bobby, mcnamara]
+
+
+50.times do
+  Message.create({
+    author_id: users.sample.id,
+    channel_id: channels.sample.id,
+    content: Faker::Hacker.say_something_smart
+    })
+end
