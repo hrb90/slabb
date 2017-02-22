@@ -2,14 +2,15 @@
 #
 # Table name: channels
 #
-#  id           :integer          not null, primary key
-#  name         :string           not null
-#  description  :text
-#  topic        :string
-#  dm_hash      :string
-#  channel_type :string           default("channel"), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :integer          not null, primary key
+#  name          :string           not null
+#  description   :text
+#  topic         :string
+#  dm_hash       :string
+#  channel_type  :string           default("channel"), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  autosubscribe :boolean          default("false")
 #
 
 require "digest"
@@ -18,6 +19,7 @@ class Channel < ApplicationRecord
   validates :name, :channel_type, presence: true
   validates :name, uniqueness: true
   validates :channel_type, inclusion: { in: ["channel", "dm"] }
+  validates :autosubscribe, inclusion: { in: [true, false] }
 
   after_create :make_subscriptions
 
@@ -29,6 +31,7 @@ class Channel < ApplicationRecord
   end
 
   def make_subscriptions
+    @dm_user_ids ||= []
     @dm_user_ids.each do |user_id|
       Subscription.create({user_id: user_id, channel_id: self.id})
     end
