@@ -45,12 +45,18 @@ class Api::ChannelsController < ApplicationController
   end
 
   def subscribe
-    subscription = Subscription.new({user_id: current_user.id, channel_id: params[:channel_id]})
-    if subscription.save
-      @channel = subscription.channel
+    duplicate_sub = Subscription.find_by(user_id: current_user.id, channel_id: params[:channel_id])
+    unless duplicate_sub.nil?
+      @channel = duplicate_sub.channel
       render :show
     else
-      render json: subscription.errors.full_messages, status: 422
+      subscription = Subscription.new({user_id: current_user.id, channel_id: params[:channel_id]})
+      if subscription.save
+        @channel = subscription.channel
+        render :show
+      else
+        render json: subscription.errors.full_messages, status: 422
+      end
     end
   end
 

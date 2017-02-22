@@ -19,11 +19,19 @@ class Channel < ApplicationRecord
   validates :name, uniqueness: true
   validates :channel_type, inclusion: { in: ["channel", "dm"] }
 
+  after_create :make_subscriptions
+
   attr_reader :dm_user_ids
 
   def dm_user_ids=(dms)
     @dm_user_ids = dms
     self.dm_hash = Digest::SHA256.base64digest(dms.sort.join(','))
+  end
+
+  def make_subscriptions
+    @dm_user_ids.each do |user_id|
+      Subscription.create({user_id: user_id, channel_id: self.id})
+    end
   end
 
   has_many :subscriptions, dependent: :destroy
