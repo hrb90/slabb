@@ -15,3 +15,7 @@ export const fetchUsers = () => dispatch => {
 export const updateUser = user => dispatch => {
   return APIUtil.updateUser(user);
 };
+
+export const updateUserAvatar = (id, formData) => dispatch => {
+  return APIUtil.updateUserAvatar(id, formData);
+};
