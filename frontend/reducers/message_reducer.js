@@ -3,6 +3,7 @@ import { RECEIVE_NEW_MESSAGE,
   REMOVE_MESSAGE,
   BEGIN_EDIT_MESSAGE,
   END_EDIT_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_NEW_AVATAR } from '../actions/user_actions';
 
 const initialState = [];
 
@@ -35,6 +36,14 @@ const messageReducer = (state = initialState, action) => {
     case END_EDIT_MESSAGE:
       idx = newState.findIndex(msg => msg.id === action.id);
       newState[idx].isEditing = false;
+      return newState;
+    case RECEIVE_NEW_AVATAR:
+      newState = newState.map(msg => {
+        if (msg.author.id === action.id) {
+          msg.author.avatar_url = action.avatar_url;
+        }
+        return msg;
+      });
       return newState;
     default:
       return state;

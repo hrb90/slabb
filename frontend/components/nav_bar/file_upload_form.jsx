@@ -21,10 +21,10 @@ class FileUploadForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger
     let formData = new FormData();
     formData.append("user[avatar]", this.state.imageFile);
-    this.props.updateUserAvatar(this.props.currentUserId, formData);
+    this.props.updateUserAvatar(this.props.currentUserId, formData)
+      .then(() => this.uploadSuccessMessage.className="upload-success");
   }
 
   updateFile(e) {
@@ -36,16 +36,19 @@ class FileUploadForm extends React.Component {
 
     if (file) {
       fileReader.readAsDataURL(file);
+      this.uploadSuccessMessage.className="upload-success hidden";
     }
   }
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <input type="file" onChange={ this.updateFile } />
-        <input type="submit" value="Upload avatar" />
+      <form className="avatar-form" onSubmit={ this.handleSubmit }>
         <img src={ this.state.imageUrl} />
-      </form>
+        <input className="file-upload-input" type="file" onChange={ this.updateFile } />
+        <input type="submit" value="Upload avatar" />
+        <span ref={ span => this.uploadSuccessMessage = span }
+          className="upload-success hidden">Upload successful!</span>
+       </form>
     )
   }
 }

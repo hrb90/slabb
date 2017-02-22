@@ -171,19 +171,43 @@ form.new-channel-form textarea {
     padding: 5px;
 }
 
+.user-dropdown {
 
-.user-dropdown input {
+  input[type="submit"] {
     background-color: #2AB27B;
     color: white;
     border: none;
+    border-radius: 5px;
     height: 40px;
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 600;
     margin: 10px;
-}
+  }
 
-.user-dropdown input:hover {
+  input[type="submit"]:hover {
     border-bottom: 2px solid #20865D;
     cursor: pointer;
+  }
+
+  .avatar-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      max-height: 200px;
+      max-width: 200px;
+    }
+
+    .file-upload-input {
+      text-align: center;
+    }
+
+    .upload-success {
+      color: red;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
 }
