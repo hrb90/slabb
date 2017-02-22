@@ -8,6 +8,7 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  last_channel_id :integer
 #
 
 class User < ApplicationRecord

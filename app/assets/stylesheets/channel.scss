@@ -64,7 +64,7 @@
   padding-bottom: 10px;
 
   .message {
-    cursor: pointer;
+    cursor: text;
     display: flex;
     justify-content: space-between;
     min-height: 24px;
@@ -77,12 +77,13 @@
         align-items: center;
         color: #a0a0a0;
         display: flex;
-        font-size: 10px;
+        font-size: 12px;
         margin-right: 10px;
         max-height: 36px;
         width: 36px;
 
         .timestamp {
+          margin: 0 auto;
           display: none;
         }
 
@@ -112,6 +113,7 @@
 
     .msg-buttons-container {
       i {
+        cursor: pointer;
         display: none;
       }
     }

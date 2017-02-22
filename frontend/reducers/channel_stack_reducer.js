@@ -1,5 +1,5 @@
 import { LOG_OUT } from '../actions/session_actions';
-import { RECEIVE_CHANNEL, RECEIVE_UNSUB } from '../actions/channel_actions';
+import { RECEIVE_CHANNEL, REMOVE_CHANNEL, RECEIVE_UNSUB } from '../actions/channel_actions';
 
 const initialState = [];
 
@@ -12,6 +12,7 @@ const channelStackReducer = (state = initialState, action) => {
       newState.push(action.channel.id);
       return newState;
     case RECEIVE_UNSUB:
+    case REMOVE_CHANNEL:
       newState = state.filter(id => (id !== (+action.channelId)));
       return newState;
     case LOG_OUT:

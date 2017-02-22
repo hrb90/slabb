@@ -1,6 +1,6 @@
-import * as APIUtil from './util/message_api_util';
+import * as ChannelActions from './actions/channel_actions';
 
 export const attachAll = () => {
   window.logError = (err) => console.log(err.responseText);
-  window.APIUtil = APIUtil;
+  window.ChannelActions = ChannelActions;
 };

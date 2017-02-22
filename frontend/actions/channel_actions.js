@@ -77,7 +77,7 @@ export const updateChannel = channel => dispatch => {
 };
 
 export const deleteChannel = id => dispatch => {
-  return ChannelAPIUtil.fetchChannel(id)
+  return ChannelAPIUtil.deleteChannel(id)
     .then(() => dispatch(removeChannel(id)));
 };
 
