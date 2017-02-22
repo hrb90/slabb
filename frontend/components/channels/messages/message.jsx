@@ -25,7 +25,7 @@ const Message = ({author,
         <div className="message-main-container">
           <div className="message-gutter">
             <img className="avatar"
-            src="http://appacademy.github.io/css-friends/shared/img/cat.jpg"></img>
+            src={ author.avatar_url }></img>
           </div>
           <div className="message-container">
             <p className="message-header">

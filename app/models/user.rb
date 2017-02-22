@@ -31,6 +31,9 @@ class User < ApplicationRecord
     foreign_key: :author_id,
     dependent: :destroy
 
+  has_attached_file :avatar, default_url: "http://appacademy.github.io/css-friends/shared/img/cat.jpg"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     if user && user.is_password?(password)
