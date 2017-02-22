@@ -22,3 +22,6 @@
 # Ignore bundled scripts
 /app/assets/javascripts/bundle.js
 /app/assets/javascripts/bundle.js.map
+
+# Ignore application config
+/config/application.yml

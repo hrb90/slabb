@@ -23,6 +23,7 @@ const mapStateToProps = ({session, subscriptions, currentChannel}) => {
   let dms = subArray.filter((channel) => (channel.channel_type === "dm"));
   let channels = subArray.filter((channel) => (channel.channel_type === "channel"));
   return {
+    lastChannelId: session.currentUser.last_channel_id,
     username: session.currentUser.username,
     plainChannels: channels,
     dmChannels: dms,
@@ -65,6 +66,9 @@ class NavBar extends React.Component {
   componentWillMount(){
     Modal.setAppElement('body');
     this.props.fetchSubscriptions();
+    if (this.props.lastChannelId) {
+      this.props.fetchChannel(this.props.lastChannelId)();
+    }
   }
 
   closeModal(name) {
