@@ -36,7 +36,12 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-
+    @channel = Channel.find(params[:id])
+    if @channel.destroy
+      render json: { id: params[:id] }
+    else
+      render json: ["Something went wrong"], status: 422
+    end
   end
 
   def subscribe

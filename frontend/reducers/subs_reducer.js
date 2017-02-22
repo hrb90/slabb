@@ -2,6 +2,7 @@ import { RECEIVE_ALL_SUBS,
   RECEIVE_SUB,
   RECEIVE_UNSUB,
   RECEIVE_MESSAGE_SUBSCRIBED_CHANNEL,
+  REMOVE_CHANNEL,
   CLEAR_NEW_MESSAGES } from '../actions/channel_actions';
 import { merge } from 'lodash';
 import { extractChannelInfo } from '../util/subscription_util';
@@ -19,6 +20,7 @@ const subsReducer = (state = initialState, action) => {
       let newChannel = action.channel;
       return merge({}, state, extractChannelInfo(newChannel));
     case RECEIVE_UNSUB:
+    case REMOVE_CHANNEL:
       delete newState[action.channelId];
       return newState;
     case RECEIVE_MESSAGE_SUBSCRIBED_CHANNEL:
