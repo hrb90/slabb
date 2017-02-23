@@ -6,6 +6,7 @@ const UserList = ({users, selectUser}) => {
     <ul>
       { users.map(user => (
         <IndexListItem name={ user.username }
+          imageUrl={ user.avatar_url }
           description=""
           key={ user.id }
           clickHandler={ selectUser(user) } />
