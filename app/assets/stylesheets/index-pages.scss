@@ -195,13 +195,34 @@ form.new-channel-form textarea {
     flex-direction: column;
     align-items: center;
 
-    img {
-      max-height: 200px;
-      max-width: 200px;
+
+    label.avatar-container {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p.avatar-hint {
+        position: relative;
+        bottom: 100px;
+        display: none;
+        font-size: 20px;
+        color: white;
+        font-weight: bold;
+        height: 0;
+      }
+
+      img {
+        max-height: 200px;
+        max-width: 200px;
+      }
     }
 
-    .file-upload-input {
-      text-align: center;
+    label.avatar-container:hover {
+
+      p.avatar-hint {
+        display: block;
+      }
     }
 
     .upload-success {

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { updateUserAvatar } from '../../actions/user_actions';
 
 const mapStateToProps = ({session}) => ({
-  currentUserId: session.currentUser.id
+  currentUserId: session.currentUser.id,
+  avatar_url: session.currentUser.avatar_url
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -14,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
 class FileUploadForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { imageFile: null, imageUrl: null };
+    this.state = { imageFile: null, imageUrl: this.props.avatar_url || null, uploadButtonClass: "hidden" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
   }
@@ -31,7 +32,7 @@ class FileUploadForm extends React.Component {
     let file = e.currentTarget.files[0];
     const fileReader = new FileReader();
     fileReader.onloadend = function () {
-      this.setState({ imageFile: file, imageUrl: fileReader.result });
+      this.setState({ imageFile: file, imageUrl: fileReader.result, uploadButtonClass: "" });
     }.bind(this);
 
     if (file) {
@@ -43,9 +44,14 @@ class FileUploadForm extends React.Component {
   render() {
     return (
       <form className="avatar-form" onSubmit={ this.handleSubmit }>
-        <img src={ this.state.imageUrl} />
-        <input className="file-upload-input" type="file" onChange={ this.updateFile } />
-        <input type="submit" value="Upload avatar" />
+        <label className="avatar-container">
+          Your avatar
+          <img src={ this.state.imageUrl}>
+          </img>
+          <p className="avatar-hint">Change your avatar</p>
+          <input className="file-upload-input hidden" type="file" onChange={ this.updateFile } />
+        </label>
+        <input className={ this.state.uploadButtonClass } type="submit" value="Upload avatar" />
         <span ref={ span => this.uploadSuccessMessage = span }
           className="upload-success hidden">Upload successful!</span>
        </form>
