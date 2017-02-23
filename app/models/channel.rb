@@ -23,10 +23,12 @@ class Channel < ApplicationRecord
   validates :autosubscribe, inclusion: { in: [true, false] }
   validates_format_of :name,
     with: /\A[a-z\d\-]*\z/i,
-    message: "can only include lowercase letters, numbers, and hyphens"
+    message: "can only include lowercase letters, numbers, and hyphens",
+    unless: :is_dm?
   validates_format_of :name,
     with: /\A[a-z\d].*[a-z\d]\z/i,
-    message: "must begin and end with a letter or number"
+    message: "must begin and end with a letter or number",
+    unless: :is_dm?
 
 
   after_create :make_subscriptions
@@ -43,6 +45,10 @@ class Channel < ApplicationRecord
     @dm_user_ids.each do |user_id|
       Subscription.create({user_id: user_id, channel_id: self.id})
     end
+  end
+
+  def is_dm?
+    self.channel_type == "dm"
   end
 
   has_many :subscriptions, dependent: :destroy
