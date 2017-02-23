@@ -194,7 +194,7 @@ form.new-channel-form textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    height: 300px;
 
     label.avatar-container {
       cursor: pointer;
@@ -213,8 +213,8 @@ form.new-channel-form textarea {
       }
 
       img {
-        max-height: 200px;
-        max-width: 200px;
+        height: 200px;
+        width: 200px;
       }
     }
 
