@@ -15,7 +15,10 @@ const userListIcon = subscribers => (<ClickableIcon key="userListIcon"
   faName="fa-user-o"
   altText="See a list of users"
   afterText={ subscribers.length }
-  onClick={ () => {} } />);
+  onClick={ () => {
+    let sidebar = document.getElementById("channel-sidebar");
+    sidebar.className = "";
+  } } />);
 
 const topicBar = (topic, update, disabled) => (
   <form key="topicBar" className="ch-topic-form">
