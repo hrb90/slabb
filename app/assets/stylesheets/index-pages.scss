@@ -5,124 +5,118 @@
   font-family: sans-serif;
   justify-content: space-between;;
   align-items: center;
-}
 
-.channel-index {
-  overflow: hidden;
-  width: 600px;
-}
+  .channel-index {
+    overflow: hidden;
+    width: 600px;
 
-.search-bar-container {
-  display: flex;
-  align-items: stretch;
-  height: 40px;
-}
+    ul {
+      height: 50vh;
+      overflow: auto;
 
-.search-bar-container>input[type="submit"] {
-  background-color: #2AB27B;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 10px;
-  width: 60px;
-}
+      .index-li {
+        border-top: 1px solid lightgrey;
+        padding: 16px;
 
-.search-bar-container .search-bar {
-  width: calc(100% - 80px);
-}
+        p,span {
+          display: block;
+          margin: 0;
+        }
 
-.channel-index .search-bar {
-  background-color: white;
-  border: 1px solid grey;
-  border-radius: 5px;
-  height: 40px;
-}
+        .channel-name {
+          color: #555555;
+          font-size: 16px;
+        }
 
+        .channel-description,.channel-timestamp {
+          color: #707070;
+          font-size: 14px;
+        }
 
-.channel-index .search-bar input {
-  border: none;
-  border-radius: 5px;
-  font-size: 20px;
-  height: 40px;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
+        .channel-timestamp {
+          font-style: italic;
+        }
+      }
 
-.channel-index .search-bar input:focus {
-  outline: none;
-}
+      .index-li:last-child {
+        border-bottom: 1px solid lightgrey;
+      }
 
-.channel-index .search-bar {
-  display: flex;
-}
+      .index-li:hover {
+        cursor: pointer;
+        background-color: #D0E0FF;
+      }
+    }
+    
+    .search-bar {
+        display: flex;
+        width: calc(100% - 80px);
+        background-color: white;
+        border: 1px solid grey;
+        border-radius: 5px;
+        height: 40px;
 
-.channel-index .search-bar .fa {
-  align-self: center;
-  color: #bbbbbb;
-  margin: 0 5px;
-}
+        input {
+          border: none;
+          border-radius: 5px;
+          font-size: 20px;
+          height: 40px;
+          padding: 0;
+          margin: 0;
+          width: 100%;
+        }
 
-.channel-index .search-bar .selected-users {
-  display: flex;
-  padding-left: 4px;
-}
+        input:focus {
+          outline: none;
+        }
 
-.channel-index .search-bar .selected-user-tab {
-  display: flex;
-  color: white;
-  border-radius: 3px;
-  background-color: blue;
-  cursor: pointer;
-  font-size: 14px;
-  height: 18px;
-  margin: 10px 2px;
-  padding: 2px;
-}
+        .fa {
+          align-self: center;
+          color: #bbbbbb;
+          margin: 0 5px;
+        }
 
-.selected-user-tab>p {
-  margin: auto;
-}
+        .selected-users {
+          display: flex;
+          padding-left: 4px;
+        }
 
-.channel-index ul {
-  height: 50vh;
-  overflow: auto;
-}
+        .selected-user-tab {
+          display: flex;
+          color: white;
+          border-radius: 3px;
+          background-color: blue;
+          cursor: pointer;
+          font-size: 14px;
+          height: 18px;
+          margin: 10px 2px;
+          padding: 2px;
 
-.channel-index .index-li {
-    border-top: 1px solid lightgrey;
-    padding: 16px;
-}
+          p {
+            margin: auto;
+          }
+        }
+      }
 
-.channel-index .index-li:last-child {
-    border-bottom: 1px solid lightgrey;
-}
+    .search-bar-container {
+      display: flex;
+      align-items: stretch;
+      height: 40px;
 
-.channel-index .index-li:hover {
-  cursor: pointer;
-  background-color: #D0E0FF;
-}
+      input[type="submit"] {
+        background-color: #2AB27B;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 10px;
+        width: 60px;
+      }
 
-.channel-index .index-li>p,span {
-  display: block;
-  margin:0;
-}
-
-.channel-index .index-li .channel-name {
-  color: #555555;
-  font-size: 16px;
-}
-
-.channel-index .index-li .channel-description,.channel-timestamp {
-  color: #707070;
-  font-size: 14px;
-}
-
-.channel-index .index-li .channel-timestamp {
-  font-style: italic;
+    }
+  }
 }
 
 .modal-close-button {
@@ -134,6 +128,7 @@
 .modal-close-button .fa {
   color: #707070;
 }
+
 
 form.new-channel-form {
   border: 1px solid lightgrey;
