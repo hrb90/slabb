@@ -18,7 +18,11 @@
 class User < ApplicationRecord
   validates :username, :password_digest, :session_token, presence: true
   validates :username, :session_token, uniqueness: true
+  validates :username, length: { minimum: 3 }
   validates :password, length: { minimum: 8, allow_nil: true }
+  validates_format_of :username,
+    with: /\A[a-zA-Z][\w\.]+\z/i,
+    message: "must start with a letter and can only contain letters, numbers, periods and underscores."
 
   before_validation :ensure_session_token
 
