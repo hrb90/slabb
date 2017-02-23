@@ -6,6 +6,7 @@ import { receiveCurrentUser } from '../../actions/session_actions';
 import { updateUser } from '../../actions/user_actions';
 import ChannelHeader from './header/channel_header';
 import ChannelMessages from './channel_messages';
+import ChannelSidebar from './channel_sidebar';
 import NewMessageForm from './new_message_form';
 
 const mapStateToProps = ({currentChannel, session, subscriptions}) => ({
@@ -73,14 +74,19 @@ class Channel extends React.Component {
   }
 
   render() {
-    return (<div className="display-channel">
-    <ChannelHeader channelId={ this.props.channelId }
-      isSubscribed={ this.props.isSubscribed } />
-    <ChannelMessages />
-    <NewMessageForm channelId={ this.props.channelId }
-      isSubscribed={ this.props.isSubscribed }
-      returnCallback={ () => this.msgsContainer.scrollTop = this.msgsContainer.scrollHeight } />
-  </div>);
+    return (
+      <div className="channel-container">
+        <div className="display-channel">
+          <ChannelHeader channelId={ this.props.channelId }
+            isSubscribed={ this.props.isSubscribed } />
+          <ChannelMessages />
+          <NewMessageForm channelId={ this.props.channelId }
+            isSubscribed={ this.props.isSubscribed }
+            returnCallback={ () => this.msgsContainer.scrollTop = this.msgsContainer.scrollHeight } />
+        </div>
+        <ChannelSidebar />
+      </div>
+    );
   }
 }
 
