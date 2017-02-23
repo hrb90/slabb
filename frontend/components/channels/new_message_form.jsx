@@ -5,7 +5,10 @@ import { createMessage } from '../../actions/message_actions';
 import MessageForm from './message_form';
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  sendMessage: message => dispatch(createMessage(ownProps.channelId)(message)),
+  sendMessage: message => {
+    return dispatch(createMessage(ownProps.channelId)(message))
+      .then(ownProps.returnCallback);
+  },
   subscribe: () => dispatch(subscribeToChannel(ownProps.channelId))
 });
 

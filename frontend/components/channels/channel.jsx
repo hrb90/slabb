@@ -57,6 +57,10 @@ class Channel extends React.Component {
     this.bindPusherChannel();
   }
 
+  componentDidMount() {
+    this.msgsContainer = document.getElementsByClassName("msgs-container")[0];
+  }
+
   componentWillUpdate(nextProps) {
     if (this.props.channelId !== nextProps.channelId) {
       let updatedUser = Object.assign(this.props.currentUser, {last_channel_id: nextProps.channelId});
@@ -74,7 +78,8 @@ class Channel extends React.Component {
       isSubscribed={ this.props.isSubscribed } />
     <ChannelMessages />
     <NewMessageForm channelId={ this.props.channelId }
-      isSubscribed={ this.props.isSubscribed } />
+      isSubscribed={ this.props.isSubscribed }
+      returnCallback={ () => this.msgsContainer.scrollTop = this.msgsContainer.scrollHeight } />
   </div>);
   }
 }
