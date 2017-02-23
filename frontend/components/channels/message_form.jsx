@@ -21,6 +21,12 @@ class MessageForm extends React.Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.resetOnChange !== nextProps.resetOnChange) {
+      this.setState({content: ""});
+    }
+  }
+
   handleBlur() {
     this.blurCallback();
     this.messageTextArea.removeEventListener('keydown', this.handleKeydown);

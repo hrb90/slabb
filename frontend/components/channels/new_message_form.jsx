@@ -13,7 +13,8 @@ const NewMessageForm = props => {
   if (props.isSubscribed) {
     return (
       <div className="new-message-form">
-        <MessageForm submitCallback={ props.sendMessage } />
+        <MessageForm submitCallback={ props.sendMessage }
+          resetOnChange={ props.channelId } />
       </div>
     );
   } else {
