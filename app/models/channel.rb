@@ -18,8 +18,16 @@ require "digest"
 class Channel < ApplicationRecord
   validates :name, :channel_type, presence: true
   validates :name, uniqueness: true
+  validates :name, length: { minimum: 2, maximum: 40 }
   validates :channel_type, inclusion: { in: ["channel", "dm"] }
   validates :autosubscribe, inclusion: { in: [true, false] }
+  validates_format_of :name,
+    with: /\A[a-z\d\-]*\z/i,
+    message: "can only include lowercase letters, numbers, and hyphens"
+  validates_format_of :name,
+    with: /\A[a-z\d].*[a-z\d]\z/i,
+    message: "must begin and end with a letter or number"
+
 
   after_create :make_subscriptions
 
