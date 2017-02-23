@@ -45,7 +45,7 @@ class ChannelHeader extends React.Component {
           userListIcon(this.props.subscribers),
           topicBar(this.props.topic, this.props.update, false)];
       } else {
-        return [userListIcon,
+        return [userListIcon(this.props.subscribers),
           topicBar(this.props.topic, () => {}, true)
         ];
       }
