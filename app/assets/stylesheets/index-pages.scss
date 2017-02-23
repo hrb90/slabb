@@ -107,6 +107,7 @@
 }
 
 .channel-index .index-li>p,span {
+  display: block;
   margin:0;
 }
 
@@ -115,9 +116,13 @@
   font-size: 16px;
 }
 
-.channel-index .index-li .channel-description {
+.channel-index .index-li .channel-description,.channel-timestamp {
   color: #707070;
   font-size: 14px;
+}
+
+.channel-index .index-li .channel-timestamp {
+  font-style: italic;
 }
 
 .modal-close-button {

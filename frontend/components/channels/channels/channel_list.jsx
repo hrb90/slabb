@@ -5,6 +5,7 @@ const ChannelList = ({channels, fetchChannel}) => (
   <ul>
     { channels.map(channel => (
       <IndexListItem key={ channel.id } name={ channel.name }
+        timestamp={ channel.created_at }
         description={ channel.description }
         clickHandler={ fetchChannel(channel.id) } />
     )) }

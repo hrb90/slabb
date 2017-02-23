@@ -1,10 +1,20 @@
 import React from 'react';
 
-const IndexListItem = ({name, description, clickHandler}) => (
+const IndexListItem = ({name, description, timestamp, clickHandler}) => {
+  let lines = [(<span key="name" className="channel-name">{ name }</span>)];
+  if (timestamp) {
+    let dateString = new Date(timestamp).toDateString();
+    lines.push((<span key="date" className="channel-timestamp">
+      Created on { dateString }
+      </span>));
+  }
+  if (description) {
+    lines.push((<p key="desc" className="channel-description">{ description }</p>))
+  }
+  return (
   <li className="index-li" onClick = { clickHandler }>
-    <span className="channel-name">{ name }</span>
-    <p className="channel-description">{ description }</p>
+    { lines }
   </li>
-);
+)};
 
 export default IndexListItem;
