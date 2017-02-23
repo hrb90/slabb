@@ -63,7 +63,7 @@ class Channel extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    if (this.props.channelId !== nextProps.channelId) {
+    if (this.props.channelId !== nextProps.channelId && nextProps.channelId) {
       let updatedUser = Object.assign(this.props.currentUser, {last_channel_id: nextProps.channelId});
       this.props.updateUser(updatedUser).then(this.props.receiveCurrentUser);
       this.pusher.unsubscribe('channel_' + this.props.channelId);

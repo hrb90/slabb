@@ -4,7 +4,7 @@ import messageReducer from './current_channel/message_reducer';
 import subscriptionReducer from './current_channel/subscription_reducer';
 import { merge } from 'lodash';
 
-const initialState = { messages: [] };
+const initialState = { messages: [], subscribers: [] };
 
 const currChannelReducer = (state = initialState, action) => {
   Object.freeze(state);
