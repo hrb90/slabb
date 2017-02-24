@@ -35,7 +35,6 @@ class ChannelSidebar extends React.Component {
         <section>
           <i className  ="fa fa-times close-button"
             onClick={ () => {
-              console.log("Clicked!");
               this.sidebar.className="hidden";
             }}></i>
           <h2>About { this.props.name }</h2>
