@@ -59,7 +59,8 @@ class TopicForm extends React.Component {
           onChange={ this.updateTopic }
           onFocus={ this.handleFocus }
           value={ this.state.topic }
-          ref={ input => this.topicInput = input }></input>
+          ref={ input => this.topicInput = input }
+          placeholder="Looks like nobody has set a topic. Be the first!"></input>
       );
     }
   }
