@@ -1,5 +1,5 @@
 import { LOG_OUT } from '../actions/session_actions';
-import { RECEIVE_CHANNEL } from '../actions/channel_actions';
+import { RECEIVE_CHANNEL, RECEIVE_TOPIC } from '../actions/channel_actions';
 import messageReducer from './current_channel/message_reducer';
 import subscriptionReducer from './current_channel/subscription_reducer';
 import { merge } from 'lodash';
@@ -11,6 +11,8 @@ const currChannelReducer = (state = initialState, action) => {
   switch(action.type){
     case RECEIVE_CHANNEL:
       return action.channel;
+    case RECEIVE_TOPIC:
+      return merge({}, state, {topic: action.topic});
     case LOG_OUT:
       return initialState;
     default:

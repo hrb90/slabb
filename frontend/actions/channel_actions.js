@@ -11,6 +11,7 @@ export const RECEIVE_MESSAGE_SUBSCRIBED_CHANNEL = "RCV_MSG_SUB_CHANNEL";
 export const CLEAR_NEW_MESSAGES = "CLEAR_NEW_MESSAGES";
 export const RECEIVE_SUBSCRIBER = "RECEIVE_SUBSCRIBER";
 export const REMOVE_SUBSCRIBER = "REMOVE_SUBSCRIBER";
+export const RECEIVE_TOPIC = "RECEIVE_TOPIC";
 
 export const receiveAllChannels = (channels) => ({
   channels,
@@ -65,6 +66,11 @@ export const receiveSubscriber = subscriber => ({
 export const removeSubscriber = subscriber => ({
   subscriber,
   type: REMOVE_SUBSCRIBER
+});
+
+export const receiveTopic = topic => ({
+  topic,
+  type: RECEIVE_TOPIC
 });
 
 export const fetchChannels = () => dispatch => {
