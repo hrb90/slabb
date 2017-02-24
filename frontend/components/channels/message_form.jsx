@@ -63,7 +63,8 @@ class MessageForm extends React.Component {
           onChange={ this.update }
           onFocus={ this.handleFocus }
           onBlur={ this.handleBlur }
-          ref={ textarea => this.messageTextArea = textarea }></textarea>
+          ref={ textarea => this.messageTextArea = textarea }
+          placeholder={ this.props.placeholder || "" }></textarea>
       </form>
     );
   }

@@ -10,6 +10,7 @@ import ChannelSidebar from './channel_sidebar';
 import NewMessageForm from './new_message_form';
 
 const mapStateToProps = ({currentChannel, session, subscriptions}) => ({
+  channelName: currentChannel.name,
   channelId: currentChannel.id,
   isSubscribed: currentChannel.id in subscriptions,
   currentUser: session.currentUser
@@ -82,6 +83,7 @@ class Channel extends React.Component {
             isSubscribed={ this.props.isSubscribed } />
           <ChannelMessages />
           <NewMessageForm channelId={ this.props.channelId }
+            channelName={ this.props.channelName }
             isSubscribed={ this.props.isSubscribed }
             returnCallback={ () => this.msgsContainer.scrollTop = this.msgsContainer.scrollHeight } />
         </div>

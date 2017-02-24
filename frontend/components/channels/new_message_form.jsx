@@ -17,7 +17,8 @@ const NewMessageForm = props => {
     return (
       <div className="new-message-form">
         <MessageForm submitCallback={ props.sendMessage }
-          resetOnChange={ props.channelId } />
+          resetOnChange={ props.channelId }
+          placeholder={ `Message \#${props.channelName}` } />
       </div>
     );
   } else {
