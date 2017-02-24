@@ -71,6 +71,7 @@
       .message {
         cursor: text;
         display: flex;
+        flex-shrink: 0;
         justify-content: space-between;
         align-items: center;
         min-height: 20px;
@@ -85,7 +86,6 @@
             display: flex;
             font-size: 12px;
             margin-right: 10px;
-            max-height: 36px;
             width: 36px;
 
             .timestamp {
@@ -94,6 +94,7 @@
             }
 
             img.avatar {
+              align-self: flex-start;
               height: 36px;
               width: 36px;
               border-radius: 3px;
