@@ -227,8 +227,14 @@ form.new-channel-form textarea {
       }
 
       img {
+        border-radius: 8px;
         height: 200px;
         width: 200px;
+      }
+
+      img:hover {
+        opacity: 50%;
+        background-color: grey;
       }
     }
 
