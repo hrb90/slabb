@@ -4,6 +4,7 @@ import { RECEIVE_NEW_MESSAGE,
   BEGIN_EDIT_MESSAGE,
   END_EDIT_MESSAGE } from '../../actions/message_actions';
 import { RECEIVE_NEW_AVATAR } from '../../actions/user_actions';
+import { RECEIVE_REACTION, REMOVE_REACTION } from '../../actions/reaction_actions';
 
 const initialState = [];
 
@@ -44,6 +45,18 @@ const messageReducer = (state = initialState, action) => {
         }
         return msg;
       });
+      return newState;
+    case RECEIVE_REACTION:
+      idx = newState.findIndex(msg => msg.id === action.reaction.message_id);
+      let reactions = newState[idx].reactions;
+      if (!reactions.map(rxn => rxn.id).includes(action.reaction.id)) {
+        reactions.push(action.reaction);
+      }
+      return newState;
+    case REMOVE_REACTION:
+      idx = newState.findIndex(msg => msg.id === action.reaction.message_id);
+      newState[idx].reactions = newState[idx].reactions.filter(rxn =>
+        rxn.id !== action.reaction.id);
       return newState;
     default:
       return state;
