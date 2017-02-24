@@ -101,7 +101,7 @@ class NavBar extends React.Component {
         <div onClick={ this.openModal("settings") } className="user-settings nb-modal-link">
           <h1>
             Slabb &nbsp;
-            <i className="fa fa-caret-down" aria-hidden="true"></i>
+            <i className="fa fa-chevron-down" aria-hidden="true"></i>
           </h1>
           <p>
             { this.props.username }
