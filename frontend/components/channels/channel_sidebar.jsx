@@ -1,12 +1,30 @@
 import React from 'react';
 import UserList from './dms/user_list';
 import { connect } from 'react-redux';
+import { createChannel } from '../../actions/channel_actions';
 
-const mapStateToProps = ({ currentChannel }) => ({
+const mapStateToProps = ({ currentChannel, session }) => ({
+  currentUserId: session.currentUser.id,
+  currentUsername: session.currentUser.username,
   name: currentChannel.name,
   description: currentChannel.description,
   subscribers: currentChannel.subscribers
 });
+
+const mapDispatchToProps = dispatch => ({
+  createChannel: channel => dispatch(createChannel(channel))
+})
+
+const mergeProps = (stateProps, { createChannel }) => {
+  let fetchCreateDM = user => () => {
+    let dm_channel = { name: `${user.username},${stateProps.currentUsername}`,
+      dm_user_ids: [user.id, stateProps.currentUserId],
+      channel_type: "dm"
+    };
+    createChannel(dm_channel);
+  }
+  return Object.assign({ fetchCreateDM }, stateProps);
+}
 
 class ChannelSidebar extends React.Component {
   render() {
@@ -28,11 +46,12 @@ class ChannelSidebar extends React.Component {
         </section>
         <section>
           <h3>Subscribers</h3>
-          <UserList users={ this.props.subscribers } selectUser={ () => {} } />
+          <UserList users={ this.props.subscribers }
+            selectUser={ this.props.fetchCreateDM } />
         </section>
       </aside>
     );
   }
 }
 
-export default connect(mapStateToProps)(ChannelSidebar);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ChannelSidebar);
