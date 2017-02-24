@@ -119,5 +119,8 @@ export const unsubscribeFromChannel = id => dispatch => {
 
 export const fetchSubscriptions = () => dispatch => {
   return ChannelAPIUtil.fetchSubscriptions()
-    .then(channels => dispatch(receiveAllSubs(channels)));
+    .then(channels => {
+      dispatch(receiveAllSubs(channels));
+      return channels;
+    });
 };

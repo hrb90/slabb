@@ -65,10 +65,17 @@ class NavBar extends React.Component {
 
   componentWillMount(){
     Modal.setAppElement('body');
-    this.props.fetchSubscriptions();
+    let needChannel = true;
     if (this.props.lastChannelId) {
+      needChannel = false;
       this.props.fetchChannel(this.props.lastChannelId)();
     }
+    this.props.fetchSubscriptions()
+      .then(channels => {
+        if (needChannel && channels.length > 0) {
+          this.props.fetchChannel(channels[0].id)();
+        }
+      });
   }
 
   closeModal(name) {
