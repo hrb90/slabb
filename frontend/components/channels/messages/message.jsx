@@ -23,43 +23,47 @@ const Message = ({message,
     return (
       <div className="message first">
         <div className="message-main-container">
-          <div className="message-gutter">
-            <img className="avatar"
-            src={ message.author.avatar_url }></img>
+          <div className="message-main">
+            <div className="message-gutter">
+              <img className="avatar"
+                src={ message.author.avatar_url }></img>
+            </div>
+            <div className="message-container">
+              <p className="message-header">
+                <strong className="author-name">{ message.author.username }</strong>
+                { longTimeString }
+              </p>
+              <p className="msg-content">
+                { message.content }
+              </p>
+            </div>
           </div>
-          <div className="message-container">
-            <p className="message-header">
-              <strong className="author-name">{ message.author.username }</strong>
-              { longTimeString }
-            </p>
-            <p className="msg-content">
-              { message.content }
-            </p>
+          <div className="msg-buttons-container">
+            { buttons }
           </div>
         </div>
-        <div className="msg-buttons-container">
-          { buttons }
-        </div>
-        <EmojiBar reactions={ message.reactions }/>
+        <EmojiBar reactions={ message.reactions } messageId={ message.id }/>
       </div>
     )
   } else {
     return (
       <div className="message">
         <div className="message-main-container">
-          <div className="message-gutter">
-            <p className="timestamp">{ shortTimeString }</p>
+          <div className="message-main">
+            <div className="message-gutter">
+              <p className="timestamp">{ shortTimeString }</p>
+            </div>
+            <div className="message-container">
+              <p className="msg-content">
+                { message.content }
+              </p>
+            </div>
           </div>
-          <div className="message-container">
-            <p className="msg-content">
-              { message.content }
-            </p>
+          <div className="msg-buttons-container">
+            { buttons }
           </div>
         </div>
-        <div className="msg-buttons-container">
-          { buttons }
-        </div>
-        <EmojiBar reactions={ message.reactions }/>
+        <EmojiBar reactions={ message.reactions } messageId={ message.id }/>
       </div>
     )
   }
