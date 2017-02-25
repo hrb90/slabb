@@ -70,80 +70,116 @@
 
       .message {
         cursor: text;
-        display: flex;
         flex-shrink: 0;
-        justify-content: space-between;
-        align-items: center;
         min-height: 20px;
         padding: 2px 40px 4px 0;
 
-        .message-main-container {
+        .message-gutter {
+          align-items: center;
+          color: #a0a0a0;
           display: flex;
+          font-size: 12px;
+          margin-right: 10px;
+          width: 36px;
 
-          .message-gutter {
-            align-items: center;
-            color: #a0a0a0;
-            display: flex;
-            font-size: 12px;
-            margin-right: 10px;
+          .timestamp {
+            margin: 0 auto;
+            display: none;
+          }
+
+          img.avatar {
+            align-self: flex-start;
+            height: 36px;
             width: 36px;
-
-            .timestamp {
-              margin: 0 auto;
-              display: none;
-            }
-
-            img.avatar {
-              align-self: flex-start;
-              height: 36px;
-              width: 36px;
-              border-radius: 3px;
-              cursor: default;
-            }
-          }
-
-          .message-header {
-            color: #a0a0a0;
-            font-size: 12px;
-
-            strong {
-              color: black;
-              font-size: 16px;
-              font-weight: 900;
-              margin-right: 5px;
-            }
-          }
-
-          .msg-content {
-            max-width: 1200px;
-            word-wrap: break-word;
+            border-radius: 3px;
+            cursor: default;
           }
         }
 
-        .msg-buttons-container {
-          i {
+        .message-main-container {
+          display: flex;
+          justify-content: space-between;
+
+          .message-main {
+            display: flex;
+
+
+            .message-header {
+              color: #a0a0a0;
+              font-size: 12px;
+
+              strong {
+                color: black;
+                font-size: 16px;
+                font-weight: 900;
+                margin-right: 5px;
+              }
+            }
+
+            .msg-content {
+              max-width: 1200px;
+              word-wrap: break-word;
+            }
+          }
+
+          .msg-buttons-container {
+            i {
+              cursor: pointer;
+              font-size: 20px;
+              display: none;
+              background-color: white;
+              padding: 3px;
+              border: 1px solid lightgrey;
+              border-right: none;
+            }
+
+            i.pinned {
+              display: inline;
+            }
+
+            i:first-child {
+              border-top-left-radius: 5px;
+              border-bottom-left-radius: 5px;
+            }
+
+            i:last-child {
+              border-right: 1px solid lightgrey;
+              border-top-right-radius: 5px;
+              border-bottom-right-radius: 5px;
+            }
+          }
+
+        }
+
+        .reaction-bar {
+          display: flex;
+          margin-top: 2px;
+
+          .emoji {
             cursor: pointer;
-            font-size: 20px;
-            display: none;
-            background-color: white;
-            padding: 3px;
-            border: 1px solid lightgrey;
-            border-right: none;
+            display: flex;
+            border: 1px solid #E0E0E0;
+            border-radius: 5px;
+            color: #A0A0A0;
+            font-size: 11px;
+            margin: 2px 6px 2px 0;
+            padding: 2px;
+            align-items: center;
+
+            img {
+              height: 16px;
+              width: 16px;
+              margin-right: 2px;
+            }
           }
 
-          i.pinned {
-            display: inline;
+          .emoji:hover,.emoji.pressed {
+            color: lightblue;
+            border-color: lightblue;
           }
 
-          i:first-child {
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-          }
-
-          i:last-child {
-            border-right: 1px solid lightgrey;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
+          .emoji.pressed {
+            font-weight: 900;
           }
         }
       }
@@ -154,7 +190,7 @@
 
       .message:hover {
         background-color: #f5f5f5;
-        .message-main-container {
+        .message-main {
           .message-gutter .timestamp {
             display: inline;
           }
