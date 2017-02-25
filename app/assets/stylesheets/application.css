@@ -17,5 +17,6 @@
  *= require main-page
  *= require nav-bar
  *= require channel
+ *= requre emoji-picker
  *= require_self
  */
