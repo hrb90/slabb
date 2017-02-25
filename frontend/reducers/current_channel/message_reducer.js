@@ -50,7 +50,7 @@ const messageReducer = (state = initialState, action) => {
     case RECEIVE_REACTION:
     case REMOVE_REACTION:
       idx = newState.findIndex(msg => msg.id === action.reaction.message_id);
-      if (idx > 0)
+      if (idx >= 0)
         newState[idx].reactions = reactionReducer(newState[idx].reactions, action);
       return newState;
     default:
