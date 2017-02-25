@@ -6,11 +6,11 @@ import emojiMap from 'react-emoji-picker/lib/emojiMap';
 
 const emojiPickerStyles = {
   position: 'relative',
-  left: 0, top: '3.9rem',
-  backgroundColor: 'white',
+  left: 0, top: '1rem',
+  backgroundColor: 'lightgrey',
   width: '100%',
   padding: '.3em .6em',
-  border: '1px solid #0074d9',
+  border: 'none',
   borderTop: 'none',
   zIndex: '2'
 };
@@ -23,6 +23,7 @@ class EmojiButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = { emoji: "", showEmojiPicker: false };
+    this.iconClick = this.iconClick.bind(this);
     this.toggleEmojiPicker = this.toggleEmojiPicker.bind(this);
     this.updateState = this.updateState.bind(this);
   }
@@ -31,14 +32,14 @@ class EmojiButton extends React.Component {
     if(this.state.showEmojiPicker) {
       return (
         <div className="emoji-picker">
-          <p ref={ p => this.emoji = p }>
-            <label htmlFor="emoji">Emoji</label>
-            <input name="emoji"
-              id="emoji"
-              value={this.state.emoji} autoComplete="off"
-              type="search"
-              onChange={this.updateState}
-              onKeyDown={this.grabKeyPress}/>
+          <i className="fa fa-times picker-close pinned" />
+          <input name="emoji"
+            id="emoji"
+            value={this.state.emoji} autoComplete="off"
+            type="search"
+            onChange={this.updateState}
+            onKeyDown={this.grabKeyPress}/>
+          <p>
             <EmojiPicker
               style={emojiPickerStyles}
               onSelect={name => {
@@ -53,6 +54,14 @@ class EmojiButton extends React.Component {
     }
   }
 
+  iconClick(e) {
+    let targetClass = e.target.className;
+    if (targetClass.includes("emoji-button") ||
+          targetClass.includes("picker-close")) {
+      this.toggleEmojiPicker();
+    }
+  }
+
   grabKeyPress(e) {
     if(e.keyCode === 13) {
       e.preventDefault();
@@ -61,9 +70,9 @@ class EmojiButton extends React.Component {
 
   render() {
     return (
-      <i className={"fa fa-smile-o" + (this.state.showEmojiPicker ? " pinned" : "")}
+      <i className={"fa fa-smile-o emoji-button" + (this.state.showEmojiPicker ? " pinned" : "")}
         ref={ i => this.icon = i }
-        onClick={ this.toggleEmojiPicker }
+        onClick={ this.iconClick }
         aria-hidden="true">
         { this.emojiPicker() }
       </i>
@@ -75,7 +84,7 @@ class EmojiButton extends React.Component {
   }
 
   toggleEmojiPicker() {
-    this.setState({showEmojiPicker: !this.state.showEmojiPicker});
+    this.setState({emoji: "", showEmojiPicker: !this.state.showEmojiPicker});
   }
 
   updateState(e) {
