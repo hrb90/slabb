@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222220853) do
+ActiveRecord::Schema.define(version: 20170224170136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 20170222220853) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_messages_on_author_id", using: :btree
     t.index ["channel_id"], name: "index_messages_on_channel_id", using: :btree
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.string   "emoji_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_reactions_on_message_id", using: :btree
+    t.index ["user_id", "message_id", "emoji_name"], name: "index_reactions_on_user_id_and_message_id_and_emoji_name", unique: true, using: :btree
   end
 
   create_table "subscriptions", force: :cascade do |t|

@@ -64,11 +64,9 @@ class ChannelMessages extends React.Component {
             blurCallback={ this.props.endEditMessage(msg.id) }
             focusOnMount={ true }/>);
       } else {
-          return (<Message author={ msg.author }
+          return (<Message message={ msg }
             key={ "message" + msg.id }
-            content={ msg.content }
             isFirst={ firstMsgIds.includes(msg.id) }
-            timestamp={ msg.created_at }
             currentUserId={ this.props.currentUserId }
             beginEditMessage={ this.props.beginEditMessage(msg.id) }
             deleteMessage={ this.props.deleteMessage(msg.id) } />);

@@ -20,7 +20,7 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.includes([:subscribers, messages: [:author]]).find(params[:id])
+    @channel = Channel.includes([:subscribers, messages: [:author, reactions: [:user]]]).find(params[:id])
     render :show
   end
 

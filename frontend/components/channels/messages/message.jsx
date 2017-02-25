@@ -1,23 +1,23 @@
 import React from 'react';
+import EmojiBar from './emoji_bar';
+import EmojiButton from './emoji_button';
 
-const Message = ({author,
-  content,
-  timestamp,
-  isFirst,
-  currentUserId,
-  beginEditMessage,
-  deleteMessage}) => {
-  let basicTimeString = new Date(timestamp).toLocaleTimeString();
+const Message = ({message,
+                  isFirst,
+                  currentUserId,
+                  beginEditMessage,
+                  deleteMessage}) => {
+  let basicTimeString = new Date(message.created_at).toLocaleTimeString();
   let shortTimeString = basicTimeString.split(":").slice(0, 2).join(":");
   let longTimeString = shortTimeString + " " + basicTimeString.slice(-2);
-  let buttons = [];
-  if (author.id === currentUserId) {
-    buttons = [(<i key="edit" className="fa fa-pencil-square-o"
+  let buttons = [(<EmojiButton key="emoji" messageId={ message.id }/>)];
+  if (message.author.id === currentUserId) {
+    buttons = buttons.concat([(<i key="edit" className="fa fa-pencil-square-o"
                    onClick={ beginEditMessage }
                    aria-hidden="true"></i>),
                 (<i key="delete" className="fa fa-trash-o"
                     onClick={ deleteMessage }
-                    aria-hidden="true"></i>)];
+                    aria-hidden="true"></i>)]);
   }
   if (isFirst) {
     return (
@@ -25,21 +25,22 @@ const Message = ({author,
         <div className="message-main-container">
           <div className="message-gutter">
             <img className="avatar"
-            src={ author.avatar_url }></img>
+            src={ message.author.avatar_url }></img>
           </div>
           <div className="message-container">
             <p className="message-header">
-              <strong className="author-name">{ author.username }</strong>
+              <strong className="author-name">{ message.author.username }</strong>
               { longTimeString }
             </p>
             <p className="msg-content">
-              { content }
+              { message.content }
             </p>
           </div>
         </div>
         <div className="msg-buttons-container">
           { buttons }
         </div>
+        <EmojiBar reactions={ message.reactions }/>
       </div>
     )
   } else {
@@ -51,13 +52,14 @@ const Message = ({author,
           </div>
           <div className="message-container">
             <p className="msg-content">
-              { content }
+              { message.content }
             </p>
           </div>
         </div>
         <div className="msg-buttons-container">
           { buttons }
         </div>
+        <EmojiBar reactions={ message.reactions }/>
       </div>
     )
   }
