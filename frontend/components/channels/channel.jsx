@@ -4,6 +4,7 @@ import { receiveChannel, clearNewMessages, receiveSubscriber, removeSubscriber, 
 import { receiveNewMessage, receiveOldMessage, removeMessage } from '../../actions/message_actions';
 import { receiveCurrentUser } from '../../actions/session_actions';
 import { updateUser } from '../../actions/user_actions';
+import { receiveReaction, removeReaction } from '../../actions/reaction_actions';
 import ChannelHeader from './header/channel_header';
 import ChannelMessages from './channel_messages';
 import ChannelSidebar from './channel_sidebar';
@@ -26,8 +27,10 @@ const mapDispatchToProps = dispatch => ({
   receiveCurrentUser: user => dispatch(receiveCurrentUser(user)),
   receiveSubscriber: user => dispatch(receiveSubscriber(user)),
   removeSubscriber: user => dispatch(removeSubscriber(user)),
-  receiveTopic: topic => dispatch(receiveTopic(topic))
-})
+  receiveTopic: topic => dispatch(receiveTopic(topic)),
+  receiveReaction: reaction => dispatch(receiveReaction(reaction)),
+  removeReaction: reaction => dispatch(removeReaction(reaction))
+});
 
 
 class Channel extends React.Component {
@@ -49,6 +52,12 @@ class Channel extends React.Component {
     });
     this.currentPusherChannel.bind('remove_subscriber', data => {
       this.props.removeSubscriber(data.user);
+    });
+    this.currentPusherChannel.bind('receive_reaction', data => {
+      this.props.receiveReaction(data.reaction);
+    });
+    this.currentPusherChannel.bind('remove_reaction', data => {
+      this.props.removeReaction(data.reaction);
     });
   }
 
