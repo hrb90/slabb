@@ -35,7 +35,6 @@ const EmojiBar = props => {
   };
   return (
     <span className="reaction-bar">
-      <div className="message-gutter"></div>
       { Object.keys(reactionMap).map(emojiName => (
         <div key={ emojiName }
           className={ "emoji" + (myReaction(emojiName) ? " pressed" : "") }
