@@ -31,6 +31,11 @@ aside.nav-bar {
   }
 }
 
+.nav-bar .channel-nav {
+  height: 80%;
+  overflow-y: auto;
+}
+
 .nav-bar span {
   display: flex;
   justify-content: space-between;

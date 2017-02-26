@@ -114,51 +114,57 @@ class NavBar extends React.Component {
             { this.props.username }
           </p>
         </div>
-        <Modal
-          isOpen={ this.state.settings }
-          onRequestClose={ this.closeModal("settings") }
-          contentLabel="Settings">
-            <UserDropdown closeModal={ this.closeModal("settings") } />
-        </Modal>
-        <span>
+        <div className="channel-nav">
+          <span>
           <p className="nb-index-link nb-modal-link" onClick={ this.openModal("channels") }>Channels</p>
           <i className="fa fa-plus-circle nb-modal-link" onClick={ this.openModal("newChannel") }></i>
-        </span>
-        <Modal
-          isOpen={ this.state.channels }
-          onRequestClose={ this.closeModal("channels") }
-          contentLabel="Channel">
-            <ChannelIndex closeModal={ this.closeModal("channels") } />
-        </Modal>
-        <Modal
-          isOpen={ this.state.newChannel }
-          onRequestClose={ this.closeModal("newChannel") }
-          contentLabel="New Channel">
-            <NewChannel closeModal={ this.closeModal("newChannel") } />
-        </Modal>
-        <ul>
+          </span>
+          <ul>
           { this.props.plainChannels.map(channel =>
             (<NavListItem key={ channel.id }
               channel={ channel }
               fetchChannel={ this.props.fetchChannel }
               fixDMName={ curriedFixDMName(this.props.username) }
-              currentChannelId={ this.props.currentChannelId} />))}
-        </ul>
-        <span className="nb-index-link nb-modal-link" onClick={ this.openModal("dms") }>Direct messages</span>
-        <Modal
-          isOpen={ this.state.dms }
-          onRequestClose={ this.closeModal("dms") }
-          contentLabel="Direct Messages">
-            <DMIndex closeModal={ this.closeModal("dms") } />
-        </Modal>
-        <ul>
+              currentChannelId={ this.props.currentChannelId}
+            />))
+          }
+          </ul>
+          <span className="nb-index-link nb-modal-link" onClick={ this.openModal("dms") }>Direct messages</span>
+          <ul>
           { this.props.dmChannels.map(channel =>
             (<NavListItem key={ channel.id }
               channel={ channel }
               fetchChannel={ this.props.fetchChannel }
               fixDMName={ curriedFixDMName(this.props.username) }
-              currentChannelId={ this.props.currentChannelId} />))}
-        </ul>
+              currentChannelId={ this.props.currentChannelId}
+            />))
+          }
+          </ul>
+        </div>
+        <Modal
+        isOpen={ this.state.settings }
+        onRequestClose={ this.closeModal("settings") }
+        contentLabel="Settings">
+          <UserDropdown closeModal={ this.closeModal("settings") } />
+        </Modal>
+        <Modal
+        isOpen={ this.state.channels }
+        onRequestClose={ this.closeModal("channels") }
+        contentLabel="Channel">
+          <ChannelIndex closeModal={ this.closeModal("channels") } />
+        </Modal>
+        <Modal
+        isOpen={ this.state.newChannel }
+        onRequestClose={ this.closeModal("newChannel") }
+        contentLabel="New Channel">
+          <NewChannel closeModal={ this.closeModal("newChannel") } />
+        </Modal>
+        <Modal
+        isOpen={ this.state.dms }
+        onRequestClose={ this.closeModal("dms") }
+        contentLabel="Direct Messages">
+          <DMIndex closeModal={ this.closeModal("dms") } />
+        </Modal>
       </aside>
     );
   }
