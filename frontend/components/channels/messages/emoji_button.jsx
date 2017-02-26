@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { createReaction } from '../../../actions/reaction_actions';
 import EmojiPicker from 'react-emoji-picker';
 import emojiMap from 'react-emoji-picker/lib/emojiMap';
+import { createReaction } from '../../../actions/reaction_actions';
+import ClickableIcon from '../header/clickable_icon';
 
 const emojiPickerStyles = {
   position: 'relative',
@@ -69,13 +70,10 @@ class EmojiButton extends React.Component {
   }
 
   render() {
+    let faName = "fa-smile-o emoji-button" + (this.state.showEmojiPicker ? " pinned" : "");
     return (
-      <i className={"fa fa-smile-o emoji-button" + (this.state.showEmojiPicker ? " pinned" : "")}
-        ref={ i => this.icon = i }
-        onClick={ this.iconClick }
-        aria-hidden="true">
-        { this.emojiPicker() }
-      </i>
+      <ClickableIcon faName={ faName } onClick={ this.iconClick }
+      afterText={ this.emojiPicker() } />
     );
   }
 

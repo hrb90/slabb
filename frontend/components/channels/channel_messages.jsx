@@ -4,7 +4,7 @@ import { updateMessage,
   deleteMessage,
   beginEditMessage,
   endEditMessage } from '../../actions/message_actions';
-import Message from './messages/message';
+import Message from './messages/new_message';
 import MessageForm from './message_form';
 
 const MAX_GROUP_TIME_DIFF = 30 * 60 * 1000; // 30 minutes in milliseconds

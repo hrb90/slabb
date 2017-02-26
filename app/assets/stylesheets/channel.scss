@@ -76,6 +76,7 @@
 
       .message {
         cursor: text;
+        display: flex;
         flex-shrink: 0;
         min-height: 20px;
         padding: 2px 40px 4px 0;
@@ -104,106 +105,112 @@
 
         .message-main-container {
           display: flex;
-          justify-content: space-between;
+          flex-direction: column;
+          width: 100%;
 
-          .message-main {
+          .message-norxn-container {
             display: flex;
+            justify-content: space-between;
 
+            .message-container {
+              .message-header {
+                color: #a0a0a0;
+                font-size: 12px;
 
-            .message-header {
-              color: #a0a0a0;
-              font-size: 12px;
+                strong {
+                  color: black;
+                  font-size: 16px;
+                  font-weight: 900;
+                  margin-right: 5px;
+                }
+              }
 
-              strong {
-                color: black;
-                font-size: 16px;
-                font-weight: 900;
-                margin-right: 5px;
+              .message-content {
+                max-width: 1200px;
+                word-wrap: break-word;
               }
             }
 
-            .msg-content {
-              max-width: 1200px;
-              word-wrap: break-word;
+            .msg-buttons-container {
+              display: flex;
+
+              .clickable-icon {
+                max-height: 20px;
+                display: flex;
+                align-items: center;
+              }
+
+              .clickable-icon i {
+                cursor: pointer;
+                font-size: 20px;
+                display: none;
+                background-color: white;
+                padding: 3px;
+                border: 1px solid lightgrey;
+                border-right: none;
+              }
+
+              .clickable-icon i.pinned {
+                display: inline;
+              }
+
+              .clickable-icon:first-child i {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+              }
+
+              .clickable-icon:last-child i {
+                border-right: 1px solid lightgrey;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+              }
             }
           }
 
-          .msg-buttons-container {
-            i {
-              cursor: pointer;
-              font-size: 20px;
-              display: none;
-              background-color: white;
-              padding: 3px;
-              border: 1px solid lightgrey;
-              border-right: none;
-            }
-
-            i.pinned {
-              display: inline;
-            }
-
-            i:first-child {
-              border-top-left-radius: 5px;
-              border-bottom-left-radius: 5px;
-            }
-
-            i:last-child {
-              border-right: 1px solid lightgrey;
-              border-top-right-radius: 5px;
-              border-bottom-right-radius: 5px;
-            }
-          }
-
-        }
-
-        .reaction-bar {
-          display: flex;
-          margin-top: 2px;
-
-          .emoji {
-            cursor: pointer;
+          .reaction-bar {
             display: flex;
-            border: 1px solid #E0E0E0;
-            border-radius: 5px;
-            color: #A0A0A0;
-            font-size: 11px;
-            margin: 2px 6px 2px 0;
-            padding: 2px;
-            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2px;
 
-            img {
-              height: 16px;
-              width: 16px;
-              margin-right: 2px;
+            .emoji {
+              cursor: pointer;
+              display: flex;
+              border: 1px solid #E0E0E0;
+              border-radius: 5px;
+              color: #A0A0A0;
+              font-size: 11px;
+              margin: 2px 6px 2px 0;
+              padding: 2px;
+              align-items: center;
+
+              img {
+                height: 16px;
+                width: 16px;
+                margin-right: 2px;
+              }
+            }
+
+            .emoji:hover,.emoji.pressed {
+              color: lightblue;
+              border-color: lightblue;
+            }
+
+            .emoji.pressed {
+              font-weight: 900;
             }
           }
-
-          .emoji:hover,.emoji.pressed {
-            color: lightblue;
-            border-color: lightblue;
-          }
-
-          .emoji.pressed {
-            font-weight: 900;
-          }
         }
-      }
-
-      .message.first {
-        min-height: 36px;
       }
 
       .message:hover {
         background-color: #f5f5f5;
-        .message-main {
-          .message-gutter .timestamp {
-            display: inline;
-          }
+
+        .message-gutter .timestamp {
+          display: inline;
         }
 
-        .msg-buttons-container {
-          i {
+        .message-norxn-container .msg-buttons-container {
+          .clickable-icon i {
             display: inline;
           }
         }
