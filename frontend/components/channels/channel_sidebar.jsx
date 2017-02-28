@@ -17,10 +17,16 @@ const mapDispatchToProps = dispatch => ({
 
 const mergeProps = (stateProps, { createChannel }) => {
   let fetchCreateDM = user => () => {
-    let dm_channel = { name: `${user.username},${stateProps.currentUsername}`,
-      dm_user_ids: [user.id, stateProps.currentUserId],
-      channel_type: "dm"
-    };
+    let dm_channel;
+    if (user.id !== stateProps.currentUserId) {
+      dm_channel = { name: `${user.username},${stateProps.currentUsername}`,
+        dm_user_ids: [user.id, stateProps.currentUserId],
+        channel_type: "dm"
+      };
+    } else {
+      dm_channel = { name: `${user.username}`, dm_user_ids: [user.id],
+        channel_type: "dm"};
+    }
     createChannel(dm_channel);
   }
   return Object.assign({ fetchCreateDM }, stateProps);
