@@ -29,13 +29,13 @@ class TopicForm extends React.Component {
   }
 
   handleKeydown(e) {
-    switch(e.key) {
-      case "Enter":
+    switch(e.keyCode) {
+      case 13:  // Enter
         this.props.update(this.state);
         this.previousTopic = this.topicInput.value;
         this.topicInput.blur();
         break;
-      case "Escape":
+      case 27:  // Escape
         this.topicInput.blur();
         break;
       default:
