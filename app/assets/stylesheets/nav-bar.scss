@@ -33,12 +33,7 @@ aside.nav-bar {
 
 .nav-bar .channel-nav {
   height: 80%;
-  overflow-y: hidden;
   padding-right: 16px;
-}
-
-.nav-bar .channel-nav:hover {
-  overflow-y: auto;
 }
 
 .nav-bar .channel-nav::-webkit-scrollbar {

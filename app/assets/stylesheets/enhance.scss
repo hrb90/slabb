@@ -1,0 +1,9 @@
+// Enhanced styling for browsers that support it!
+
+.nav-bar .channel-nav {
+  overflow-y: hidden;
+}
+
+.nav-bar .channel-nav:hover {
+  overflow-y: auto;
+}
