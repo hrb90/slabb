@@ -38,8 +38,8 @@ class MessageForm extends React.Component {
   }
 
   handleKeydown(e) {
-    switch(e.key || e.keyIdentifier) {
-      case "Enter":
+    switch(e.keyCode) {
+      case 13:  // Enter
         e.preventDefault();
         let passToCallback = this.state;
         if (this.props.messageId) {
@@ -48,7 +48,7 @@ class MessageForm extends React.Component {
         this.props.submitCallback(passToCallback);
         this.setState({content: ""});
         break;
-      case "Escape":
+      case 27:  // Escape
         this.messageTextArea.blur();
         break;
       default:
