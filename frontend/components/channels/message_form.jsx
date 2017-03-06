@@ -38,7 +38,7 @@ class MessageForm extends React.Component {
   }
 
   handleKeydown(e) {
-    switch(e.key) {
+    switch(e.key || e.keyIdentifier) {
       case "Enter":
         e.preventDefault();
         let passToCallback = this.state;
