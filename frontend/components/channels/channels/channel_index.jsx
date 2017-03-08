@@ -39,7 +39,7 @@ class ChannelIndex extends React.Component{
         <ModalCloseButton closeModal={ this.props.closeModal } />
         <div className="channel-index">
           <h1>Browse all { this.props.channels.length } channels</h1>
-          <div className="search-bar">
+          <div className="search-bar channel-search-bar">
             <i className="fa fa-search fa-lg"></i>
             <SearchBar query={ this.state.query } updateQuery={ this.updateQuery }
               placeholder="Search Channels" />

@@ -59,7 +59,7 @@ class DMIndex extends React.Component {
         <div className="channel-index">
           <h1>Direct Messages</h1>
           <form className="search-bar-container" onSubmit={ this.handleSubmit }>
-            <div className="search-bar">
+            <div className="search-bar dm-search-bar">
               <SelectedUsers selectedUsers={ makeArrayFromObject(this.state.selectedUsers) }
                 removeUser={ this.removeUser }/>
               <SearchBar query={ this.state.query }

@@ -57,9 +57,16 @@
       }
     }
 
+    .search-bar.channel-search-bar {
+      width: calc(100% - 5px);
+    }
+
+    .search-bar.dm-search-bar {
+      width: calc(100% - 80px);
+    }
+
     .search-bar {
         display: flex;
-        width: calc(100% - 80px);
         background-color: white;
         border: 1px solid grey;
         border-radius: 5px;
@@ -209,6 +216,7 @@ form.new-channel-form textarea {
     flex-direction: column;
     align-items: center;
     height: 300px;
+    padding: 20px;
 
     label.avatar-container {
       cursor: pointer;
@@ -227,8 +235,10 @@ form.new-channel-form textarea {
       }
 
       img {
+        border: 1px solid lightgrey;
         border-radius: 8px;
         height: 200px;
+        margin-top: 15px;
         width: 200px;
       }
 
