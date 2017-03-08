@@ -1,6 +1,6 @@
 # Slabb
 
-[Slabb][slabb] is a full-stack live chat web application inspired by Slack. It was built with a Ruby on Rails backend utilizing a PostgreSQL database, and React/Redux on the frontend.
+[Slabb][slabb] is a full-stack live chat web application inspired by Slack. On the backend, I used Ruby on Rails with a PostgreSQL database; the frontend was built with React.js and Redux.
 
 ## Features
 
