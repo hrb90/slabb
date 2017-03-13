@@ -70,7 +70,6 @@ class Channel extends React.Component {
   }
 
   closeSidebar() {
-    console.log("Close sidebar!")
     this.setState({ showSidebar: false });
   }
 
@@ -99,7 +98,6 @@ class Channel extends React.Component {
   }
 
   openSidebar() {
-    console.log("Open sidebar!")
     this.setState({showSidebar: true});
   }
 
