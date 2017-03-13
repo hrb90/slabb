@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactEmoji from 'react-emoji';
+import ReactTooltip from 'react-tooltip';
 import { createReaction, deleteReaction } from '../../../actions/reaction_actions';
 
 const mapStateToProps = ({session}) => ({
@@ -11,6 +12,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   createReaction: emojiName => dispatch(createReaction(ownProps.messageId)(emojiName)),
   deleteReaction: id => dispatch(deleteReaction(id))
 });
+
+const tooltipText = (reactionMap, emojiName) => (
+  `${reactionMap[emojiName].map(rxn => rxn.username).join(',')} reacted with ${emojiName}`
+);
 
 const EmojiBar = props => {
   let reactionMap = {};
@@ -37,12 +42,14 @@ const EmojiBar = props => {
     <span className="reaction-bar">
       { Object.keys(reactionMap).map(emojiName => (
         <div key={ emojiName }
+          data-tip={ tooltipText(reactionMap, emojiName) }
           className={ "emoji" + (myReaction(emojiName) ? " pressed" : "") }
           onClick={ clickAction(emojiName) }>
           { ReactEmoji.emojify(emojiName) }
           { reactionMap[emojiName].length }
         </div>
       ))}
+      <ReactTooltip />
     </span>
   );
 };
