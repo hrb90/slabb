@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 const tooltipText = (reactionMap, emojiName) => (
-  `${reactionMap[emojiName].map(rxn => rxn.username).join(',')} reacted with ${emojiName}`
+  `${reactionMap[emojiName].map(rxn => rxn.username).join(', ')} reacted with ${emojiName}`
 );
 
 const EmojiBar = props => {
