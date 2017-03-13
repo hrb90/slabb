@@ -34,6 +34,14 @@ const mapDispatchToProps = dispatch => ({
 
 
 class Channel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { showSidebar: false };
+    this.closeSidebar = this.closeSidebar.bind(this);
+    this.openSidebar = this.openSidebar.bind(this);
+  }
+
   bindPusherChannel() {
     this.currentPusherChannel.bind('new_message', data => {
       this.props.receiveNewMessage(data.message);
@@ -61,6 +69,11 @@ class Channel extends React.Component {
     });
   }
 
+  closeSidebar() {
+    console.log("Close sidebar!")
+    this.setState({ showSidebar: false });
+  }
+
   componentWillMount() {
     this.pusher = new Pusher('dd38d591c7efa0a63140', {
       encrypted: true
@@ -81,7 +94,13 @@ class Channel extends React.Component {
       this.currentPusherChannel = this.pusher.subscribe('channel_' + nextProps.channelId);
       this.props.clearNewMessages(this.props.channelId);
       this.bindPusherChannel();
+      this.closeSidebar();
     }
+  }
+
+  openSidebar() {
+    console.log("Open sidebar!")
+    this.setState({showSidebar: true});
   }
 
   render() {
@@ -89,14 +108,15 @@ class Channel extends React.Component {
       <div className="channel-container">
         <div className="display-channel">
           <ChannelHeader channelId={ this.props.channelId }
-            isSubscribed={ this.props.isSubscribed } />
+            isSubscribed={ this.props.isSubscribed }
+            openSidebar={ this.openSidebar } />
           <ChannelMessages />
           <NewMessageForm channelId={ this.props.channelId }
             channelName={ this.props.channelName }
             isSubscribed={ this.props.isSubscribed }
             returnCallback={ () => this.msgsContainer.scrollTop = this.msgsContainer.scrollHeight } />
         </div>
-        <ChannelSidebar />
+        <ChannelSidebar hidden={ !this.state.showSidebar } closeSidebar={ this.closeSidebar } />
       </div>
     );
   }

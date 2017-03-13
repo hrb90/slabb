@@ -11,14 +11,11 @@ const unsubscribeIcon = unsubscribe => (<ClickableIcon key="unsubscribeIcon"
   altText="Unsubscribe from this channel"
   onClick={ unsubscribe } />);
 
-const userListIcon = subscribers => (<ClickableIcon key="userListIcon"
+const userListIcon = (subscribers, callback) => (<ClickableIcon key="userListIcon"
   faName="fa-user-o"
   altText="See a list of users"
   afterText={ subscribers.length }
-  onClick={ () => {
-    let sidebar = document.getElementById("channel-sidebar");
-    sidebar.className = "";
-  } } />);
+  onClick={ callback } />);
 
 const topicBar = (topic, update, disabled) => (
   <form key="topicBar" className="ch-topic-form">
@@ -45,7 +42,7 @@ class ChannelHeader extends React.Component {
     if (this.props.type === "channel") {
       if (this.props.isSubscribed) {
         return [unsubscribeIcon(this.props.unsubscribe(this.props.prevChannelId)),
-          userListIcon(this.props.subscribers),
+          userListIcon(this.props.subscribers, this.props.openSidebar),
           topicBar(this.props.topic, this.props.update, false)];
       } else {
         return [userListIcon(this.props.subscribers),

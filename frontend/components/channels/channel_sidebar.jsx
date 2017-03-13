@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
   createChannel: channel => dispatch(createChannel(channel))
 })
 
-const mergeProps = (stateProps, { createChannel }) => {
+const mergeProps = (stateProps, { createChannel }, ownProps) => {
   let fetchCreateDM = user => () => {
     let dm_channel;
     if (user.id !== stateProps.currentUserId) {
@@ -29,7 +29,7 @@ const mergeProps = (stateProps, { createChannel }) => {
     }
     createChannel(dm_channel);
   }
-  return Object.assign({ fetchCreateDM }, stateProps);
+  return Object.assign({ fetchCreateDM }, stateProps, ownProps);
 }
 
 class ChannelSidebar extends React.Component {
@@ -37,13 +37,12 @@ class ChannelSidebar extends React.Component {
     return (
       <aside ref={ aside => this.sidebar = aside }
         id="channel-sidebar"
-        className="hidden">
+        className={ this.props.hidden ? "hidden" : ""}>
         <section>
-          <i className  ="fa fa-times close-button"
-            onClick={ () => {
-              this.sidebar.className="hidden";
-            }}></i>
-          <h2>About { this.props.name }</h2>
+          <h2>About { this.props.name }
+            <i className  ="fa fa-times close-button"
+            onClick={ this.props.closeSidebar }></i>
+          </h2>
         </section>
         <section>
           <h3>Description</h3>
