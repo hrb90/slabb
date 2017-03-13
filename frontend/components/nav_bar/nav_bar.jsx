@@ -13,6 +13,7 @@ import UserDropdown from './user_dropdown';
 import ChannelIndex from '../channels/channels/channel_index';
 import NewChannel from '../channels/channels/new_channel';
 import DMIndex from '../channels/dms/dm_index';
+import ClickableIcon from '../channels/header/clickable_icon';
 import { fixDMName } from '../../util/channel_util';
 
 const curriedFixDMName = username => channelName => fixDMName(channelName, username);
@@ -117,7 +118,8 @@ class NavBar extends React.Component {
         <div className="channel-nav">
           <span>
           <p className="nb-index-link nb-modal-link" onClick={ this.openModal("channels") }>Channels</p>
-          <i className="fa fa-plus-circle nb-modal-link" onClick={ this.openModal("newChannel") }></i>
+          <ClickableIcon faName="fa-plus-circle nb-modal-link"
+            altText="Create channel" onClick={ this.openModal("newChannel") } />
           </span>
           <ul>
           { this.props.plainChannels.map(channel =>
