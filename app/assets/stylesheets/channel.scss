@@ -283,19 +283,22 @@
     flex-direction: column;
 
     section {
-      .close-button:before {
-        display: inline;
-        cursor: pointer;
-        padding: 5px 7px;
-        border-radius: 50%;
-      }
-
-      .close-button:hover:before {
-        background-color: darkgrey;
-      }
 
       h2 {
+        display: flex;
+        justify-content: space-between;
         margin: 20px 0 30px 0;
+
+        .close-button:before {
+          display: inline;
+          cursor: pointer;
+          padding: 5px 7px;
+          border-radius: 50%;
+        }
+
+        .close-button:hover:before {
+          background-color: darkgrey;
+        }
       }
 
       h3 {
