@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createChannel, receiveChannelErrors } from '../../../actions/channel_actions';
-import ModalCloseButton from './modal_close_button';
 import ErrorList from '../../errors/error_list';
 
 const mapStateToProps = ({errors}) => ({
@@ -33,7 +32,6 @@ class NewChannel extends React.Component {
   render() {
     return (
       <div className="modal-index-container">
-        <ModalCloseButton closeModal={ this.props.closeModal } />
         <form className="new-channel-form" onSubmit={ this.handleSubmit }>
           <h1>Create new channel</h1>
           <input type="text"

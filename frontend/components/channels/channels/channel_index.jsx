@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { fetchChannels, fetchChannel } from '../../../actions/channel_actions';
 import SearchBar from './search_bar';
 import ChannelList from './channel_list';
-import ModalCloseButton from './modal_close_button';
 
 const mapStateToProps = ({channels}) => ({channels});
 
@@ -36,7 +35,6 @@ class ChannelIndex extends React.Component{
   render() {
     return (
       <div className="modal-index-container">
-        <ModalCloseButton closeModal={ this.props.closeModal } />
         <div className="channel-index">
           <h1>Browse all { this.props.channels.length } channels</h1>
           <div className="search-bar channel-search-bar">

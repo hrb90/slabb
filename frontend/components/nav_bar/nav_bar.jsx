@@ -147,25 +147,25 @@ class NavBar extends React.Component {
         isOpen={ this.state.settings }
         onRequestClose={ this.closeModal("settings") }
         contentLabel="Settings">
-          <UserDropdown closeModal={ this.closeModal("settings") } />
+          <UserDropdown />
         </Modal>
         <Modal
         isOpen={ this.state.channels }
         onRequestClose={ this.closeModal("channels") }
         contentLabel="Channel">
-          <ChannelIndex closeModal={ this.closeModal("channels") } />
+          <ChannelIndex />
         </Modal>
         <Modal
         isOpen={ this.state.newChannel }
         onRequestClose={ this.closeModal("newChannel") }
         contentLabel="New Channel">
-          <NewChannel closeModal={ this.closeModal("newChannel") } />
+          <NewChannel />
         </Modal>
         <Modal
         isOpen={ this.state.dms }
         onRequestClose={ this.closeModal("dms") }
         contentLabel="Direct Messages">
-          <DMIndex closeModal={ this.closeModal("dms") } />
+          <DMIndex />
         </Modal>
       </aside>
     );

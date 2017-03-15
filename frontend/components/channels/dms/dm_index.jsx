@@ -5,7 +5,6 @@ import { createChannel } from '../../../actions/channel_actions';
 import SearchBar from '../channels/search_bar';
 import SelectedUsers from './selected_users';
 import UserList from './user_list';
-import ModalCloseButton from '../channels/modal_close_button';
 import { makeArrayFromObject } from '../../../util/selectors';
 
 const mapStateToProps = ({users, session}) => ({
@@ -55,7 +54,6 @@ class DMIndex extends React.Component {
   render() {
     return (
       <div className="modal-index-container">
-        <ModalCloseButton closeModal={ this.props.closeModal } />
         <div className="channel-index">
           <h1>Direct Messages</h1>
           <form className="search-bar-container" onSubmit={ this.handleSubmit }>
