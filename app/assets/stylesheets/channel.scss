@@ -264,8 +264,9 @@
         border-radius: 8px;
         color: #404040;
         font-size: 16px;
+        padding: 2px 5px;
         resize: none;
-        width: calc(100% - 60px);
+        width: calc(100% - 70px);
       }
 
       textarea:focus {
