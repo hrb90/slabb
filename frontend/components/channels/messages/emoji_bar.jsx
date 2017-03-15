@@ -5,7 +5,8 @@ import ReactTooltip from 'react-tooltip';
 import { createReaction, deleteReaction } from '../../../actions/reaction_actions';
 
 const mapStateToProps = ({session}) => ({
-  currentUserId: session.currentUser.id
+  currentUserId: session.currentUser.id,
+  currentUsername: session.currentUser.username
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -13,11 +14,33 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteReaction: id => dispatch(deleteReaction(id))
 });
 
-const tooltipText = (reactionMap, emojiName) => (
-  `${reactionMap[emojiName].map(rxn => rxn.username).join(', ')} reacted with ${emojiName}`
-);
+const arrayReplace = (arr, oldVal, newVal) => {
+  let oldIdx = arr.indexOf(oldVal);
+  let newArr = arr.slice(0);
+  if (oldIdx > -1) {
+    newArr.splice(oldIdx, 1, newVal);
+  }
+  return newArr;
+}
 
 const EmojiBar = props => {
+  const userListText = userList => {
+    let yourName = userList.length === 1 ? "You (click to remove)" : "you";
+    userList = arrayReplace(userList, props.currentUsername, yourName);
+    switch(userList.length) {
+      case 1:
+        return userList[0];
+      case 2:
+        return `${userList[0]} and ${userList[1]}`;
+      default:
+        return userList.slice(0, -2)
+          .concat([`${userList[userList.length - 2]} and ${userList[userList.length - 1]}`])
+          .join(', ');
+    }
+  }
+  const tooltipText = (reactionMap, emojiName) => (
+    `${userListText(reactionMap[emojiName].map(rxn => rxn.username))} reacted with ${emojiName}`
+  );
   let reactionMap = {};
   props.reactions.forEach(rxn => {
     reactionMap[rxn.emoji_name] = reactionMap[rxn.emoji_name] || [];
