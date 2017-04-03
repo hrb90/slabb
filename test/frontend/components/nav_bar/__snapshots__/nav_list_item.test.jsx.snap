@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavListItem renders basic props correctly 1`] = `
+<li
+  className="nb-channel"
+  onClick={[Function]}
+>
+  #channel
+</li>
+`;
+
+exports[`NavListItem renders new messages correctly 1`] = `
+<li
+  className="nb-channel nb-channel-bold"
+  onClick={[Function]}
+>
+  #channel
+</li>
+`;
+
+exports[`NavListItem renders the current channel correctly 1`] = `
+<li
+  className="nb-channel current-nb-channel"
+  onClick={[Function]}
+>
+  #channel
+</li>
+`;
