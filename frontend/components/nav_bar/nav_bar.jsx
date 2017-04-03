@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
   subscribeToChannelNoRedirect: id => dispatch(subscribeToChannelNoRedirect(id))
 });
 
-class NavBar extends React.Component {
+export class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
