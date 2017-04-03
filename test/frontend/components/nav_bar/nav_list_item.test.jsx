@@ -58,6 +58,6 @@ describe('NavListItem', () => {
       <NavListItem channel={ dmChannel } currentChannelId={ 1 }
         fixDMName={ mockNameFix } fetchChannel={ mockFetchChannel } />
     );
-    expect(mockNameFix.mock.calls.length).toBe(1);
+    expect(mockNameFix).toBeCalled();
   });
 });
