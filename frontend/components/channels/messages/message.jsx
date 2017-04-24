@@ -11,6 +11,11 @@ const timestampToText = (timestamp, hasAmPm = false) => {
   return (hasAmPm ? longTimeString : shortTimeString);
 };
 
+const format = (content) => {
+  let lines = content.split("\n");
+  return lines.map((line, idx) => (<p key={ idx } className="message-content">{ ReactEmoji.emojify(line) }</p>));
+};
+
 const Header = ({message}) => (
   <p className="message-header">
     <strong className="author-name">{ message.author.username}</strong>
@@ -56,7 +61,7 @@ const Message = ({
         <div className="message-norxn-container">
           <div className="message-container">
             { header }
-            <p className="message-content">{ ReactEmoji.emojify(message.content) }</p>
+            { format(message.content) }
           </div>
           <div className="msg-buttons-container">
             { buttons }

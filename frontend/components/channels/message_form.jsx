@@ -40,13 +40,15 @@ class MessageForm extends React.Component {
   handleKeydown(e) {
     switch(e.keyCode) {
       case 13:  // Enter
-        e.preventDefault();
-        let passToCallback = this.state;
-        if (this.props.messageId) {
-          passToCallback = merge(passToCallback, {id: this.props.messageId});
+        if (!e.shiftKey) {
+          e.preventDefault();
+          let passToCallback = this.state;
+          if (this.props.messageId) {
+            passToCallback = merge(passToCallback, {id: this.props.messageId});
+          }
+          this.props.submitCallback(passToCallback);
+          this.setState({content: ""});
         }
-        this.props.submitCallback(passToCallback);
-        this.setState({content: ""});
         break;
       case 27:  // Escape
         this.messageTextArea.blur();
