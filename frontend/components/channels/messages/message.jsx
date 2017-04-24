@@ -1,5 +1,6 @@
 import React from 'react';
 import EmojiBar from './emoji_bar';
+import ReactEmoji from 'react-emoji';
 import EmojiButton from './emoji_button';
 import ClickableIcon from '../header/clickable_icon';
 
@@ -55,7 +56,7 @@ const Message = ({
         <div className="message-norxn-container">
           <div className="message-container">
             { header }
-            <p className="message-content">{ message.content }</p>
+            <p className="message-content">{ ReactEmoji.emojify(message.content) }</p>
           </div>
           <div className="msg-buttons-container">
             { buttons }
