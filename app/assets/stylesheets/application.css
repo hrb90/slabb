@@ -11,12 +11,4 @@
  * It is generally better to create a new file per style scope.
  *
  *= require reset
- *= require auth
- *= require errors
- *= require index-pages
- *= require main-page
- *= require nav-bar
- *= require channel
- *= require emoji-picker
- *= require_self
  */

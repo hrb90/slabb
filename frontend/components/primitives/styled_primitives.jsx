@@ -8,8 +8,11 @@ export const Button = styled.button`
   background-color: ${MEDIUM_GREEN};
   color: white;
   border: none;
-  height: 40px;
+  border-radius: 5px;
+  font-size: ${ props => props.fontSize || "inherit"};
   font-weight: 600;
+  height: 40px;
+  width: ${ props => props.width };
 
   &:hover {
     border-bottom: 2px solid ${DARKER_GREEN};
@@ -17,9 +20,19 @@ export const Button = styled.button`
   }
 `;
 
-export const FlexColumn = styled.div`
+export const FlexRow = styled.div`
   display: flex;
+  align-items: ${ props => props.alignItems || "stretch" };
+  width: ${ props => props.width || "auto" };
+  height: ${ props => props.height || "auto" };
+`;
+
+export const FlexColumn = styled(FlexRow)`
   flex-direction: column;
+`;
+
+export const FlexStartContainer = styled.div`
+  align-self: flex-start;
 `;
 
 export const FlexEndContainer = styled.div`

@@ -7,6 +7,8 @@ import ErrorList from '../errors/error_list';
 import { Button, FlexColumn, FlexEndContainer,
   CenteredHeader, CenteredParagraph } from '../primitives/styled_primitives';
 
+// Styles
+
 const AuthContainer = styled(FlexColumn)`
   justify-content: space-between;
   font-family: sans-serif;
@@ -47,11 +49,6 @@ const Input = styled.input`
   width: 50%;
 `;
 
-const WideButton = styled(Button)`
-  width: 50%;
-  font-size: 18px;
-`;
-
 const AuthLink = styled(Link)`
   text-align: center;
   display: block;
@@ -59,6 +56,8 @@ const AuthLink = styled(Link)`
   color: inherit;
   text-decoration: none;
 `;
+
+// Redux
 
 const GUEST_CREDS = { username: "guest", password: "bemyguest" };
 
@@ -91,6 +90,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
+// Component
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -141,9 +141,10 @@ class AuthForm extends React.Component {
               value={ this.state.password }
               onChange={ this.update("password") }
               placeholder="Password" />
-            <WideButton onClick={ this.handleSubmit }>
+            <Button fontSize="18px" width="50%"
+              onClick={ this.handleSubmit }>
               { this.props.formName }
-            </WideButton>
+            </Button>
           </FormDiv>
           <ErrorList errors={ this.props.errors } />
           <AuthLink to={ this.props.otherRoute }>
