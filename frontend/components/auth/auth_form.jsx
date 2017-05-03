@@ -87,6 +87,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     action: user => dispatch(action(user)),
     clearErrors: () => dispatch(receiveAuthErrors([])),
     loginGuest: () => dispatch(login(GUEST_CREDS))
+                        .then(() => hashHistory.push("/"))
   };
 };
 
