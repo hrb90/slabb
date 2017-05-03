@@ -1,9 +1,66 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, hashHistory } from 'react-router';
+import styled from 'styled-components';
 import { signup, login, receiveAuthErrors } from '../../actions/session_actions';
 import ErrorList from '../errors/error_list';
-import GuestLoginButton from './guest_login_button';
+import { Button, FlexColumn, FlexEndContainer,
+  CenteredHeader, CenteredParagraph } from '../primitives/styled_primitives';
+
+const AuthContainer = styled(FlexColumn)`
+  justify-content: space-between;
+  font-family: sans-serif;
+  height: 100vh;
+`;
+
+const GuestButton = styled.button`
+  border: 3px solid black;
+  background-color: inherit;
+  cursor: pointer;
+  height: 50px;
+  font-size: 16px;
+  margin: 30px 10px;
+`;
+
+const FormBorder = styled.div`
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-bottom: 1px solid grey;
+  color: #555555;
+  margin: auto;
+  max-width: 500px;
+  padding: 10px 30px 30px 30px;
+  width: 80%;
+`;
+
+const FormDiv = styled(FlexColumn)`
+  align-items: center;
+`;
+
+const Input = styled.input`
+  margin: 4px;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+  height: 20px;
+  padding: 10px;
+  font-size: 18px;
+  width: 50%;
+`;
+
+const WideButton = styled(Button)`
+  width: 50%;
+  font-size: 18px;
+`;
+
+const AuthLink = styled(Link)`
+  text-align: center;
+  display: block;
+  font-size: 12px;
+  color: inherit;
+  text-decoration: none;
+`;
+
+const GUEST_CREDS = { username: "guest", password: "bemyguest" };
 
 const mapStateToProps = ({errors}, ownProps) => {
   let formName, otherName, otherRoute;
@@ -28,9 +85,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   let action = (ownProps.formType === "signup") ? signup : login;
   return {
     action: user => dispatch(action(user)),
-    clearErrors: () => dispatch(receiveAuthErrors([]))
+    clearErrors: () => dispatch(receiveAuthErrors([])),
+    loginGuest: () => dispatch(login(GUEST_CREDS))
   };
 };
+
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -61,26 +120,36 @@ class AuthForm extends React.Component {
 
   render() {
     return (
-      <div id="auth-container">
-        <GuestLoginButton />
-        <div id="auth-form">
-          <h1>{ this.props.formName }</h1>
-          <form onSubmit={ this.handleSubmit }>
-            <p>Enter your <strong>username</strong> and <strong>password</strong>.</p>
-            <input type="text" id="username"
+      <AuthContainer>
+        <FlexEndContainer>
+          <GuestButton onClick={ this.props.loginGuest }>
+            Guest Login
+          </GuestButton>
+        </FlexEndContainer>
+        <FormBorder>
+          <CenteredHeader>{ this.props.formName }</CenteredHeader>
+          <FormDiv>
+            <CenteredParagraph>
+              Enter your username and password.
+            </CenteredParagraph>
+            <Input type="text" id="username"
               value={ this.state.username }
-              onChange= { this.update("username") }
-              placeholder="username" />
-            <input type="password" id="password"
+              onChange={ this.update("username") }
+              placeholder="Username" />
+            <Input type="password" id="password"
               value={ this.state.password }
-              onChange= { this.update("password") }
-              placeholder="password" />
-            <input type="submit" value={ this.props.formName } />
-          </form>
+              onChange={ this.update("password") }
+              placeholder="Password" />
+            <WideButton onClick={ this.handleSubmit }>
+              { this.props.formName }
+            </WideButton>
+          </FormDiv>
           <ErrorList errors={ this.props.errors } />
-          <Link to={ this.props.otherRoute }>{ this.props.otherName }</Link>
-        </div>
-      </div>
+          <AuthLink to={ this.props.otherRoute }>
+            { this.props.otherName }
+          </AuthLink>
+        </FormBorder>
+      </AuthContainer>
     );
   }
 }
